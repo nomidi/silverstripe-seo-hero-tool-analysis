@@ -2,7 +2,7 @@
     "name": "nomidi/silverstripe-seo-hero-tool-pro",
     "description": "SEO Hero Tool Pro helps in optimizing websites for search engines",
     "require": {
-      "nomidi/silverstripe-seo-hero-tool": "dev-master"
+      "nomidi/silverstripe-seo-hero-tool": "master"
     },
     "keywords": [
         "silverstripe",
