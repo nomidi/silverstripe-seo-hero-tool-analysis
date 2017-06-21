@@ -1,9 +1,6 @@
 {
     "name": "nomidi/silverstripe-seo-hero-tool-pro",
     "description": "SEO Hero Tool Pro helps in optimizing websites for search engines",
-    "require": {
-      "nomidi/silverstripe-seo-hero-tool": "*"
-    },
     "keywords": [
         "silverstripe",
         "SEO",
@@ -33,7 +30,8 @@
         "php": ">=5.5.31",
         "composer/installers": "~1.0",
         "silverstripe/cms": "~3.2",
-        "silverstripe/framework": "~3.2"
+        "silverstripe/framework": "~3.2",
+        "nomidi/silverstripe-seo-hero-tool": "*"
     },
     "require-dev": {
 		    "phpunit/PHPUnit": "~3.7@stable"
