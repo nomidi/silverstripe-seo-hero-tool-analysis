@@ -63,6 +63,14 @@
         <% end_loop %>
       <% end_with %>
     </div>
+    <div>
+      <% with LinkResults %>
+      $Headline:<br/>
+        <% loop UnsortedListEntries %>
+          $Content<br/>
+        <% end_loop %>
+      <% end_with %>
+    </div>
   </div>
 </body>
 </html>

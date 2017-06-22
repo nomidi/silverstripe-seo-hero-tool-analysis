@@ -45,6 +45,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $shtpWordCount = $this->checkWordCount();
         $shtpDirectoryDepth = $this->checkLinkDirectoryDepth($Page);
         $shtpHeadlineStructure = $this->checkHeadlineStructure();
+        $shtpLinks = $this->checkLinks();
 
         $render = $this->owner->customise(array(
           'WordCount' => $this->wordCount,
@@ -55,6 +56,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'DirectoryDepthResults' => $shtpDirectoryDepth,
           'WordCountResults' => $shtpWordCount,
           'HeadlineResults' => $shtpHeadlineStructure,
+          'LinkResults' => $shtpLinks,
           'RulesWrong' => $this->rules['wrong'],
           'RulesNotice' => $this->rules['notice'],
           'RulesGood' => $this->rules['good'],
@@ -455,7 +457,6 @@ class SeoHeroToolProAdmin extends LeftAndMain
                                 'There is at least H%1$d Headline but no H%2$d Headline.'),
                             $hsKey, $hsKey - 1
                         ),
-
                         'IconMess' => '1',
                     )
                 ));
@@ -471,9 +472,43 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $this->updateRules(3);
             }
         }
-
         return array(
             'Headline' => _t('SeoHeroToolProAnalyse.Headlines', 'Headlines'),
+            'UnsortedListEntries' => $UnsortedListEntries);
+    }
+
+    private function checkLinks()
+    {
+        $UnsortedListEntries = new ArrayList();
+        $documentLinks = $this->dom->getElementsByTagName('a');
+        $linkError = 0;
+        foreach ($documentLinks as $link) {
+            if (!$link->hasAttribute('title')) {
+                $UnsortedListEntries->push(new ArrayData(
+                  array(
+                      'Content' =>
+                      sprintf(
+                          _t('SeoHeroToolAnalyse.LinkNoAttrTitle',
+                              'The Link <em>%s</em> has no title attribute'),
+                          $link->nodeValue
+                      ),
+                          'IconMess' => '1',
+                      )
+                ));
+                $this->updateRules(1);
+            }
+        }
+        if ($linkError == 0 && $documentLinks->length > 0) {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                    'Content' => _t('SeoHeroToolAnalyse.LinkNoAttrTitle', 'All links are having a title attribute'),
+                    'IconMess' => '3',
+              )
+            ));
+            $this->updateRules(3);
+        }
+        return array(
+            'Headline' => _t('SeoHeroToolProAnalyse.Links', 'Links'),
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
