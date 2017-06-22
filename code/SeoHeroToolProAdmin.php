@@ -495,6 +495,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                           'IconMess' => '1',
                       )
                 ));
+                $linkError = 1;
                 $this->updateRules(1);
             }
         }
