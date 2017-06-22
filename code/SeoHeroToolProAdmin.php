@@ -444,6 +444,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           '1' => $this->dom->getElementsByTagName('h1')
         );
 
+        $headlineStructureError = 0;
         foreach ($headlineStructure as $hsKey => $hsVal) {
             if ($hsKey > 1 && $hsVal->length >= 1 && $headlineStructure[$hsKey - 1]->length == 0) {
                 $UnsortedListEntries->push(new ArrayData(
@@ -458,8 +459,9 @@ class SeoHeroToolProAdmin extends LeftAndMain
                         'IconMess' => '1',
                     )
                 ));
+                $headlineStructureError = 1;
                 $this->updateRules(1);
-            } elseif ($hsKey == 1) {
+            } elseif ($hsKey == 1 && $headlineStructureError == 0) {
                 $UnsortedListEntries->push(new ArrayData(
                     array(
                         'Content' =>_t('SeoHeroToolAnalyse.NoHeadlineStructureError', 'The Headline Structure does not contain obvious Errors.'),
