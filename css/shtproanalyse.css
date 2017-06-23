@@ -1,0 +1,9 @@
+.wrong{
+  background-color: rgba(255,0,0,0.7);
+}
+.notice{
+  background-color: rgba(255,255,0,0.7);
+}
+.good{
+  background-color: rgba(128,255,0,0.7);
+}

@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <link rel="stylesheet" href="$SHTProPath/css/shtproanalyse.css">
 </head>
 <body>
   <div class="wrapper">
@@ -15,62 +16,15 @@
       Hinweis: $RulesNotice<br/>
       Gut: $RulesGood<br/>
     </div>
-    <div>
-      <% with TitleResults %>
-        $Headline:<br/>
-        <% loop UnsortedListEntries %>
-          $Content<br/>
-        <% end_loop %>
-      <% end_with %>
-    </div>
-    <div>
-      <% with MetaResults %>
-      $Headline:<br/>
-        <% loop UnsortedListEntries %>
-          $Content<br/>
-        <% end_loop %>
-      <% end_with %>
-    </div>
-    <div>
-      <% with URLResults %>
-      $Headline:<br/>
-        <% loop UnsortedListEntries %>
-          $Content<br/>
-        <% end_loop %>
-      <% end_with %>
-    </div>
-    <div>
-      <% with WordCountResults %>
-      $Headline:<br/>
-        <% loop UnsortedListEntries %>
-          $Content<br/>
-        <% end_loop %>
-      <% end_with %>
-    </div>
-    <div>
-      <% with DirectoryDepthResults %>
-      $Headline:<br/>
-        <% loop UnsortedListEntries %>
-          $Content<br/>
-        <% end_loop %>
-      <% end_with %>
-    </div>
-    <div>
-      <% with HeadlineResults %>
-      $Headline:<br/>
-        <% loop UnsortedListEntries %>
-          $Content<br/>
-        <% end_loop %>
-      <% end_with %>
-    </div>
-    <div>
-      <% with LinkResults %>
-      $Headline:<br/>
-        <% loop UnsortedListEntries %>
-          $Content<br/>
-        <% end_loop %>
-      <% end_with %>
-    </div>
+    Falsch:
+    <% include SeoHeroToolProAnalyse_Error %>
+
+    Hinweis:
+    <% include SeoHeroToolProAnalyse_Notice %>
+
+    Gut:
+    <% include SeoHeroToolProAnalyse_Good %>
+  
   </div>
 </body>
 </html>

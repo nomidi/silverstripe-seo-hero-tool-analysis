@@ -39,6 +39,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
       //  $shtpMeta = $this->checkMeta($Page);
 
+
         $shtpTitle = $this->checkTitle();
         $shtpMeta = $this->checkMeta($Page);
         $shtpURL = $this->checkURL($Page);
@@ -46,6 +47,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $shtpDirectoryDepth = $this->checkLinkDirectoryDepth($Page);
         $shtpHeadlineStructure = $this->checkHeadlineStructure();
         $shtpLinks = $this->checkLinks();
+        $shtpStrong = $this->checkStrong();
+        $shtpw3c = $this->getW3CValidation($URL);
 
         $render = $this->owner->customise(array(
           'WordCount' => $this->wordCount,
@@ -57,10 +60,13 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'WordCountResults' => $shtpWordCount,
           'HeadlineResults' => $shtpHeadlineStructure,
           'LinkResults' => $shtpLinks,
+          'W3CResults' => $shtpw3c,
+          'StrongResults' => $shtpStrong,
           'RulesWrong' => $this->rules['wrong'],
           'RulesNotice' => $this->rules['notice'],
           'RulesGood' => $this->rules['good'],
           'RulesTotal' => $this->rules['total'],
+          'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
         ))->renderWith('SeoHeroToolProAnalysePage');
         return $render;
     }
@@ -488,7 +494,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                   array(
                       'Content' =>
                       sprintf(
-                          _t('SeoHeroToolAnalyse.LinkNoAttrTitle',
+                          _t('SeoHeroToolProAnalyse.LinkNoAttrTitle',
                               'The Link <em>%s</em> has no title attribute'),
                           $link->nodeValue
                       ),
@@ -502,7 +508,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($linkError == 0 && $documentLinks->length > 0) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                    'Content' => _t('SeoHeroToolAnalyse.LinkNoAttrTitle', 'All links are having a title attribute'),
+                    'Content' => _t('SeoHeroToolProAnalyse.LinkNoAttrTitle', 'All links are having a title attribute'),
                     'IconMess' => '3',
               )
             ));
@@ -535,5 +541,92 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $this->pageImages = $this->dom->getElementsByTagName('img');
         $this->pageTitle = $this->dom->getElementsByTagName('title')->item(0)->nodeValue;
         return true;
+    }
+
+    private function checkStrong()
+    {
+        $UnsortedListEntries = new ArrayList();
+        $domStrong = $this->dom->getElementsByTagName('strong');
+        $domStrongCount = $domStrong->length;
+        if ($domStrongCount == 0) {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => 'Found no strong elements on website (B / STRONG).',
+                'IconMess' => '2'
+              )
+            ));
+            $this->updateRules(2);
+        } else {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => 'Found one or more strong elements on website (B / STRONG).',
+                'IconMess' => '3'
+              )
+            ));
+            $this->updateRules(3);
+        }
+        return array(
+          'Headline' => _t('SeoHeroToolProAnalyse.strongElements', 'Strong elements'),
+          'UnsortedListEntries' => $UnsortedListEntries);
+    }
+
+    private function getW3CValidation($URL)
+    {
+        $UnsortedListEntries = new ArrayList();
+        $W3CResults = SeoHeroToolProW3CValidator::checkData($URL);
+        $foundHTMLErrors = 0;
+        $foundHTMLWarnings = 0;
+        $nonDocumentError = 0;
+        /*
+          If the site is hosted locally there will be a  "Name or service not known message"
+         */
+        if (isset($W3CResults->messages[0]->type) && $W3CResults->messages[0]->type == 'non-document-error') {
+            $UnsortedListEntries->push(new ArrayData(
+            array(
+                  'Content' => _t('SeoHeroToolProAnalyse.W3CNon-Document-Error', 'The Document can not be scanned, maybe the website runs locally?'),
+                  'IconMess' => '2',
+                )
+              ));
+            $this->updateRules(2);
+            $nonDocumentError = 1;
+        }
+
+        if ($foundHTMLErrors == 0 && $foundHTMLWarnings == 0 && $nonDocumentError == 0) {
+            $UnsortedListEntries->push(new ArrayData(
+            array(
+                  'Content' => _t('SeoHeroToolProAnalyse.W3CNNoErrorsAndWarning', 'The Validator did not find any Errors or Warnings in your Document.'),
+                  'IconMess' => '3',
+                )
+              ));
+            $this->updateRules(3);
+        } elseif ($nonDocumentError == 0) {
+            if ($foundHTMLErrors == 1) {
+                $messageFoundHTMLErrors = _t('SeoHeroToolProAnalyse.W3CErrorSingular', 'one HTML error');
+            } elseif ($foundHTMLErrors > 1) {
+                $messageFoundHTMLErrors = _t('SeoHeroToolProAnalyse.W3CErrorPlural', 'several HTML errors');
+            }
+
+            if ($foundHTMLWarnings == 1) {
+                $messageFoundHTMLWarnings = _t('SeoHeroToolProAnalyse.W3CWarningSingular', 'one HTML warning');
+            } elseif ($foundHTMLWarnings > 1) {
+                $messageFoundHTMLWarnings = _t('SeoHeroToolProAnalyse.W3CWarningPlural', 'several HTML warnings');
+            }
+            $UnsortedListEntries->push(new ArrayData(
+            array(
+                  'Content' => sprintf(
+                _t('SeoHeroToolAnalyse.W3CCountMessage',
+                    'Es wurden auf der Seite %1$s und %2$s gefunden'),
+                $messageFoundHTMLWarnings, $messageFoundHTMLErrors),
+                  'IconMess' => '1',
+                )
+              ));
+            $this->updateRules(1);
+        }
+
+
+
+        return array(
+            'Headline' => _t('SeoHeroToolProAnalyse.W3CResult', 'W3C Validator Result'),
+            'UnsortedListEntries' => $UnsortedListEntries);
     }
 }
