@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-bordered">
     <% with TitleResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == 1 %>

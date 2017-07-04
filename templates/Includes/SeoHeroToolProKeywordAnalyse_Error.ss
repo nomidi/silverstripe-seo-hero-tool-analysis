@@ -1,4 +1,4 @@
-<table>
+<table class="table table-bordered">
     <% with KeywordResults %>
     <% loop KeywordEntries %>
     <% if IconMess == 1 %>
