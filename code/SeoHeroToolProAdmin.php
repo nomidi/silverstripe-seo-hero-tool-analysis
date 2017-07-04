@@ -420,7 +420,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 } else {
                     $UnsortedListEntries->push(new ArrayData(
                         array(
-                          'Content' => _t('SeoHeroToolProAnalyse.h1SameSiteConfigTitle', 'The h1 tag has a good length').' '.$addText,
+                          'Content' => _t('SeoHeroToolProAnalyse.h1LengthGood', 'The h1 tag has a good length').' '.$addText,
                           'IconMess' => '3',
                         )
                     ));
