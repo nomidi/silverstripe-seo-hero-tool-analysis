@@ -39,16 +39,14 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
         $this->checkIfSiteRunsLocally();
 
+        $contentID = Config::inst()->get('SeoHeroToolPro', 'contentID');
 
         if ($contentID) {
-            $this->wordCount = str_word_count(strip_tags($wordCountDoc->getElementByID($contentID)->nodeValue));
+            $this->wordCount = str_word_count(strip_tags($this->dom->getElementByID($contentID)->nodeValue));
         } else {
-            $this->wordCount = str_word_count(strip_tags($wordCountDoc));
+            $this->wordCount = str_word_count(strip_tags($this->pageBody));
         }
-        if ($contentID == '') {
-            $contentID = false;
-        }
-
+      
         $shtpTitle = $this->checkTitle();
         $shtpMeta = $this->checkMeta($Page);
         $shtpURL = $this->checkURL($Page);
@@ -63,7 +61,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $Keywords = new SeoHeroToolProAnalyseKeyword();
         $shtpKeywords = $Keywords->checkKeywords($Page, $this->pageImages);
         $keywordRules = $Keywords->getKeywordResults();
-        Requirements::clear();
+
         $render = $this->owner->customise(array(
           'WordCount' => $this->wordCount,
           'PageLink' => $URL,
