@@ -46,7 +46,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $this->wordCount = str_word_count(strip_tags($this->pageBody));
         }
-      
+
         $shtpTitle = $this->checkTitle();
         $shtpMeta = $this->checkMeta($Page);
         $shtpURL = $this->checkURL($Page);
@@ -61,7 +61,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $Keywords = new SeoHeroToolProAnalyseKeyword();
         $shtpKeywords = $Keywords->checkKeywords($Page, $this->pageImages);
         $keywordRules = $Keywords->getKeywordResults();
-
+        Requirements::clear();
         $render = $this->owner->customise(array(
           'WordCount' => $this->wordCount,
           'PageLink' => $URL,
