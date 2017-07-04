@@ -12,6 +12,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
     public $pageImages;
     public $pageTitle;
     public $wordCount;
+    public $siteRunsLocally;
 
     public function canView($member = null)
     {
@@ -35,6 +36,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($this->loadPage($URL, $Page) == false) {
             return false;
         }
+
+        $this->checkIfSiteRunsLocally();
 
         $contentID = Config::inst()->get('SeoHeroToolPro', 'contentID');
         if ($contentID) {
@@ -87,6 +90,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
         ))->renderWith('SeoHeroToolProAnalysePage');
         return $render;
+    }
+
+    private function checkIfSiteRunsLocally()
+    {
+        $this->siteRunsLocally = Config::inst()->get('SeoHeroToolPro', 'locally');
     }
 
     private function updateRules($type = 3)
@@ -163,7 +171,16 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $lengthRecommendation =  _t('SeoHeroToolProAnalyse.MetaLengthRecommendation', '(Optimal length is between 120 - 140 Characters)');
         $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $lengthOfMetaDescription;
 
-        if ($lengthOfMetaDescription < 79) {
+        if ($lengthOfMetaDescription == 0) {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                  'Content' => _t('SeoHeroToolProAnalyse.NoMetaDescription', 'The Meta-Description is empty.'),
+                  'IconMess' => '1',
+                  'HelpLink' => $metaDescHelpLink,
+                )
+            ));
+            $this->updateRules(1);
+        } elseif ($lengthOfMetaDescription < 79) {
             $UnsortedListEntries->push(new ArrayData(
               array(
                   'Content' => _t('SeoHeroToolProAnalyse.MetaLengthShort', 'The Meta-Description is too short.'). $returnLength,
@@ -412,19 +429,52 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     $this->updateRules(3);
                 }
             } else {
+                $countHeadlines = 1;
                 foreach ($value as $singleHeadline) {
                     $headlineContent = $singleHeadline->textContent;
                     $headlineLength = strlen($headlineContent);
                     $lengthRecommendation =  _t('SeoHeroToolProAnalyse.HeadLineRecommendation', '(optimal length between 15 and 80 Characters)');
                     $addText = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $headlineLength;
                     if ($headlineLength == 0) {
-                        $UnsortedListEntries->push(new ArrayData(
-                            array(
-                                'Content' => _t('SeoHeroToolProAnalyse.headlineLengthEmpty', 'The Headline is empty').' '.$addText,
-                                'IconMess' => '1',
-                            )
-                        ));
-                        $this->updateRules(1);
+                        $i = 0;
+                        $searchedHeadlinePos = 0;
+                        for ($i = 0; $i < $countHeadlines; $i++) {
+                            if ($i > 0) {
+                                $searchedHeadlinePos = strpos($this->pageHTML, '<'.$key.'>', $searchedHeadlinePos + 4);
+                            } else {
+                                $searchedHeadlinePos = strpos($this->pageHTML, '<'.$key.'>');
+                            }
+                        }
+                        if ($searchedHeadlinePos) {
+                            $searchHeadlineEndPos = strpos($this->pageHTML, "</".$key.">", $searchedHeadlinePos);
+                            $headlineTagContent = substr($this->pageHTML, $searchedHeadlinePos+4, $searchHeadlineEndPos - $searchedHeadlinePos-4);
+                            if ($headlineTagContent != '') {
+                                $presumableTag = substr($headlineTagContent, 1, strpos($headlineTagContent, ' '));
+                                $UnsortedListEntries->push(new ArrayData(
+                                  array(
+                                      'Content' =>   sprintf(_t('SeoHeroToolProAnalyse.headlineWitSomeContent', 'The Headline %1$s has some kind of content but no text. Found the following tag in the Headline ').': '.$presumableTag, $key),
+                                      'IconMess' => '2',
+                                  )
+                              ));
+                                $this->updateRules(2);
+                            } else {
+                                $UnsortedListEntries->push(new ArrayData(
+                                    array(
+                                        'Content' =>   sprintf(_t('SeoHeroToolProAnalyse.headlineLengthEmpty', 'The Headline %1$s is empty').' '.$addText, $key),
+                                        'IconMess' => '1',
+                                    )
+                                ));
+                                $this->updateRules(1);
+                            }
+                        } else {
+                            $UnsortedListEntries->push(new ArrayData(
+                                array(
+                                    'Content' =>   sprintf(_t('SeoHeroToolProAnalyse.headlineLengthEmpty', 'The Headline %1$s is empty').' '.$addText, $key),
+                                    'IconMess' => '1',
+                                )
+                            ));
+                            $this->updateRules(1);
+                        }
                     } elseif ($headlineLength < 10) {
                         $UnsortedListEntries->push(new ArrayData(
                             array(
@@ -450,6 +500,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                         ));
                         $this->updateRules(3);
                     }
+                    $countHeadlines++;
                 }
             }
         }
@@ -515,7 +566,6 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $linkline = 0;
 
             if ($linkName == '') {
-                //debug::show($this->pageHTML);
                 $lines = explode(PHP_EOL, $this->pageHTML);
                 $countlines = count($lines);
                 for ($i=1;  $i < $countlines; $i++) {
@@ -545,7 +595,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                           'Content' =>
                           sprintf(
                               _t('SeoHeroToolProAnalyse.LinkNoAttrTitle',
-                                  'The Link <em>%s</em> has no title attribute'),
+                                  'The Link %s has no title attribute'),
                               $link->nodeValue
                           ),
                               'IconMess' => '1',
@@ -652,7 +702,6 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     $imagesWithoutAltTag++;
                 }
             }
-          //  debug::show($imagesWithoutAltTag);
             if ($imagesWithoutAltTag == 0) {
                 $UnsortedListEntries->push(new ArrayData(
                   array(
@@ -680,7 +729,6 @@ class SeoHeroToolProAdmin extends LeftAndMain
             ));
             $this->updateRules(2);
         }
-          //debug::show($UnsortedListEntries);
         return array(
           'Headline' => _t('SeoHeroTool.Images', 'Images'),
           'UnsortedListEntries' => $UnsortedListEntries);
@@ -689,6 +737,19 @@ class SeoHeroToolProAdmin extends LeftAndMain
     private function getW3CValidation($URL)
     {
         $UnsortedListEntries = new ArrayList();
+        if ($this->siteRunsLocally) {
+            $UnsortedListEntries->push(new ArrayData(
+          array(
+                'Content' => _t('SeoHeroToolProAnalyse.SiteRunsLocally', 'The website runs locally. No W3C Validation possible.'),
+                'IconMess' => '2',
+              )
+            ));
+            $this->updateRules(2);
+
+            return array(
+              'Headline' => _t('SeoHeroToolProAnalyse.W3CResult', 'W3C Validator Result'),
+              'UnsortedListEntries' => $UnsortedListEntries);
+        }
         $W3CResults = SeoHeroToolProW3CValidator::checkData($URL);
         $foundHTMLErrors = 0;
         $foundHTMLWarnings = 0;
