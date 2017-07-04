@@ -16,7 +16,7 @@
     <div class="row">
 
         <div class="col-md-12">
-          <h1>SEO Auswertung</h1>
+          <h1><%t SeoHeroToolPro.ANALYSEHEADLINE 'Bar' %></h1>
           <p><strong><a href="$PageLink" target="_blank">$PageLink</a></strong></p>
         </div>
     </div>
