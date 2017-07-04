@@ -39,11 +39,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
         $this->checkIfSiteRunsLocally();
 
-        $contentID = Config::inst()->get('SeoHeroToolPro', 'contentID');
+
         if ($contentID) {
-            $this->wordCount = str_word_count(strip_tags($this->dom->getElementByID($contentID)->nodeValue));
+            $this->wordCount = str_word_count(strip_tags($wordCountDoc->getElementByID($contentID)->nodeValue));
         } else {
-            $this->wordCount = str_word_count(strip_tags($this->pageBody));
+            $this->wordCount = str_word_count(strip_tags($wordCountDoc));
         }
         if ($contentID == '') {
             $contentID = false;
@@ -244,11 +244,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $UnsortedListEntries->push(new ArrayData(
               array(
                   'Content' => _t('SeoHeroToolProAnalyse.URLLengthShort', 'The length of the URL is way too short. ').$returnLength,
-                  'IconMess' => '3',
+                  'IconMess' => '1',
                   'HelpLink' => $urlHelpLink,
               )
           ));
-            $this->updateRules(2);
+            $this->updateRules(1);
         } elseif ($lengthOfURL >= 10 && $lengthOfURL < 20) {
             $UnsortedListEntries->push(new ArrayData(
                 array(
@@ -810,6 +810,20 @@ class SeoHeroToolProAdmin extends LeftAndMain
     private function checkStructuredData($Page)
     {
         $UnsortedListEntries = new ArrayList();
+        if ($this->siteRunsLocally) {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.SitesRunsLocally', 'Website runs locally. Therefore it is not possible to check for structured Data.'),
+                'IconMess' => '2'
+              )
+            ));
+            $this->updateRules(2);
+            return array(
+            'Headline' => _t('SeoHeroToolProAnalyse.StructuredData', 'Structured Data'),
+            'UnsortedListEntries' => $UnsortedListEntries
+          );
+        }
+
         $searchPattern = "/<script type=\"application\/ld\+json\">([^<]*)<\/script>/s";
         preg_match_all($searchPattern, $this->pageHTML, $aMatch);
         $foundstData = $aMatch[1];
