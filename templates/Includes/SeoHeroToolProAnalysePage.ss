@@ -11,10 +11,11 @@
       <a href="$PageLink" target="_blank">Link zur Seite</a>
     </div>
     <div>
-      Regeln: $RulesTotal<br/>
+      Prüfungen: $RulesTotal<br/>
       Falsch: $RulesWrong<br/>
       Hinweis: $RulesNotice<br/>
       Gut: $RulesGood<br/>
+
     </div>
     Falsch:
     <% include SeoHeroToolProAnalyse_Error %>
@@ -24,7 +25,18 @@
 
     Gut:
     <% include SeoHeroToolProAnalyse_Good %>
-  
+
+    Keywordprüfungen: $KeywordRulesTotal<br/>
+    Falsch: $KeywordRulesWrong<br/>
+    Hinweis: $KeywordRulesNotice<br/>
+    Gut: $KeywordRulesGood<br/>
+
+    Falsch:
+      <% include SeoHeroToolProKeywordAnalyse_Error %>
+    Hinweis:
+      <% include SeoHeroToolProKeywordAnalyse_Notice %>
+    Gut:
+      <% include SeoHeroToolProKeywordAnalyse_Good %>
   </div>
 </body>
 </html>

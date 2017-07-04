@@ -7,3 +7,14 @@
 .good{
   background-color: rgba(128,255,0,0.7);
 }
+
+table{
+  width: 60%;
+}
+.area{
+  width: 25%;
+}
+
+.content{
+  width: 75%;
+}

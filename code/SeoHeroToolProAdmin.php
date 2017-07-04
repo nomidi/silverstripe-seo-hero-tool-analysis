@@ -7,11 +7,20 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
     public $dom;
     public $rules = array('good' => 0, 'notice' => 0, 'wrong' => 0, 'total' => 0);
-    public $pageHtml;
+    public $pageHTML;
     public $pageBody;
     public $pageImages;
     public $pageTitle;
     public $wordCount;
+
+    public function canView($member = null)
+    {
+        if (Permission::check('ADMIN')) {
+            return true;
+        } else {
+            Security::permissionFailure();
+        }
+    }
 
     public function Analyse()
     {
@@ -37,18 +46,20 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $contentID = false;
         }
 
-      //  $shtpMeta = $this->checkMeta($Page);
-
-
         $shtpTitle = $this->checkTitle();
         $shtpMeta = $this->checkMeta($Page);
         $shtpURL = $this->checkURL($Page);
         $shtpWordCount = $this->checkWordCount();
         $shtpDirectoryDepth = $this->checkLinkDirectoryDepth($Page);
         $shtpHeadlineStructure = $this->checkHeadlineStructure();
-        $shtpLinks = $this->checkLinks();
+        $shtpLinks = $this->checkLinks($Page);
+        $shtpImages = $this->checkImages();
         $shtpStrong = $this->checkStrong();
         $shtpw3c = $this->getW3CValidation($URL);
+        $shtpStructuredData = $this->checkStructuredData($Page);
+        $Keywords = new SeoHeroToolProAnalyseKeyword();
+        $shtpKeywords = $Keywords->checkKeywords($Page, $this->pageImages);
+        $keywordRules = $Keywords->getKeywordResults();
 
         $render = $this->owner->customise(array(
           'WordCount' => $this->wordCount,
@@ -62,10 +73,17 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'LinkResults' => $shtpLinks,
           'W3CResults' => $shtpw3c,
           'StrongResults' => $shtpStrong,
+          'ImageResults' => $shtpImages,
+          'KeywordResults' => $shtpKeywords,
+          'StructuredDataResults' => $shtpStructuredData,
           'RulesWrong' => $this->rules['wrong'],
           'RulesNotice' => $this->rules['notice'],
           'RulesGood' => $this->rules['good'],
           'RulesTotal' => $this->rules['total'],
+          'KeywordRulesWrong' => $keywordRules['wrong'],
+          'KeywordRulesNotice' => $keywordRules['notice'],
+          'KeywordRulesGood' => $keywordRules['good'],
+          'KeywordRulesTotal' => $keywordRules['total'],
           'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
         ))->renderWith('SeoHeroToolProAnalysePage');
         return $render;
@@ -300,7 +318,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $UnsortedListEntries->push(new ArrayData(
               array(
                 'Content' => _t('SeoHeroToolProAnalyse.TooHighDirectoryDepth', 'The Directory Depth is perfect. '). $addText,
-                'IconMess' => '2',
+                'IconMess' => '3',
                 )
               ));
             $this->updateRules(3);
@@ -483,24 +501,71 @@ class SeoHeroToolProAdmin extends LeftAndMain
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
-    private function checkLinks()
+    private function checkLinks($Page)
     {
         $UnsortedListEntries = new ArrayList();
         $documentLinks = $this->dom->getElementsByTagName('a');
         $linkError = 0;
+
+
+
+
         foreach ($documentLinks as $link) {
+            $linkName = $link->nodeValue;
+            $linkline = 0;
+
+            if ($linkName == '') {
+                //debug::show($this->pageHTML);
+                $lines = explode(PHP_EOL, $this->pageHTML);
+                $countlines = count($lines);
+                for ($i=1;  $i < $countlines; $i++) {
+                    preg_match("/<a href=.*?><\/a>/", $lines[$i], $matches, PREG_OFFSET_CAPTURE);
+                    if (isset($matches[0])) {
+                        echo "treffer";
+                        $start = '';
+                        $end = '';
+                        if (isset($lines[$i-2])) {
+                            $start = $lines[$i-2].' <br/>'.$lines[$i-1].' <br/>';
+                        } elseif (isset($lines[$i-1])) {
+                            $start = $lines[$i-1].' <br/>';
+                        }
+                        if (isset($lines[$i+2])) {
+                            $end = '<br/>'.$lines[$i+1].' <br/>'.$lines[$i+2];
+                        } elseif (isset($lines[$i+1])) {
+                            $end = '<br/>'.$lines[$i+1];
+                        }
+                        $linkline = $start.$lines[$i].$end;
+                    }
+                }
+            }
             if (!$link->hasAttribute('title')) {
-                $UnsortedListEntries->push(new ArrayData(
-                  array(
-                      'Content' =>
-                      sprintf(
-                          _t('SeoHeroToolProAnalyse.LinkNoAttrTitle',
-                              'The Link <em>%s</em> has no title attribute'),
-                          $link->nodeValue
-                      ),
-                          'IconMess' => '1',
-                      )
-                ));
+                if ($linkName != '') {
+                    $UnsortedListEntries->push(new ArrayData(
+                      array(
+                          'Content' =>
+                          sprintf(
+                              _t('SeoHeroToolProAnalyse.LinkNoAttrTitle',
+                                  'The Link <em>%s</em> has no title attribute'),
+                              $link->nodeValue
+                          ),
+                              'IconMess' => '1',
+                          )
+                    ));
+                } else {
+                    $UnsortedListEntries->push(new ArrayData(
+                      array(
+                          'Content' =>
+                          sprintf(
+                              _t('SeoHeroToolProAnalyse.LinkNoAttrTitleAndNoLinkDescription',
+                                  'Please check the following area for a Link with an empty "a" tag<em>%s</em>'),
+                              $linkline
+                          ),
+                              'IconMess' => '1',
+                          )
+                    ));
+                }
+
+
                 $linkError = 1;
                 $this->updateRules(1);
             }
@@ -514,6 +579,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
             ));
             $this->updateRules(3);
         }
+
+
         return array(
             'Headline' => _t('SeoHeroToolProAnalyse.Links', 'Links'),
             'UnsortedListEntries' => $UnsortedListEntries);
@@ -536,7 +603,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $html = file_get_contents($URL);
         $this->dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
         $this->dom->preserveWhiteSpace = false;
-        $this->pageHtml = $this->dom->saveHTML();
+        $this->pageHTML = $this->dom->saveHTML();
         $this->pageBody = $this->dom->getElementsByTagName('body')->item(0)->nodeValue;
         $this->pageImages = $this->dom->getElementsByTagName('img');
         $this->pageTitle = $this->dom->getElementsByTagName('title')->item(0)->nodeValue;
@@ -567,6 +634,55 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
         return array(
           'Headline' => _t('SeoHeroToolProAnalyse.strongElements', 'Strong elements'),
+          'UnsortedListEntries' => $UnsortedListEntries);
+    }
+
+    private function checkImages()
+    {
+        $UnsortedListEntries = new ArrayList();
+        $domImageCount = $this->pageImages->length;
+        $imagesWithoutAltTag = 0;
+        $message = '';
+        if ($domImageCount >= 1) {
+            foreach ($this->pageImages as $img) {
+                $imgAltTag = $img->getAttribute('alt');
+                $imgFileName = $img->getAttribute('src');
+                if (trim($imgAltTag) == '') {
+                    $message .= sprintf(_t('SeoHeroToolProAnalyse.ImageWithoutAltTag', 'The Image <a href="/%1$s" target="_blank" alt="Dummy">%1$s</a> does not contain an Alt-Tag.').'<br/>', $imgFileName);
+                    $imagesWithoutAltTag++;
+                }
+            }
+          //  debug::show($imagesWithoutAltTag);
+            if ($imagesWithoutAltTag == 0) {
+                $UnsortedListEntries->push(new ArrayData(
+                  array(
+                    'Content' => _t('SeoHeroToolProAnalyse.AllImagesWithAltTag', 'All Images contain Alt-Tags.'),
+                    'IconMess' => '3'
+                  )
+                ));
+                $this->updateRules(3);
+            } elseif ($imagesWithoutAltTag >= 1) {
+                $UnsortedListEntries->push(new ArrayData(
+                    array(
+                      'Content' => sprintf(_t('SeoHeroToolProAnalyse.ImagesWithoutAltTagMessage', '%1$d out of %2$d Images are not having Alt-Tags. The images are the following:').' <br/>'.$message, $imagesWithoutAltTag, $domImageCount),
+                      'IconMess' => '1'
+                    )
+                ));
+                $this->updateRules(1);
+            }
+        } else {
+            $imageCountText = _t('SeoHeroToolProAnalyse.NoImagesFound', 'This page does not contain any pictures');
+            $UnsortedListEntries->push(new ArrayData(
+                array(
+                    'Content' => $imageCountText,
+                    'IconMess' => '2',
+                )
+            ));
+            $this->updateRules(2);
+        }
+          //debug::show($UnsortedListEntries);
+        return array(
+          'Headline' => _t('SeoHeroTool.Images', 'Images'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -628,5 +744,35 @@ class SeoHeroToolProAdmin extends LeftAndMain
         return array(
             'Headline' => _t('SeoHeroToolProAnalyse.W3CResult', 'W3C Validator Result'),
             'UnsortedListEntries' => $UnsortedListEntries);
+    }
+
+    private function checkStructuredData($Page)
+    {
+        $UnsortedListEntries = new ArrayList();
+        $searchPattern = "/<script type=\"application\/ld\+json\">([^<]*)<\/script>/s";
+        preg_match_all($searchPattern, $this->pageHTML, $aMatch);
+        $foundstData = $aMatch[1];
+        $sDatas = $aMatch[1];
+        if (count($sDatas) >= 1) {
+            $UnsortedListEntries->push(new ArrayData(
+            array(
+              'Content' => _t('SeoHeroToolProAnalyse.StructuredDataFound', ' Found structured Data. You can check the structured Data here').': '.'<a href="https://search.google.com/structured-data/testing-tool?hl=de#url=' . urldecode($Page->AbsoluteLink()) . '" target="_blank">Structured Data Google</a>',
+              'IconMess' => '3'
+            )
+          ));
+            $this->updateRules(3);
+        } else {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.NoStructuredDataFound', 'No structured Data found.'),
+                'IconMess' => '2'
+              )
+            ));
+            $this->updateRules(2);
+        }
+        return array(
+          'Headline' => _t('SeoHeroToolProAnalyse.StructuredData', 'Structured Data'),
+          'UnsortedListEntries' => $UnsortedListEntries
+        );
     }
 }
