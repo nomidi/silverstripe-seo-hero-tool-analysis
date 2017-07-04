@@ -1,0 +1,44 @@
+body{
+  background-color: rgb(236, 240, 245);
+}
+.info-boxes .alert{
+  position:relative;
+}
+.glyphicon.button-xl{
+  position:absolute;
+  right:2%;
+  top:50%;
+  font-size:40px;
+}
+
+.custom-content{
+  background:white;
+}
+
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid rgb(244, 244, 244);
+}
+.table-bordered tr:hover{
+  background:rgb(236, 240, 245);
+}
+
+.nav-tabs-custom>.nav-tabs {
+    margin: 0;
+    border-bottom:0;
+}
+
+.nav-tabs {
+
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+  border-right:0;
+  border-left:0;
+  border-top:2px solid rgb(154, 207, 234);
+
+}
+.nav-tabs>li>a{
+  border-radius: 0;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+  border-bottom: 1px solid rgb(244, 244, 244);
+}
