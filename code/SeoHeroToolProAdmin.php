@@ -63,7 +63,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $Keywords = new SeoHeroToolProAnalyseKeyword();
         $shtpKeywords = $Keywords->checkKeywords($Page, $this->pageImages);
         $keywordRules = $Keywords->getKeywordResults();
-
+        Requirements::clear();
         $render = $this->owner->customise(array(
           'WordCount' => $this->wordCount,
           'PageLink' => $URL,
