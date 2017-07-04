@@ -357,7 +357,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 if ($key == 'h1') {
                     $UnsortedListEntries->push(new ArrayData(
                         array(
-                            'Content' => _t('SeoHeroToolAnalyse.NoH1', 'There is no h1-Tag.'),
+                            'Content' => _t('SeoHeroToolProAnalyse.NoH1', 'There is no h1-Tag.'),
                             'IconMess' => '1',
                         )
                     ));
@@ -365,7 +365,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 } else {
                     $UnsortedListEntries->push(new ArrayData(
                       array(
-                          'Content' => _t('SeoHeroToolAnalyse.NoH1', 'Found no tag').' '.$key,
+                          'Content' => _t('SeoHeroToolProAnalyse.NoH1', 'Found no tag').' '.$key,
                           'IconMess' => '1',
                       )
                   ));
@@ -374,7 +374,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } elseif ($headlineCount > 1 && $key == 'h1') {
                 $UnsortedListEntries->push(new ArrayData(
                     array(
-                        'Content' => _t('SeoHeroToolAnalyse.TooMuchH1', 'There is more than one h1-Tag'),
+                        'Content' => _t('SeoHeroToolProAnalyse.TooMuchH1', 'There is more than one h1-Tag'),
                         'IconMess' => '2',
                     )
                 ));
@@ -476,7 +476,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     } elseif ($headlineLength < 10) {
                         $UnsortedListEntries->push(new ArrayData(
                             array(
-                                'Content' => $key._t('SeoHeroToolAnalyse.headlineLengthTooShort', ' Headline is quite short.').' '.$addText,
+                                'Content' => $key._t('SeoHeroToolProAnalyse.headlineLengthTooShort', ' Headline is quite short.').' '.$addText,
                                 'IconMess' => '2',
                             )
                         ));
@@ -484,7 +484,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     } elseif ($headlineLength > 80) {
                         $UnsortedListEntries->push(new ArrayData(
                             array(
-                                'Content' => $key._t('SeoHeroToolAnalyse.headlineLengthTooLong', ' Headline is quite long.') .' '.$addText,
+                                'Content' => $key._t('SeoHeroToolProAnalyse.headlineLengthTooLong', ' Headline is quite long.') .' '.$addText,
                                 'IconMess' => '2',
                             )
                         ));
@@ -492,7 +492,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     } else {
                         $UnsortedListEntries->push(new ArrayData(
                             array(
-                                'Content' => $key._t('SeoHeroToolAnalyse.headkubeLenghtGood', ' Headline has a good length.').' '.$addText,
+                                'Content' => $key._t('SeoHeroToolProAnalyse.headlineLenghtGood', ' Headline has a good length.').' '.$addText,
                                 'IconMess' => '3',
                             )
                         ));
@@ -526,7 +526,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     array(
                         'Content' =>
                         sprintf(
-                            _t('SeoHeroToolAnalyse.HeadlineStructureError',
+                            _t('SeoHeroToolProAnalyse.HeadlineStructureError',
                                 'There is at least H%1$d Headline but no H%2$d Headline.'),
                             $hsKey, $hsKey - 1
                         ),
@@ -538,7 +538,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } elseif ($hsKey == 1 && $headlineStructureError == 0) {
                 $UnsortedListEntries->push(new ArrayData(
                     array(
-                        'Content' =>_t('SeoHeroToolAnalyse.NoHeadlineStructureError', 'The Headline Structure does not contain obvious Errors.'),
+                        'Content' =>_t('SeoHeroToolProAnalyse.NoHeadlineStructureError', 'The Headline Structure does not contain obvious Errors.'),
                         'IconMess' => '3',
                     )
                 ));
@@ -728,7 +728,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(2);
         }
         return array(
-          'Headline' => _t('SeoHeroTool.Images', 'Images'),
+          'Headline' => _t('SeoHeroToolPro.Images', 'Images'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -789,7 +789,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $UnsortedListEntries->push(new ArrayData(
             array(
                   'Content' => sprintf(
-                _t('SeoHeroToolAnalyse.W3CCountMessage',
+                _t('SeoHeroToolProAnalyse.W3CCountMessage',
                     'Es wurden auf der Seite %1$s und %2$s gefunden'),
                 $messageFoundHTMLWarnings, $messageFoundHTMLErrors),
                   'IconMess' => '1',

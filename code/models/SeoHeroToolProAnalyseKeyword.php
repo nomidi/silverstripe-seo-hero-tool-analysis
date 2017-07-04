@@ -199,14 +199,6 @@ class SeoHeroToolProAnalyseKeyword
                     }
                 }
             }
-        } else {
-            $KeywordEntries->push(new ArrayData(
-              array(
-                'Content' => _t('SeoHeroToolProAnalyseKeyword.NoKeywordsEntered', 'No Keywords entered'),
-                'IconMess' => 2,
-              )
-          ));
-            $this->updateKeywordRules(2);
         }
         return array(
         'Headline' => _t('SeoHeroToolProAnalyseKeyword.Keyword', 'Keyword'),
