@@ -1,2 +1,6 @@
 .cms .SeoHeroToolProAdmin #cms-content-tools-ModelAdmin {
   display: none !important; }
+
+.cms #Menu-SeoHeroToolProAdmin{
+  display: none !important;
+}
