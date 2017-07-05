@@ -1,6 +1,13 @@
 de:
   SeoHeroToolPro:
-    ANALYSEHEADLINE: Bar
+    ANALYSEHEADLINE: SEO analysis
+    ANALYSEGENERAL: Allgemeine Auswertung
+    ANALYSETESTS: Prüfungen
+    ANALYSEPASSED: Bestanden
+    ANALYSEWARNING: Hinweise
+    ANALYSEERROR: Fehler
+    ANALYSEKEYWORDHEADLINE: Keyword Auswertung
+    NOKEYWORDS: 'Es wurden keine Keywords für die Seite angelegt.'
     Images: Bilder
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro

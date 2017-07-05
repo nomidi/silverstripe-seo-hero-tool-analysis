@@ -16,19 +16,19 @@
     <div class="row">
 
         <div class="col-md-12">
-          <h1><%t SeoHeroToolPro.ANALYSEHEADLINE 'SEO Auswertung' %></h1>
+          <h1><%t SeoHeroToolPro.ANALYSEHEADLINE 'SEO analysis' %></h1>
           <p><strong><a href="$PageLink" target="_blank">$PageLink</a></strong></p>
         </div>
     </div>
 
     <div class="row info-boxes">
       <div class="col-md-12">
-        <h2><%t SeoHeroToolPro.ANALYSEGENERAL 'Allgemeine Auswertung' %></h2>
+        <h2><%t SeoHeroToolPro.ANALYSEGENERAL 'Generel Analysis' %></h2>
       </div>
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-info">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSETESTS 'Prüfungen' %></h3>
+            <h3><%t SeoHeroToolPro.ANALYSETESTS 'Checks' %></h3>
             <p>$RulesTotal</p>
           </div>
           <span class="glyphicon glyphicon-check button-xl" aria-hidden="true"></span>
@@ -38,7 +38,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-success">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEPASSED 'Bestanden' %></h3>
+            <h3><%t SeoHeroToolPro.ANALYSEPASSED 'Passed' %></h3>
             <p>$RulesGood</p>
           </div>
           <div class="icon">
@@ -49,7 +49,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-warning">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEWARNING 'Hinweise' %></h3>
+            <h3><%t SeoHeroToolPro.ANALYSEWARNING 'Notice' %></h3>
             <p>$RulesNotice</p>
           </div>
           <div class="icon">
@@ -60,7 +60,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-danger">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEERROR 'FEHLER' %></h3>
+            <h3><%t SeoHeroToolPro.ANALYSEERROR 'Error' %></h3>
             <p>$RulesWrong</p>
           </div>
           <div class="icon">
@@ -102,10 +102,10 @@
     <% if $KeywordRulesTotal == 0 %>
     <div class="row">
       <div class="col-md-12">
-      <h2><%t SeoHeroToolPro.ANALYSEKEYWORDHEADLINE 'Keyword Auswertung' %></h2>
+      <h2><%t SeoHeroToolPro.ANALYSEKEYWORDHEADLINE 'Keyword Analysis' %></h2>
       </div>
       <div>
-      <div class="col-md-12"><p><%t SeoHeroToolPro.NOKEYWORDS 'Es wurden keine Keywords für die Seite angelegt.' %></p>
+      <div class="col-md-12"><p><%t SeoHeroToolPro.NOKEYWORDS 'No keywords entered for this website.' %></p>
       </div>
     </div>
   <% else %>
@@ -116,7 +116,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-info">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSETESTS 'Prüfungen' %></h3>
+            <h3><%t SeoHeroToolPro.ANALYSETESTS 'Checks' %></h3>
             <p>$KeywordRulesTotal</p>
           </div>
           <span class="glyphicon glyphicon-check button-xl" aria-hidden="true"></span>
@@ -126,7 +126,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-success">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEPASSED 'Bestanden' %></h3>
+            <h3><%t SeoHeroToolPro.ANALYSEPASSED 'Passed' %></h3>
             <p>$KeywordRulesGood</p>
           </div>
           <div class="icon">
@@ -137,7 +137,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-warning">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEWARNING 'Hinweise' %></h3>
+            <h3><%t SeoHeroToolPro.ANALYSEWARNING 'Notice' %></h3>
             <p>$KeywordRulesNotice</p>
           </div>
           <div class="icon">
@@ -148,7 +148,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-danger">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEERROR 'FEHLER' %></h3>
+            <h3><%t SeoHeroToolPro.ANALYSEERROR 'Error' %></h3>
             <p>$KeywordRulesWrong</p>
           </div>
           <div class="icon">

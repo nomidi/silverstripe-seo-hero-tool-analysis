@@ -23,6 +23,9 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
     }
 
+    /*
+^     Functino Analyse checks the actual site
+     */
     public function Analyse()
     {
         $PageID = $this->request->param('ID');
@@ -51,6 +54,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $shtpSkipToMainContent = $this->checkSkipToMainContent();
         $shtpMeta = $this->checkMeta($Page);
         $shtpURL = $this->checkURL($Page);
+        $shtpUsefulFiles = $this->checkForUsefulFiles();
         $shtpWordCount = $this->checkWordCount();
         $shtpDirectoryDepth = $this->checkLinkDirectoryDepth($Page);
         $shtpHeadlineStructure = $this->checkHeadlineStructure();
@@ -77,6 +81,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'StrongResults' => $shtpStrong,
           'ImageResults' => $shtpImages,
           'KeywordResults' => $shtpKeywords,
+          'UsefulFilesResults' => $shtpUsefulFiles,
           'StructuredDataResults' => $shtpStructuredData,
           'SkipMainContentResults' => $shtpSkipToMainContent,
           'RulesWrong' => $this->rules['wrong'],
@@ -92,6 +97,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
         return $render;
     }
 
+    /*
+      Checks if in the configuration the setting is set that this site runs locally. If yes the W3C Check will be skipped.
+      Furhtermore the Structured Data check will not display the link to googles structured data tool.
+     */
     private function checkIfSiteRunsLocally()
     {
         $this->siteRunsLocally = Config::inst()->get('SeoHeroToolPro', 'locally');
@@ -112,6 +121,9 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
     }
 
+    /*
+      Function checkTitle() checks if the title of the page has the correct length and will return the appropiate message.
+     */
     private function checkTitle()
     {
         $lengthOfTitle = strlen($this->pageTitle);
@@ -162,6 +174,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
+    /*
+      The function checkMeta($Page) checks if the Meta description has a good length and will return the appropiate answer.
+      @param : $Page - the actual Page
+     */
     private function checkMeta($Page)
     {
         $metaDescription = $Page->BetterMetaDescription();
@@ -222,6 +238,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
+    /*
+      The function checkURL($Page) will check if tha URL has a good length and will return the appropiate answer.
+      @param $Page  the actual Page
+     */
     private function checkURL($Page)
     {
         $URL = $Page->URLSegment;
@@ -318,6 +338,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
+    /*
+      The function checkLinkDirectoryDepth() checks if the depth of the directory is fine and will return the appropiate answer.
+      A too deep directory structure is not liked by search engines.
+      @param $Page - the actual page
+     */
     private function checkLinkDirectoryDepth($Page)
     {
         $UnsortedListEntries = new ArrayList();
@@ -345,6 +370,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
+    /*
+      The function helperForHeadlineCheck() checks the occurence and length of the following tags: h1, h2, h3.
+      It will return then the appropiate results.
+      Will be called by the function checkHeadlineStructure()
+     */
     private function helperForHeadlineCheck()
     {
         $UnsortedListEntries = new ArrayList();
@@ -507,6 +537,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
         return $UnsortedListEntries;
     }
 
+    /*
+      The function checkHeadlineStructure() checks the headline structure of the actual document.
+      FOr example if h1, h2 h3 are present (with the help of function helperForHeadlineCheck()) and if there are skipped hX tags.
+     */
     private function checkHeadlineStructure()
     {
         $UnsortedListEntries = new ArrayList();
@@ -552,6 +586,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
+    /*
+      The function checkLinks() checks the links for titles and if there is content within the <a>-tags.
+      @param $Page - the actual Page
+     */
     private function checkLinks($Page)
     {
         $UnsortedListEntries = new ArrayList();
@@ -633,12 +671,20 @@ class SeoHeroToolProAdmin extends LeftAndMain
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
+    /*
+      The function PageExists() checks if the actual page exists.
+      @param $URL - the actual page.
+     */
     private function PageExists($URL)
     {
         $header = @get_headers($URL);
         return is_array($header) ? preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/', $header[0]) : false;
     }
 
+    /*
+      The function loadPage() loads the actual DOM.
+      @param $URL - the actual page
+     */
     private function loadPage($URL)
     {
         $this->dom = new DOMDocument('1.0', 'UTF-8');
@@ -657,6 +703,9 @@ class SeoHeroToolProAdmin extends LeftAndMain
         return true;
     }
 
+    /*
+      The function checkStrong() checks if there are any B / Strong elements on the website
+    */
     private function checkStrong()
     {
         $UnsortedListEntries = new ArrayList();
@@ -684,6 +733,9 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
+    /*
+      The function checkImages() checks if there are images on the site and also if the images contain alt-tags.
+    */
     private function checkImages()
     {
         $UnsortedListEntries = new ArrayList();
@@ -731,6 +783,12 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
+    /*
+      The function getW3CValidation() checks if the site runs locally. In that case no check will be performed. Otherweise
+      the SeoHeroToolProW3CValidator will be called to check the actual Page for HTML Error and Warning.
+      The result will be returned.
+      @param $URL - the actual Page
+     */
     private function getW3CValidation($URL)
     {
         $UnsortedListEntries = new ArrayList();
@@ -804,11 +862,14 @@ class SeoHeroToolProAdmin extends LeftAndMain
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
+    /*
+      The function checkSkipToMainContent() checks if there is within the body a link called "Skip to Main Content" which allows ScreenReaders to skip for example the navigation of the actual site.
+     */
     private function checkSkipToMainContent()
     {
         $UnsortedListEntries = new ArrayList();
         $search = 'skip to main content';
-        if (strpos(strtolower($this->pageBody), $search)) {
+        if (!strpos(strtolower($this->pageBody), $search)) {
             $UnsortedListEntries->push(new ArrayData(
               array(
                 'Content' => _t('SeoHeroToolProAnalyse.NoSkipToMainContentFound', 'No skip to main content link found on page.'),
@@ -831,6 +892,96 @@ class SeoHeroToolProAdmin extends LeftAndMain
         );
     }
 
+    /*
+      The function checkForUsefulFiles() checks if in the main folder of this project there is a robots.txt and sitemap.xml file and if they are accessible.
+     */
+    private function checkForUsefulFiles()
+    {
+        $UnsortedListEntries = new ArrayList();
+        if (isset($_SERVER['HTTPS'])) {
+            $server = 'https://'.$_SERVER['SERVER_NAME'];
+        } else {
+            $server = 'http://'.$_SERVER['SERVER_NAME'];
+        }
+        # check robots.txt
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $server.'/robots.txt');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLOPT_NOBODY, 1);
+
+        $curlResponse = curl_exec($ch);
+        curl_close($ch);
+        $curlResponeArray = explode("\n", $curlResponse);
+        if (strpos($curlResponeArray[0], ' 200 OK')) {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.FoundRobotstxt', 'Found Robots.txt file. Content was not checked.'),
+                'IconMess' => '3'
+              )
+            ));
+            $this->updateRules(3);
+        } elseif (strpos($curlResponeArray[0], ' 404')) {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.FoundNoRobotstxt', 'No Robots.txt existing. HTTP Response is ').': '.$curlResponeArray[0],
+                'IconMess' => '1'
+              )
+            ));
+            $this->updateRules(1);
+        } else {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.ProblemWithRobotstxt', 'Robots.txt file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is').': '.$curlResponeArray[0],
+                'IconMess' => '2'
+              )
+            ));
+            $this->updateRules(2);
+        }
+        # check sitemap.xml
+        $chsm = curl_init();
+        curl_setopt($chsm, CURLOPT_URL, $server.'/sitemap.xml');
+        curl_setopt($chsm, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($chsm, CURLOPT_HEADER, 1);
+        curl_setopt($chsm, CURLOPT_NOBODY, 1);
+        $chsmResponse = curl_exec($chsm);
+        curl_close($chsm);
+        $chsmResponseArray = explode("\n", $chsmResponse);
+        if (strpos($chsmResponseArray[0], ' 200 OK')) {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.FoundSitemapXML', 'Found Robots.txt file. Content was not checked.'),
+                'IconMess' => '3'
+              )
+            ));
+            $this->updateRules(3);
+        } elseif (strpos($chsmResponseArray[0], ' 404')) {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.FoundNoSitemapXML', 'No Sitemap.xml existing. HTTP Response is ').': '.$chsmResponseArray[0],
+                'IconMess' => '1'
+              )
+            ));
+            $this->updateRules(1);
+        } else {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.ProblemWithSitemapXML', 'Sitemap.xml file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is').': '.$chsmResponseArray[0],
+                'IconMess' => '2'
+              )
+            ));
+            $this->updateRules(2);
+        }
+        return array(
+          'Headline' => _t('SeoHeroToolProAnalyse.UseFiles', 'Files for Search Engines'),
+          'UnsortedListEntries' => $UnsortedListEntries
+        );
+    }
+
+    /*
+      The function checkStructuredData checks if there is structed data on the actual page. If so there will be a link to the google testing tool displayed, in case the website is not running locally
+      @param $Page - actual page
+     */
     private function checkStructuredData($Page)
     {
         $UnsortedListEntries = new ArrayList();
