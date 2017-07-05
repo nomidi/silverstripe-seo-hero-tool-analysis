@@ -1,18 +1,14 @@
 <?php
 class SeoHeroToolPro extends DataExtension
 {
-    public function updateCMSFields(FieldList $fields)
+    public function updateCMSActions(FieldList $actions)
     {
-        if (Permission::check('ADMIN')) {
-            $pageid = $this->owner->ID;
-            $shtpro_analyse_link = "/admin/shtpro-admin/Analyse/".$pageid;
-            $shtproLinkField = '<br> <a href="'.$shtpro_analyse_link.'" target="_blank">Seo Hero Tool Pro Analyse</a>.';
-            $profield = LiteralField::create('SHTPAnalyse', $shtproLinkField);
-
-            $fields->addFieldToTab('Root.SeoHeroTool', $profield);
-            return $fields;
-        } else {
-            return $fields;
-        }
+        $pagelink = "/admin/shtpro-admin/Analyse/".$this->owner->ID;
+        $analysefield = $this->owner->customise(array(
+        'Link'=> $pagelink,
+    'SeoHeroToolProPath' => SEO_HERO_TOOL_PRO_PATH
+  ))->renderWith('SeoHeroToolAnalyseCMSAction');
+        $info = LiteralField::create('SeoHeroToolAnalyseShortInfo', $analysefield);
+        $actions->push($info);
     }
 }
