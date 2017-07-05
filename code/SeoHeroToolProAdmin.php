@@ -48,6 +48,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
 
         $shtpTitle = $this->checkTitle();
+        $shtpSkipToMainContent = $this->checkSkipToMainContent();
         $shtpMeta = $this->checkMeta($Page);
         $shtpURL = $this->checkURL($Page);
         $shtpWordCount = $this->checkWordCount();
@@ -77,6 +78,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'ImageResults' => $shtpImages,
           'KeywordResults' => $shtpKeywords,
           'StructuredDataResults' => $shtpStructuredData,
+          'SkipMainContentResults' => $shtpSkipToMainContent,
           'RulesWrong' => $this->rules['wrong'],
           'RulesNotice' => $this->rules['notice'],
           'RulesGood' => $this->rules['good'],
@@ -556,9 +558,6 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $documentLinks = $this->dom->getElementsByTagName('a');
         $linkError = 0;
 
-
-
-
         foreach ($documentLinks as $link) {
             $linkName = $link->nodeValue;
             $linkline = 0;
@@ -621,7 +620,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($linkError == 0 && $documentLinks->length > 0) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                    'Content' => _t('SeoHeroToolProAnalyse.LinkNoAttrTitle', 'All links are having a title attribute'),
+                    'Content' => _t('SeoHeroToolProAnalyse.AllLinksHaveTitle', 'All links have a title attribute'),
                     'IconMess' => '3',
               )
             ));
@@ -803,6 +802,33 @@ class SeoHeroToolProAdmin extends LeftAndMain
         return array(
             'Headline' => _t('SeoHeroToolProAnalyse.W3CResult', 'W3C Validator Result'),
             'UnsortedListEntries' => $UnsortedListEntries);
+    }
+
+    private function checkSkipToMainContent()
+    {
+        $UnsortedListEntries = new ArrayList();
+        $search = 'skip to main content';
+        if (strpos(strtolower($this->pageBody), $search)) {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.NoSkipToMainContentFound', 'No skip to main content link found on page.'),
+                'IconMess' => '2'
+              )
+            ));
+            $this->updateRules(2);
+        } else {
+            $UnsortedListEntries->push(new ArrayData(
+            array(
+              'Content' => _t('SeoHeroToolProAnalyse.SkipToMainContentFound', 'Skip to main content found on page.'),
+              'IconMess' => '3'
+            )
+          ));
+            $this->updateRules(3);
+        }
+        return array(
+          'Headline' => _t('SeoHeroToolProAnalyse.SkipToMainContent', 'Skip to main content'),
+          'UnsortedListEntries' => $UnsortedListEntries
+        );
     }
 
     private function checkStructuredData($Page)

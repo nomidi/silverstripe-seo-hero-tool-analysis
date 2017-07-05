@@ -16,7 +16,8 @@ en:
     ImageWithoutAltTag: 'The Image <a href="/%1$s" target="_blank" alt="Dummy">%1$s</a> does not contain an Alt-Tag.'
     ImagesWithoutAltTagMessage: '%1$d out of %2$d Images are not having Alt-Tags. The images are the following:'
     Length: Length
-    LinkNoAttrTitle: 'All links are having a title attribute'
+    LinkNoAttrTitle: 'The Link %s has no title attribute'
+    AllLinksHaveTitle: 'All links have a title attribute'
     LinkNoAttrTitleAndNoLinkDescription: 'Please check the following area for a Link with an empty "a" tag<em>%s</em>'
     Links: Links
     MetaLengthGood: 'The length of the Meta-Description is perfect. Well Done! '
