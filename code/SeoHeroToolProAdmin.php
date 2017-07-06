@@ -154,15 +154,13 @@ class SeoHeroToolProAdmin extends LeftAndMain
     {
         $lengthOfTitle = strlen($this->pageTitle);
         $UnsortedListEntries = new ArrayList();
-<<<<<<< HEAD
+
         $titleHelpLink = "";
         $lengthRecommendation =  _t('SeoHeroToolProAnalyse.TitleLengthRecommendation', 'Recommendation 44 - 61 Characters');
         $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $lengthOfTitle;
-=======
-        $titleHelpLink = 'https://seo-summary.de/title-tag-der-optimale-seitentitel/';
-        $lengthRecommendation =  _t('SeoHeroToolPro.TitleLengthRecommendation', 'Recommendation 44 - 61 Characters');
-        $returnLength = $lengthRecommendation.' - '._t('SeoHeroTool.Length', 'Length').': ' . $lengthOfTitle;
->>>>>>> f5bd158b4697aeeefb51a7396fce5f36189adce0
+
+        
+
         if ($lengthOfTitle < 8) {
             $UnsortedListEntries->push(new ArrayData(
               array(
