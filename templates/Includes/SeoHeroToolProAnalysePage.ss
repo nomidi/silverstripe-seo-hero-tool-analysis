@@ -82,13 +82,13 @@
 
         <div class="tab-content">
           <div class="tab-pane active" id="analyse-home" role="tabpanel">
-            <% include SeoHeroToolProAnalyse_Good %>
+            <% include SeoHeroToolProAnalyse IconMessVal=3 %>
           </div>
           <div class="tab-pane" id="analyse-warning" role="tabpanel">
-            <% include SeoHeroToolProAnalyse_Notice %>
+            <% include SeoHeroToolProAnalyse IconMessVal=2 %>
           </div>
           <div class="tab-pane" id="analyse-error" role="tabpanel">
-            <% include SeoHeroToolProAnalyse_Error %>
+            <% include SeoHeroToolProAnalyse IconMessVal=1 %>
           </div>
         </div>
       </div>
@@ -169,13 +169,13 @@
 
         <div class="tab-content">
           <div class="tab-pane active" id="keyword-home" role="tabpanel">
-            <% include SeoHeroToolProKeywordAnalyse_Good %>
+            <% include SeoHeroToolProKeywordAnalyse IconMessVal=3 %>
           </div>
           <div class="tab-pane" id="keyword-warning" role="tabpanel">
-              <% include SeoHeroToolProKeywordAnalyse_Notice %>
+              <% include SeoHeroToolProKeywordAnalyse IconMessVal=2 %>
           </div>
           <div class="tab-pane" id="keyword-error" role="tabpanel">
-              <% include SeoHeroToolProKeywordAnalyse_Error %>
+              <% include SeoHeroToolProKeywordAnalyse IconMessVal=1 %>
           </div>
         </div>
       </div>

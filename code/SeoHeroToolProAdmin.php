@@ -128,7 +128,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
     {
         $lengthOfTitle = strlen($this->pageTitle);
         $UnsortedListEntries = new ArrayList();
-        $titleHelpLink = 'https://seo-summary.de/title-tag-der-optimale-seitentitel/';
+        $titleHelpLink = "";
         $lengthRecommendation =  _t('SeoHeroToolProAnalyse.TitleLengthRecommendation', 'Recommendation 44 - 61 Characters');
         $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $lengthOfTitle;
         if ($lengthOfTitle < 8) {
@@ -136,7 +136,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
               array(
                   'Content' => _t('SeoHeroToolProAnalyse.TitleLengthShort', 'The title of this site is too short! ').$returnLength,
                   'IconMess' => '1',
-                  'HelpLink' => $titleHelpLink,
+                  'HelpLink' => 'TitleLengthShort',
               )
             ));
             $this->updateRules(1);

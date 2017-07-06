@@ -1,7 +1,8 @@
+$test
 <table class="table table-bordered">
     <% with TitleResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -9,7 +10,7 @@
 
     <% with MetaResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -17,7 +18,7 @@
 
     <% with URLResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -25,7 +26,7 @@
 
     <% with WordCountResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -33,7 +34,7 @@
 
     <% with DirectoryDepthResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -41,7 +42,7 @@
 
     <% with HeadlineResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -49,7 +50,7 @@
 
     <% with LinkResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -57,7 +58,7 @@
 
     <% with StrongResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -65,7 +66,7 @@
 
     <% with ImageResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -73,7 +74,7 @@
 
     <% with SkipMainContentResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -81,7 +82,7 @@
 
     <% with UsefulFilesResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -89,7 +90,7 @@
 
     <% with StructuredDataResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
@@ -97,7 +98,7 @@
 
     <% with W3CResults %>
     <% loop UnsortedListEntries %>
-    <% if IconMess == 1 %>
+    <% if IconMess == $Top.IconMessVal %>
     <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
     <% end_if %>
     <% end_loop %>
