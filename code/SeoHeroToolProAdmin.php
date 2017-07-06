@@ -39,6 +39,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($this->loadPage($URL, $Page) == false) {
             $render = $this->owner->customise(array(
               'AccessError' => _t('SeoHeroToolProAnalyse.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
+                'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
             ))->renderWith('SeoHeroToolProAnalysePage');
             return $render;
         }
