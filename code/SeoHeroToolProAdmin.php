@@ -35,7 +35,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
         $URL = $Page->AbsoluteLink();
         $versions = $Page->allVersions();
-
+        Requirements::clear();
         if ($this->loadPage($URL, $Page) == false) {
             $render = $this->owner->customise(array(
               'AccessError' => _t('SeoHeroToolProAnalyse.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
@@ -70,7 +70,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $Keywords = new SeoHeroToolProAnalyseKeyword();
         $shtpKeywords = $Keywords->checkKeywords($Page, $this->pageImages);
         $keywordRules = $Keywords->getKeywordResults();
-        Requirements::clear();
+
         $render = $this->owner->customise(array(
           'WordCount' => $this->wordCount,
           'PageLink' => $URL,
