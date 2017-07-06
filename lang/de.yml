@@ -10,39 +10,54 @@ de:
     ANALYSEKEYWORDHEADLINE: Keyword Auswertung
     NOKEYWORDS: 'Es wurden keine Keywords für die Seite angelegt.'
     Images: Bilder
-  SeoHeroToolProAdmin:
-    MENUTITLE: SeoHeroToolPro
-  SeoHeroToolProAnalyse:
     NumberOfWords: Anzahl an Wörtern
     NumberOfImages: Anzahl an Bildern
     NumberOfLinks: Anzahl an Links
+    CanNotAccessCurrentPage: 'Bitte prüfen sie, ob die Seite für den Zugriff eventuell Authentifizierungen braucht. Das ist über das Tool nicht möglich.'
+    HeadLineRecommendation: '(optimale Länge zwischen 15 und 80 Zeichen)'
+    DirectoryDepth: ' Verzeichnis Tiefe'
+    Headlines: Überschriften
+    ImageWithoutAltTag: 'Das Bild %1$s beinhaltet kein Alt-Attribut.'
+    ImageWithSameAltAndFileName: Das Bild %1$s hat den gleichen Dateinamen und Alt-Attrbut.
+    Length: Länge
+    Links: Links
+    MetaLengthRecommendation: '(Optimale Länge ist zwischen 120 und 140 Zeichen)'
+    Metadescription: Meta-Beschreibung
+    StructuredData: 'Strukturierte Daten'
+    Title: Titel
+    TitleLengthRecommendation: 'Empfohlen 44 bis 61 Zeichen'
+    URL: 'URL Parameter'
+    URLLengthRecommendation: '(Optimale Länge ist zwischen 20 und 120 Zeichen)'
+    W3CErrorPlural: 'mehrere HTML Fehler'
+    W3CErrorSingular: 'ein HTML Fehler'
+    W3CResult: 'W3C Validator Ergebnis'
+    W3CWarningPlural: 'mehrere HTML Warnungen'
+    W3CWarningSingular: 'eine HTML Warnung'
+    WordCount: 'Wörteranzahl'
+    WordCountRecommendation: '(Eine Webseite sollte mehr als 200 Wörter beinhalten)'
+    strongElements: 'Strong Elemente'  
+    UsefulFiles: Dateien für Suchengines
+    Keyword: Keyword
+  SeoHeroToolProAdmin:
+    MENUTITLE: SeoHeroToolPro
+  SeoHeroToolProAnalyse:
     LinkHasSameTitleAsValue: Der Link %1$s
     LinksWithSameTitleAndName: Es gibt Links mit dem gleichen Namen und Titel Attribute. Dies sind die folgenden Links:
-    CanNotAccessCurrentPage: 'Bitte prüfen sie, ob die Seite für den Zugriff eventuell Authentifizierungen braucht. Das ist über das Tool nicht möglich.'
     AllImagesWithAltTag: 'Alle Bilder beinhalten Alt-Attribute.'
     ContentLengthGood: 'Die Webseite hat mehr als 200 Wörter. Gut gemacht.'
     ContentLengthOK: 'Die Webseite hat weniger als 200 Wörter.'
     ContentLengthShort: 'Der Webseiten Text ist viel zu kurz.'
-    DirectoryDepth: ' Verzeichnis Tiefe'
-    HeadLineRecommendation: '(optimale Länge zwischen 15 und 80 Zeichen)'
     HeadlineStructureError: 'Es gibt mindestens eine H%1$d Überschrift aber keine H%2$d Überschrift.'
-    Headlines: Überschriften
-    ImageWithoutAltTag: 'Das Bild <a href="/%1$s" target="_blank" alt="Dummy">%1$s</a> beinhaltet keinen Alt-Attribute.'
     ImagesWithoutAltTagMessage: '%1$d von %2$d Bildern haben keine Alt-Attribute. Es handelt sich um die folgenden Bilder:'
-    ImageWithSameAltAndFileName: Das Bild %1$s hat den gleichen Dateinamen und Alt-Attrbut.
     AllImagesWithDiffferentFilenameAndAltTag: Alle Bilder haben unterschiedliche Dateinamen und Alt-Attribut.
     ImagesWithoutDifferentFilenameAndAltTag: %1$d von %2$d Bildern haben den gleichen Dateinamen und Alt-Attribut. Dies sind die folgenden Bilder:
-    Length: Länge
     LinkNoAttrTitle: 'Der Link %s hat kein Titel Attribut'
     AllLinksHaveTitle: 'Alle Links haben ein Titel Attribut.'
     LinkNoAttrTitleAndNoLinkDescription: 'Bitte den folgenden Bereich auf Links mit einem leerem "a"-Tag prüfen. %s'
-    Links: Links
     MetaLengthGood: 'Die Länge der Meta-Beschreibung ist perfekt. Gut gemacht.'
     MetaLengthLong: 'Die Meta-Beschreibung ist zu lang.'
     MetaLengthOK: 'Die Länge der Meta-Beschreibung ist gut, könnte aber länger sein.'
-    MetaLengthRecommendation: '(Optimale Länge ist zwischen 120 und 140 Zeichen)'
     MetaLengthShort: 'Die Meta-Beschreibung ist zu kurz.'
-    Metadescription: Meta-Beschreibung
     NoH1: 'Tag nicht gefunden.'
     NoHeadlineStructureError: 'Die Überschriften Struktur enthält keine offensichtlichen Fehler.'
     NoImagesFound: 'Diese Seite beinhaltet keine Bilder.'
@@ -50,33 +65,21 @@ de:
     NoStructuredDataFound: 'Keine strukturierten Daten gefunden.'
     SiteRunsLocally: 'Die Webseite läuft lokal. Keine W3C-Validierung möglich.'
     SitesRunsLocally: 'Die Webseite läuft lokal. Deswegen ist es nicht möglich die strukturierten Daten zu prüfen.'
-    StructuredData: 'Strukturierte Daten'
     StructuredDataFound: ' Strukturierte Daten gefunden. Diese könnne hier geprüft werden'
-    Title: Titel
     TitleLengthGood: 'Der Titel der Webseite ist perfekt. Gut gemacht.'
     TitleLengthLong: 'Der Title dieser Seite ist zu lang. '
     TitleLengthOK: 'Der Titel dieser Seite ist gut, könnte aber länger sein. '
-    TitleLengthRecommendation: 'Empfohlen 44 bis 61 Zeichen'
     TitleLengthShort: 'Der Titel dieser Seite ist zu kurz. '
     TooHighDirectoryDepth: 'Die Verzeichnis Tiefe ist perfekt. '
     TooMuchH1: 'Es gibt mehr als einen h1-Tag.'
-    URL: 'URL Parameter'
     URLLengthGood: 'Die Länge der URL ist perfekt. Gut gemacht.'
     URLLengthHome: 'Die URL der homepage muss "home" sein.'
     URLLengthLong: 'Die Länge der URL ist perfekt. '
     URLLengthOK: 'Die Länge der URL ist gut, könnte aber länger sein. '
-    URLLengthRecommendation: '(Optimale Länge ist zwischen 20 und 120 Zeichen)'
     URLLengthShort: 'Die Länge der URL ist viel zu kurz. '
     W3CCountMessage: 'Es wurden auf der Seite %1$s und %2$s gefunden'
-    W3CErrorPlural: 'mehrere HTML Fehler'
-    W3CErrorSingular: 'ein HTML Fehler'
     W3CNNoErrorsAndWarning: 'Der Validator hat keine Fehler oder Warnungen im Dokument gefunden.'
     W3CNon-Document-Error: 'Die Webseite kann nicht gescannt werde. Läuft sie vielleicht lokal?'
-    W3CResult: 'W3C Validator Ergebnis'
-    W3CWarningPlural: 'mehrere HTML Warnungen'
-    W3CWarningSingular: 'eine HTML Warnung'
-    WordCount: 'Wörteranzahl'
-    WordCountRecommendation: '(Eine Webseite sollte mehr als 200 Wörter beinhalten)'
     h1LengthEmpty: 'Die h1 Überschrift ist leer'
     h1LengthTooLong: 'Die h1 Überschrift ist zu lang.'
     h1LengthTooShort: 'Die h1 Überschrift ist zu kurz.'
@@ -87,13 +90,15 @@ de:
     headlineLengthTooLong: ' Überschrift ist recht lang.'
     headlineLengthTooShort: ' Überschrift ist recht kurz.'
     headlineWitSomeContent: 'Die Überschrift %1$s hat Inhalt aber keinen Text. Folgender Tag wurde gefunden '
-    strongElements: 'Strong Elemente'
-  SeoHeroToolProAnalyseKeyword:
+    FoundNoStrongElements: 'Kein "strong" Elemente auf der Webseite gefunden.'
+    FoundOneOrMoreStrongElements: 'Ein oder mehrere "strong" Elemente auf der Webseite gefunden.'
+    FoundSitemapXML: Robots.txt gefunden. Inhalt wurde nicht geprüft.
+    FoundNoSitemapXML: Es existiert keine Sitemap.xml . HTTP Response ist
+    ProblemWithSitemapXML: Sitemap.xml konnte nicht auferufen werden. - The HTTP Response ist
     FoundKeywordInOneImage: 'Keyword wurde in einem Bild gefunden für Keyword '
     FoundKeywordInOneImageAltTag: 'Keyword wurde in einem Bild Alt Tag geunden für Keyword '
     FoundKeywordInSeveralImageAltTags: 'Keyword wurde %1$d mal in Bild Alt Tahs gefunden für Keyword '
     FoundKeywordInSeveralImages: 'Keyword wurde %1$d mal in Bildernamen gefunden für Keyword '
-    Keyword: Keyword
     KeywordFoundMoreThanOnceInMetaDescription: 'Keyword wurde %1$d mal in der Meta Beschreibung gefunden für Keyword '
     KeywordFoundOnceInMetaDescription: 'Keyword wurde einmal in der Meta Beschreibung gefunden für Keyword'
     KeywordHomeURL: 'Home URL. Kann keine Keywords finden welche zum URLSegment "home" passen.'

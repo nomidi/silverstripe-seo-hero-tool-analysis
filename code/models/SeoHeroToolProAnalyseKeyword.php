@@ -55,7 +55,7 @@ class SeoHeroToolProAnalyseKeyword
                             $pageIsHomepageURLcheck = true;
                             $KeywordEntries->push(new ArrayData(
                               array(
-                                'Content' => _t('SeoHeroToolProAnalyseKeyword.KeywordHomeURL', 'Home URL. Can not find Keywords which is fine on Homepage with URLSegment "home".'),
+                                'Content' => _t('SeoHeroToolProAnalyse.KeywordHomeURL', 'Home URL. Can not find Keywords which is fine on Homepage with URLSegment "home".'),
                                 'IconMess' => '2'
                               )
                             ));
@@ -63,7 +63,7 @@ class SeoHeroToolProAnalyseKeyword
                         } elseif ($pageIsHomepage === false) {
                             $KeywordEntries->push(new ArrayData(
                               array(
-                                'Content' => _t('SeoHeroToolProAnalyseKeyword.KeywordNotInUrl', 'Keyword not found in URL for').': '.$keywordOutput,
+                                'Content' => _t('SeoHeroToolProAnalyse.KeywordNotInUrl', 'Keyword not found in URL for').': '.$keywordOutput,
                                 'IconMess' => '1'
                               )
                             ));
@@ -72,7 +72,7 @@ class SeoHeroToolProAnalyseKeyword
                     } else {
                         $KeywordEntries->push(new ArrayData(
                           array(
-                            'Content' => _t('SeoHeroToolProAnalyseKeyword.KeywordInURL', 'Keyword found in URL for').': '.$keywordOutput,
+                            'Content' => _t('SeoHeroToolProAnalyse.KeywordInURL', 'Keyword found in URL for').': '.$keywordOutput,
                             'IconMess' => '3'
                           )
                         ));
@@ -82,7 +82,7 @@ class SeoHeroToolProAnalyseKeyword
                     if (strpos($title, $keyword) === false) {
                         $KeywordEntries->push(new ArrayData(
                           array(
-                            'Content' => _t('SeoHeroToolProAnalyseKeyword.KeywordNotInTitle', 'Keyword not found in Page Title for').': '.$keywordOutput,
+                            'Content' => _t('SeoHeroToolProAnalyse.KeywordNotInTitle', 'Keyword not found in Page Title for').': '.$keywordOutput,
                             'IconMess' => '1'
                           )
                         ));
@@ -90,7 +90,7 @@ class SeoHeroToolProAnalyseKeyword
                     } else {
                         $KeywordEntries->push(new ArrayData(
                           array(
-                            'Content' => _t('SeoHeroToolProAnalyseKeyword.KeywordInTitle', 'Keyword found in the Page Title for').': '.$keywordOutput,
+                            'Content' => _t('SeoHeroToolProAnalyse.KeywordInTitle', 'Keyword found in the Page Title for').': '.$keywordOutput,
                             'IconMess' => '3'
                           )
                         ));
@@ -101,7 +101,7 @@ class SeoHeroToolProAnalyseKeyword
                     if ($keywordOccurence == 0) {
                         $KeywordEntries->push(new ArrayData(
                           array(
-                            'Content' => _t('SeoHeroToolProAnalyseKeyword.KeywordNotInMetaDescription', 'Keyword not found in Meta Description for').': '.$keywordOutput,
+                            'Content' => _t('SeoHeroToolProAnalyse.KeywordNotInMetaDescription', 'Keyword not found in Meta Description for').': '.$keywordOutput,
                             'IconMess' => '1'
                           )
                         ));
@@ -109,7 +109,7 @@ class SeoHeroToolProAnalyseKeyword
                     } elseif ($keywordOccurence == 1) {
                         $KeywordEntries->push(new ArrayData(
                         array(
-                          'Content' => _t('SeoHeroToolProAnalyseKeyword.KeywordFoundOnceInMetaDescription', 'Found Keyword once in Meta Description for').': '.$keywordOutput,
+                          'Content' => _t('SeoHeroToolProAnalyse.KeywordFoundOnceInMetaDescription', 'Found Keyword once in Meta Description for').': '.$keywordOutput,
                           'IconMess' => '3'
                         )
                       ));
@@ -117,7 +117,7 @@ class SeoHeroToolProAnalyseKeyword
                     } else {
                         $KeywordEntries->push(new ArrayData(
                           array(
-                            'Content' => sprintf(_t('SeoHeroToolProAnalyseKeyword.KeywordFoundMoreThanOnceInMetaDescription', 'Found Keyword %1$d times in Meta Description for').': '.$keywordOutput, $keywordOccurence),
+                            'Content' => sprintf(_t('SeoHeroToolProAnalyse.KeywordFoundMoreThanOnceInMetaDescription', 'Found Keyword %1$d times in Meta Description for').': '.$keywordOutput, $keywordOccurence),
                             'IconMess' => '3'
                           )
                         ));
@@ -139,7 +139,7 @@ class SeoHeroToolProAnalyseKeyword
                         if ($keyImgFile == 0) {
                             $KeywordEntries->push(new ArrayData(
                               array(
-                                'Content' => _t('SeoHeroToolProAnalyseKeyword.KeywordNotInImage', 'Found Keyword not in Image Name for').': '.$keywordOutput,
+                                'Content' => _t('SeoHeroToolProAnalyse.KeywordNotInImage', 'Found Keyword not in Image Name for').': '.$keywordOutput,
                                 'IconMess' => '1'
                               )
                             ));
@@ -147,7 +147,7 @@ class SeoHeroToolProAnalyseKeyword
                         } elseif ($keyImgFile == 1) {
                             $KeywordEntries->push(new ArrayData(
                               array(
-                                'Content' => _t('SeoHeroToolProAnalyseKeyword.FoundKeywordInOneImage', 'Found Keyword in one Image Name for').': '.$keywordOutput,
+                                'Content' => _t('SeoHeroToolProAnalyse.FoundKeywordInOneImage', 'Found Keyword in one Image Name for').': '.$keywordOutput,
                                 'IconMess' => '3'
                               )
                             ));
@@ -155,7 +155,7 @@ class SeoHeroToolProAnalyseKeyword
                         } else {
                             $KeywordEntries->push(new ArrayData(
                             array(
-                              'Content' => sprintf(_t('SeoHeroToolProAnalyseKeyword.FoundKeywordInSeveralImages', 'Found Keyword %1$d times in Image Names for').': '.$keywordOutput, $keyImgFile),
+                              'Content' => sprintf(_t('SeoHeroToolProAnalyse.FoundKeywordInSeveralImages', 'Found Keyword %1$d times in Image Names for').': '.$keywordOutput, $keyImgFile),
                               'IconMess' => '3'
                             )
                           ));
@@ -165,7 +165,7 @@ class SeoHeroToolProAnalyseKeyword
                         if ($keyImgAlt == 0) {
                             $KeywordEntries->push(new ArrayData(
                               array(
-                                'Content' => _t('SeoHeroToolProAnalyseKeyword.KeywordNotInImageAltTag', 'Found Keyword not in Image Alt-Tag for').': '.$keywordOutput,
+                                'Content' => _t('SeoHeroToolProAnalyse.KeywordNotInImageAltTag', 'Found Keyword not in Image Alt-Tag for').': '.$keywordOutput,
                                 'IconMess' => '1'
                               )
                             ));
@@ -173,7 +173,7 @@ class SeoHeroToolProAnalyseKeyword
                         } elseif ($keyImgAlt == 1) {
                             $KeywordEntries->push(new ArrayData(
                               array(
-                                'Content' => _t('SeoHeroToolProAnalyseKeyword.FoundKeywordInOneImageAltTag', 'Found Keyword in one Image Alt Tag for').': '.$keywordOutput,
+                                'Content' => _t('SeoHeroToolProAnalyse.FoundKeywordInOneImageAltTag', 'Found Keyword in one Image Alt Tag for').': '.$keywordOutput,
                                 'IconMess' => '3'
                               )
                             ));
@@ -181,7 +181,7 @@ class SeoHeroToolProAnalyseKeyword
                         } else {
                             $KeywordEntries->push(new ArrayData(
                               array(
-                                'Content' => sprintf(_t('SeoHeroToolProAnalyseKeyword.FoundKeywordInSeveralImageAltTags', 'Found Keyword %1$d times in Image Alt Tags for').': '.$keywordOutput, $keyImgFile),
+                                'Content' => sprintf(_t('SeoHeroToolProAnalyse.FoundKeywordInSeveralImageAltTags', 'Found Keyword %1$d times in Image Alt Tags for').': '.$keywordOutput, $keyImgFile),
                                 'IconMess' => '3'
                               )
                             ));
@@ -191,7 +191,7 @@ class SeoHeroToolProAnalyseKeyword
                         $noImagesOnPage = true;
                         $KeywordEntries->push(new ArrayData(
                           array(
-                            'Content' => _t('SeoHeroToolProAnalyseKeyword.NoImagesFound', 'No Images found on this site.'),
+                            'Content' => _t('SeoHeroToolProAnalyse.NoImagesFound', 'No Images found on this site.'),
                             'IconMess' => '2'
                           )
                         ));
@@ -201,7 +201,7 @@ class SeoHeroToolProAnalyseKeyword
             }
         }
         return array(
-        'Headline' => _t('SeoHeroToolProAnalyseKeyword.Keyword', 'Keyword'),
+        'Headline' => _t('SeoHeroToolPro.Keyword', 'Keyword'),
         'KeywordEntries' => $KeywordEntries,
       );
     }

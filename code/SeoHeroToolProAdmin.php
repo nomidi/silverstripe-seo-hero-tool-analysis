@@ -39,7 +39,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         Requirements::clear();
         if ($this->loadPage($URL, $Page) == false) {
             $render = $this->owner->customise(array(
-              'AccessError' => _t('SeoHeroToolProAnalyse.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
+              'AccessError' => _t('SeoHeroToolPro.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
                 'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
             ))->renderWith('SeoHeroToolProAnalysePage');
             return $render;
@@ -133,15 +133,15 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $shtpCountArray = new ArrayList();
 
         $shtpCountArray->push(array(
-          'CountLabel'=>_t('SeoHeroToolProAnalyse.NumberOfWords', 'Number of Words'),
+          'CountLabel'=>_t('SeoHeroToolPro.NumberOfWords', 'Number of Words'),
           'CountValue'=> $this->wordCount
         ));
         $shtpCountArray->push(array(
-          'CountLabel'=>_t('SeoHeroToolProAnalyse.NumberOfImages', 'Number of Images'),
+          'CountLabel'=>_t('SeoHeroToolPro.NumberOfImages', 'Number of Images'),
           'CountValue'=> $this->pageImages->length
         ));
         $shtpCountArray->push(array(
-          'CountLabel'=>_t('SeoHeroToolProAnalyse.NumberOfLinks', 'Number of Links'),
+          'CountLabel'=>_t('SeoHeroToolPro.NumberOfLinks', 'Number of Links'),
           'CountValue'=> $this->pageLinks->length
         ));
         return array('UnsortedListEntries'=>$shtpCountArray);
@@ -155,8 +155,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $lengthOfTitle = strlen($this->pageTitle);
         $UnsortedListEntries = new ArrayList();
         $titleHelpLink = 'https://seo-summary.de/title-tag-der-optimale-seitentitel/';
-        $lengthRecommendation =  _t('SeoHeroToolProAnalyse.TitleLengthRecommendation', 'Recommendation 44 - 61 Characters');
-        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $lengthOfTitle;
+        $lengthRecommendation =  _t('SeoHeroToolPro.TitleLengthRecommendation', 'Recommendation 44 - 61 Characters');
+        $returnLength = $lengthRecommendation.' - '._t('SeoHeroTool.Length', 'Length').': ' . $lengthOfTitle;
         if ($lengthOfTitle < 8) {
             $UnsortedListEntries->push(new ArrayData(
               array(
@@ -196,7 +196,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(1);
         }
         return array(
-          'Headline' => _t('SeoHeroToolProAnalyse.Title', 'Title'),
+          'Headline' => _t('SeoHeroToolPro.Title', 'Title'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -210,8 +210,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $lengthOfMetaDescription = strlen($metaDescription);
         $metaDescHelpLink = 'http://www.searchmetrics.com/de/glossar/meta-description/';
         $UnsortedListEntries = new ArrayList();
-        $lengthRecommendation =  _t('SeoHeroToolProAnalyse.MetaLengthRecommendation', '(Optimal length is between 120 - 140 Characters)');
-        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $lengthOfMetaDescription;
+        $lengthRecommendation =  _t('SeoHeroToolPro.MetaLengthRecommendation', '(Optimal length is between 120 - 140 Characters)');
+        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $lengthOfMetaDescription;
 
         if ($lengthOfMetaDescription == 0) {
             $UnsortedListEntries->push(new ArrayData(
@@ -260,7 +260,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(1);
         }
         return array(
-          'Headline' => _t('SeoHeroToolProAnalyse.Metadescription', 'Meta-Description'),
+          'Headline' => _t('SeoHeroToolPro.Metadescription', 'Meta-Description'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -274,8 +274,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $UnsortedListEntries = new ArrayList();
         $lengthOfURL = strlen($URL);
         $urlHelpLink = 'http://www.seo-scene.de/seo/geheimnis-perfekte-seo-urls-1417.html';
-        $lengthRecommendation =  _t('SeoHeroToolProAnalyse.URLLengthRecommendation', '(Optimal length is between 20 - 120 Characters)');
-        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $lengthOfURL;
+        $lengthRecommendation =  _t('SeoHeroToolPro.URLLengthRecommendation', '(Optimal length is between 20 - 120 Characters)');
+        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $lengthOfURL;
 
         if ($URL == "home") {
             $UnsortedListEntries->push(new ArrayData(
@@ -325,15 +325,15 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
 
         return array(
-          'Headline' => _t('SeoHeroToolProAnalyse.URL', 'URL Parameter'),
+          'Headline' => _t('SeoHeroToolPro.URL', 'URL Parameter'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
     private function checkWordCount()
     {
         $UnsortedListEntries = new ArrayList();
-        $lengthRecommendation =  _t('SeoHeroToolProAnalyse.WordCountRecommendation', '(A page should contain more than 200 words)');
-        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $this->wordCount;
+        $lengthRecommendation =  _t('SeoHeroToolPro.WordCountRecommendation', '(A page should contain more than 200 words)');
+        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $this->wordCount;
         if ($this->wordCount < 50) {
             $UnsortedListEntries->push(new ArrayData(
               array(
@@ -360,7 +360,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(3);
         }
         return array(
-          'Headline' => _t('SeoHeroToolProAnalyse.WordCount', 'Word Count'),
+          'Headline' => _t('SeoHeroToolPro.WordCount', 'Word Count'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -373,7 +373,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
     {
         $UnsortedListEntries = new ArrayList();
         $folders = substr_count($Page->Link(), "/");
-        $addText = _t('SeoHeroToolProAnalyse.DirectoryDepth', ' DirectoryDepth').': '.$folders;
+        $addText = _t('SeoHeroToolPro.DirectoryDepth', ' DirectoryDepth').': '.$folders;
         if ($folders > 5) {
             $UnsortedListEntries->push(new ArrayData(
             array(
@@ -441,8 +441,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $sc = SiteConfig::get()->First();
                 $headlineContent = $value->item(0)->nodeValue;
                 $headlineLength = strlen($headlineContent);
-                $lengthRecommendation =  _t('SeoHeroToolProAnalyse.HeadLineRecommendation', '(optimal length between 15 and 80 Characters)');
-                $addText = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $headlineLength;
+                $lengthRecommendation =  _t('SeoHeroToolPro.HeadLineRecommendation', '(optimal length between 15 and 80 Characters)');
+                $addText = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $headlineLength;
                 if ($headlineLength == 0) {
                     $UnsortedListEntries->push(new ArrayData(
                         array(
@@ -490,7 +490,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     $headlineContent = $singleHeadline->textContent;
                     $headlineLength = strlen($headlineContent);
                     $lengthRecommendation =  _t('SeoHeroToolProAnalyse.HeadLineRecommendation', '(optimal length between 15 and 80 Characters)');
-                    $addText = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $headlineLength;
+                    $addText = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $headlineLength;
                     if ($headlineLength == 0) {
                         $i = 0;
                         $searchedHeadlinePos = 0;
@@ -608,7 +608,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             }
         }
         return array(
-            'Headline' => _t('SeoHeroToolProAnalyse.Headlines', 'Headlines'),
+            'Headline' => _t('SeoHeroToolPro.Headlines', 'Headlines'),
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -706,7 +706,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
 
         return array(
-            'Headline' => _t('SeoHeroToolProAnalyse.Links', 'Links'),
+            'Headline' => _t('SeoHeroToolPro.Links', 'Links'),
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -754,7 +754,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($domStrongCount == 0) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => 'Found no strong elements on website (B / STRONG).',
+                'Content' => _t('SeoHeroToolProAnalyse.FoundNoStrongElements', 'Found no strong elements on website (B / STRONG).'),
                 'IconMess' => '2'
               )
             ));
@@ -762,14 +762,14 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => 'Found one or more strong elements on website (B / STRONG).',
+                'Content' => _t('SeoHeroToolProAnalyse.FoundOneOrMoreStrongElements', 'Found one or more strong elements on website (B / STRONG).'),
                 'IconMess' => '3'
               )
             ));
             $this->updateRules(3);
         }
         return array(
-          'Headline' => _t('SeoHeroToolProAnalyse.strongElements', 'Strong elements'),
+          'Headline' => _t('SeoHeroToolPro.strongElements', 'Strong elements'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -791,11 +791,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $imgFileNameWithoutPath = substr($imgFileName, strrpos($imgFileName, '/')+1);
                 $imgFileNameWithoutExtension = substr($imgFileNameWithoutPath, 0, strrpos($imgFileNameWithoutPath, '.'));
                 if (trim($imgAltTag) == '') {
-                    $message .= sprintf(_t('SeoHeroToolProAnalyse.ImageWithoutAltTag', 'The Image %1$s does not contain an Alt-Tag.').'<br/>', $imgFileName);
+                    $message .= sprintf(_t('SeoHeroToolPro.ImageWithoutAltTag', 'The Image %1$s does not contain an Alt-Tag.').'<br/>', $imgFileName);
                     $imagesWithoutAltTag++;
                 }
                 if ($imgAltTag == $imgFileNameWithoutPath || $imgAltTag == $imgFileNameWithoutExtension) {
-                    $sameNameMessage .= sprintf(_t('SeoHeroToolProAnalyse.ImageWithSameAltAndFileName', 'The Image %1$s has the same filename and alt tag.'), $imgFileName);
+                    $sameNameMessage .= sprintf(_t('SeoHeroToolPro.ImageWithSameAltAndFileName', 'The Image %1$s has the same filename and alt tag.'), $imgFileName);
                     $imagesWithSameAltTagAndFilename++;
                 }
             }
@@ -899,15 +899,15 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(3);
         } elseif ($nonDocumentError == 0) {
             if ($foundHTMLErrors == 1) {
-                $messageFoundHTMLErrors = _t('SeoHeroToolProAnalyse.W3CErrorSingular', 'one HTML error');
+                $messageFoundHTMLErrors = _t('SeoHeroToolPro.W3CErrorSingular', 'one HTML error');
             } elseif ($foundHTMLErrors > 1) {
-                $messageFoundHTMLErrors = _t('SeoHeroToolProAnalyse.W3CErrorPlural', 'several HTML errors');
+                $messageFoundHTMLErrors = _t('SeoHeroToolPro.W3CErrorPlural', 'several HTML errors');
             }
 
             if ($foundHTMLWarnings == 1) {
-                $messageFoundHTMLWarnings = _t('SeoHeroToolProAnalyse.W3CWarningSingular', 'one HTML warning');
+                $messageFoundHTMLWarnings = _t('SeoHeroToolPro.W3CWarningSingular', 'one HTML warning');
             } elseif ($foundHTMLWarnings > 1) {
-                $messageFoundHTMLWarnings = _t('SeoHeroToolProAnalyse.W3CWarningPlural', 'several HTML warnings');
+                $messageFoundHTMLWarnings = _t('SeoHeroToolPro.W3CWarningPlural', 'several HTML warnings');
             }
             $UnsortedListEntries->push(new ArrayData(
             array(
@@ -924,7 +924,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
 
         return array(
-            'Headline' => _t('SeoHeroToolProAnalyse.W3CResult', 'W3C Validator Result'),
+            'Headline' => _t('SeoHeroToolPro.W3CResult', 'W3C Validator Result'),
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -1039,7 +1039,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(2);
         }
         return array(
-          'Headline' => _t('SeoHeroToolProAnalyse.UseFiles', 'Files for Search Engines'),
+          'Headline' => _t('SeoHeroToolProAnalyse.UsefulFiles', 'Files for Search Engines'),
           'UnsortedListEntries' => $UnsortedListEntries
         );
     }
@@ -1060,7 +1060,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             ));
             $this->updateRules(2);
             return array(
-            'Headline' => _t('SeoHeroToolProAnalyse.StructuredData', 'Structured Data'),
+            'Headline' => _t('SeoHeroToolAnalyse.StructuredData', 'Structured Data'),
             'UnsortedListEntries' => $UnsortedListEntries
           );
         }
