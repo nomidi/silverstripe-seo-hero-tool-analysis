@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="$SHTProPath/thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="$SHTProPath/thirdparty/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="$SHTProPath/css/style.css">
-  <script src="$SHTProPath//thirdparty/jquery-3.2.1.min.js" ></script>
+  <script src="$SHTProPath/thirdparty/jquery-3.2.1.min.js" ></script>
   <script src="$SHTProPath/thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js" ></script>
 
 </head>
@@ -22,12 +22,14 @@
     </div>
 
     <% if AccessError %>
-      <div class="row info-boxes">
+    <div class="row info-boxes">
+      <div class="col-md-12">
         <h2><%t SeoHeroToolPro.ANALYSEGENERALACCESSISSUE 'General Access Issue' %></h2>
       </div>
       <div class="col-md-12">
         <p>$AccessError</p>
       </div>
+    </div>
     <% else %>
 
     <div class="row info-boxes">
