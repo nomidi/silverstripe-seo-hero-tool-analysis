@@ -20,13 +20,15 @@
           <p><strong><a href="$PageLink" target="_blank">$PageLink</a></strong></p>
           <% if AccessError == '' %>
 
-          <table class="table">
-              <% with CountResults %>
-              <% loop UnsortedListEntries %>
-              <tr><td class="area">$CountLabel</td><td class="content">$CountValue</td></tr>
-              <% end_loop %>
-              <% end_with %>
-          </table>
+          <div class="custom-content">
+            <table class="table table-bordered ">
+                <% with CountResults %>
+                <% loop UnsortedListEntries %>
+                <tr><td class="area">$CountLabel</td><td class="content">$CountValue</td></tr>
+                <% end_loop %>
+                <% end_with %>
+            </table>
+          </div>
           <% end_if %>
         </div>
     </div>
