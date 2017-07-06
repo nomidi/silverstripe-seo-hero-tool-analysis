@@ -22,6 +22,9 @@ de:
     Headlines: Überschriften
     ImageWithoutAltTag: 'Das Bild <a href="/%1$s" target="_blank" alt="Dummy">%1$s</a> beinhaltet keinen Alt-Tag.'
     ImagesWithoutAltTagMessage: '%1$d von %2$d Bildern hat keine Alt-Tags. Es handelt sich um die folgenden Bilder:'
+    ImageWithSameAltAndFileName: Das Bild %1$s hat den gleichen Dateinamen und Alt-Tag.
+    AllImagesWithDiffferentFilenameAndAltTag: Alle Bilder haben unterschiedliche Dateinamen und Alt-Tags.
+    ImagesWithoutDifferentFilenameAndAltTag: %1$d von %2$d Bildern haben den gleichen Dateinamen und Alt-Tag. Dies sind die folgenden Bilder:
     Length: Länge
     LinkNoAttrTitle: ''Der Link %s hat kein Titel Attribut'
     AllLinksHaveTitle: 'Alle Links haben ein Titel Attribut.'

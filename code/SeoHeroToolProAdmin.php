@@ -741,14 +741,22 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $UnsortedListEntries = new ArrayList();
         $domImageCount = $this->pageImages->length;
         $imagesWithoutAltTag = 0;
+        $imagesWithSameAltTagAndFilename = 0;
         $message = '';
+        $sameNameMessage = '';
         if ($domImageCount >= 1) {
             foreach ($this->pageImages as $img) {
                 $imgAltTag = $img->getAttribute('alt');
                 $imgFileName = $img->getAttribute('src');
+                $imgFileNameWithoutPath = substr($imgFileName, strrpos($imgFileName, '/')+1);
+                $imgFileNameWithoutExtension = substr($imgFileNameWithoutPath, 0, strrpos($imgFileNameWithoutPath, '.'));
                 if (trim($imgAltTag) == '') {
-                    $message .= sprintf(_t('SeoHeroToolProAnalyse.ImageWithoutAltTag', 'The Image <a href="/%1$s" target="_blank" alt="Dummy">%1$s</a> does not contain an Alt-Tag.').'<br/>', $imgFileName);
+                    $message .= sprintf(_t('SeoHeroToolProAnalyse.ImageWithoutAltTag', 'The Image %1$s does not contain an Alt-Tag.').'<br/>', $imgFileName);
                     $imagesWithoutAltTag++;
+                }
+                if ($imgAltTag == $imgFileNameWithoutPath || $imgAltTag == $imgFileNameWithoutExtension) {
+                    $sameNameMessage .= sprintf(_t('SeoHeroToolProAnalyse.ImageWithSameAltAndFileName', 'The Image %1$s has the same filename and alt tag.'), $imgFileName);
+                    $imagesWithSameAltTagAndFilename++;
                 }
             }
             if ($imagesWithoutAltTag == 0) {
@@ -762,11 +770,29 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } elseif ($imagesWithoutAltTag >= 1) {
                 $UnsortedListEntries->push(new ArrayData(
                     array(
-                      'Content' => sprintf(_t('SeoHeroToolProAnalyse.ImagesWithoutAltTagMessage', '%1$d out of %2$d Images are not having Alt-Tags. The images are the following:').' <br/>'.$message, $imagesWithoutAltTag, $domImageCount),
+                      'Content' => sprintf(_t('SeoHeroToolProAnalyse.ImagesWithoutAltTagMessage', '%1$d out of %2$d Images are not having alt-Tags. The images are the following:').' <br/>'.$message, $imagesWithoutAltTag, $domImageCount),
                       'IconMess' => '1'
                     )
                 ));
                 $this->updateRules(1);
+            }
+            if ($imagesWithSameAltTagAndFilename == 0) {
+                $UnsortedListEntries->push(new ArrayData(
+                array(
+                  'Content' => _t('SeoHeroToolProAnalyse.AllImagesWithDiffferentFilenameAndAltTag', 'All Images have for filename and alt-tag different values.'),
+                  'IconMess' => '3'
+
+                )
+              ));
+                $this->updateRules(3);
+            } elseif ($imagesWithSameAltTagAndFilename >= 1) {
+                $UnsortedListEntries->push(new ArrayData(
+                array(
+                  'Content' => sprintf(_t('SeoHeroToolProAnalyse.ImagesWithoutDifferentFilenameAndAltTag', '%1$d out of %2$d Images have the same alt-tag and filename. Those images are the following:').' <br/>'.$sameNameMessage, $imagesWithoutAltTag, $domImageCount),
+                  'IconMess' => '2'
+                )
+              ));
+                $this->updateRules(2);
             }
         } else {
             $imageCountText = _t('SeoHeroToolProAnalyse.NoImagesFound', 'This page does not contain any pictures');
