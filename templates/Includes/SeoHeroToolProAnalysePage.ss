@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="$SHTProPath/thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="$SHTProPath/thirdparty/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="$SHTProPath/css/style.css">
-  <script src="$SHTProPath//thirdparty/jquery-3.2.1.min.js" ></script>
+  <script src="$SHTProPath/thirdparty/jquery-3.2.1.min.js" ></script>
   <script src="$SHTProPath/thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js" ></script>
 
 </head>
@@ -18,8 +18,29 @@
         <div class="col-md-12">
           <h1><%t SeoHeroToolPro.ANALYSEHEADLINE 'SEO analysis' %></h1>
           <p><strong><a href="$PageLink" target="_blank">$PageLink</a></strong></p>
+          <% if AccessError == '' %>
+
+          <table class="table">
+              <% with CountResults %>
+              <% loop UnsortedListEntries %>
+              <tr><td class="area">$CountLabel</td><td class="content">$CountValue</td></tr>
+              <% end_loop %>
+              <% end_with %>
+          </table>
+          <% end_if %>
         </div>
     </div>
+
+    <% if AccessError %>
+    <div class="row info-boxes">
+      <div class="col-md-12">
+        <h2><%t SeoHeroToolPro.ANALYSEGENERALACCESSISSUE 'General Access Issue' %></h2>
+      </div>
+      <div class="col-md-12">
+        <p>$AccessError</p>
+      </div>
+    </div>
+    <% else %>
 
     <div class="row info-boxes">
       <div class="col-md-12">
@@ -186,6 +207,7 @@
   <% end_if %>
 
   </div>
+  <% end_if %>
   </div>
 </body>
 </html>
