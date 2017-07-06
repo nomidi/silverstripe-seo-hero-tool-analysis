@@ -13,8 +13,13 @@ de:
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
   SeoHeroToolProAnalyse:
+    NumberOfWords: Anzahl an Wörtern
+    NumberOfImages: Anzahl an Bildern
+    NumberOfLinks: Anzahl an Links
+    LinkHasSameTitleAsValue: Der Link %1$s
+    LinksWithSameTitleAndName: Es gibt Links mit dem gleichen Namen und Titel Attribute. Dies sind die folgenden Links:
     CanNotAccessCurrentPage: 'Bitte prüfen sie, ob die Seite für den Zugriff eventuell Authentifizierungen braucht. Das ist über das Tool nicht möglich.'
-    AllImagesWithAltTag: 'Alle Bilder beinhalten Alt-Tags.'
+    AllImagesWithAltTag: 'Alle Bilder beinhalten Alt-Attribute.'
     ContentLengthGood: 'Die Webseite hat mehr als 200 Wörter. Gut gemacht.'
     ContentLengthOK: 'Die Webseite hat weniger als 200 Wörter.'
     ContentLengthShort: 'Der Webseiten Text ist viel zu kurz.'
@@ -22,13 +27,13 @@ de:
     HeadLineRecommendation: '(optimale Länge zwischen 15 und 80 Zeichen)'
     HeadlineStructureError: 'Es gibt mindestens eine H%1$d Überschrift aber keine H%2$d Überschrift.'
     Headlines: Überschriften
-    ImageWithoutAltTag: 'Das Bild <a href="/%1$s" target="_blank" alt="Dummy">%1$s</a> beinhaltet keinen Alt-Tag.'
-    ImagesWithoutAltTagMessage: '%1$d von %2$d Bildern hat keine Alt-Tags. Es handelt sich um die folgenden Bilder:'
-    ImageWithSameAltAndFileName: Das Bild %1$s hat den gleichen Dateinamen und Alt-Tag.
-    AllImagesWithDiffferentFilenameAndAltTag: Alle Bilder haben unterschiedliche Dateinamen und Alt-Tags.
-    ImagesWithoutDifferentFilenameAndAltTag: %1$d von %2$d Bildern haben den gleichen Dateinamen und Alt-Tag. Dies sind die folgenden Bilder:
+    ImageWithoutAltTag: 'Das Bild <a href="/%1$s" target="_blank" alt="Dummy">%1$s</a> beinhaltet keinen Alt-Attribute.'
+    ImagesWithoutAltTagMessage: '%1$d von %2$d Bildern haben keine Alt-Attribute. Es handelt sich um die folgenden Bilder:'
+    ImageWithSameAltAndFileName: Das Bild %1$s hat den gleichen Dateinamen und Alt-Attrbut.
+    AllImagesWithDiffferentFilenameAndAltTag: Alle Bilder haben unterschiedliche Dateinamen und Alt-Attribut.
+    ImagesWithoutDifferentFilenameAndAltTag: %1$d von %2$d Bildern haben den gleichen Dateinamen und Alt-Attribut. Dies sind die folgenden Bilder:
     Length: Länge
-    LinkNoAttrTitle: ''Der Link %s hat kein Titel Attribut'
+    LinkNoAttrTitle: 'Der Link %s hat kein Titel Attribut'
     AllLinksHaveTitle: 'Alle Links haben ein Titel Attribut.'
     LinkNoAttrTitleAndNoLinkDescription: 'Bitte den folgenden Bereich auf Links mit einem leerem "a"-Tag prüfen. %s'
     Links: Links
@@ -95,7 +100,7 @@ de:
     KeywordInTitle: 'Keyword wurde im Seitentitel gefunden für Keyword '
     KeywordInURL: 'Keyword wurde in der URL gefunden für Keyword '
     KeywordNotInImage: 'Keyword wurde nicht im Bildnamen gefunden für Keyword'
-    KeywordNotInImageAltTag: 'Keyword wurde nicht im Bild Alt-Tag gefunden für Keyword'
+    KeywordNotInImageAltTag: 'Keyword wurde nicht im Bild Alt-Attribute gefunden für Keyword'
     KeywordNotInMetaDescription: 'Keyword wurde nicht in der Meta Beschreibung gefunden für Keyword '
     KeywordNotInTitle: 'Keyword wurde nicht im Seitentitel gefunden für Keyword'
     KeywordNotInUrl: 'Keyword wurde nicht in der URL gefunden für Keyword'

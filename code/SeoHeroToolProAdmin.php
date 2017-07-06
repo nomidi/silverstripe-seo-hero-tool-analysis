@@ -10,6 +10,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
     public $pageHTML;
     public $pageBody;
     public $pageImages;
+    public $pageLinks;
     public $pageTitle;
     public $wordCount;
     public $siteRunsLocally;
@@ -70,6 +71,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $Keywords = new SeoHeroToolProAnalyseKeyword();
         $shtpKeywords = $Keywords->checkKeywords($Page, $this->pageImages);
         $keywordRules = $Keywords->getKeywordResults();
+        $shtpCountArray = $this->getCountArray();
 
         $render = $this->owner->customise(array(
           'WordCount' => $this->wordCount,
@@ -88,6 +90,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'UsefulFilesResults' => $shtpUsefulFiles,
           'StructuredDataResults' => $shtpStructuredData,
           'SkipMainContentResults' => $shtpSkipToMainContent,
+          'CountResults' => $shtpCountArray,
           'RulesWrong' => $this->rules['wrong'],
           'RulesNotice' => $this->rules['notice'],
           'RulesGood' => $this->rules['good'],
@@ -123,6 +126,25 @@ class SeoHeroToolProAdmin extends LeftAndMain
         default:
             $this->rules['good']++;
         }
+    }
+
+    private function getCountArray()
+    {
+        $shtpCountArray = new ArrayList();
+
+        $shtpCountArray->push(array(
+          'CountLabel'=>_t('SeoHeroToolProAnalyse.NumberOfWords', 'Number of Words'),
+          'CountValue'=> $this->wordCount
+        ));
+        $shtpCountArray->push(array(
+          'CountLabel'=>_t('SeoHeroToolProAnalyse.NumberOfImages', 'Number of Images'),
+          'CountValue'=> $this->pageImages->length
+        ));
+        $shtpCountArray->push(array(
+          'CountLabel'=>_t('SeoHeroToolProAnalyse.NumberOfLinks', 'Number of Links'),
+          'CountValue'=> $this->pageLinks->length
+        ));
+        return array('UnsortedListEntries'=>$shtpCountArray);
     }
 
     /*
@@ -597,8 +619,9 @@ class SeoHeroToolProAdmin extends LeftAndMain
     private function checkLinks($Page)
     {
         $UnsortedListEntries = new ArrayList();
-        $documentLinks = $this->dom->getElementsByTagName('a');
+        $documentLinks = $this->pageLinks;
         $linkError = 0;
+        $linkSameTitleNameMessage = '';
 
         foreach ($documentLinks as $link) {
             $linkName = $link->nodeValue;
@@ -609,7 +632,6 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 for ($i=1;  $i < $countlines; $i++) {
                     preg_match("/<a href=.*?><\/a>/", $lines[$i], $matches, PREG_OFFSET_CAPTURE);
                     if (isset($matches[0])) {
-                        echo "treffer";
                         $start = '';
                         $end = '';
                         if (isset($lines[$i-2])) {
@@ -656,6 +678,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
                 $linkError = 1;
                 $this->updateRules(1);
+            } else {
+                $linkTitle = $link->getAttribute('title');
+                if ($linkName == $linkTitle) {
+                    $linkSameTitleNameMessage.= sprintf(_t('SeoHeroToolProAnalyse.LinkHasSameTitleAsValue', 'The link %1$s'), $linkName).'<br/>';
+                }
             }
         }
         if ($linkError == 0 && $documentLinks->length > 0) {
@@ -666,6 +693,15 @@ class SeoHeroToolProAdmin extends LeftAndMain
               )
             ));
             $this->updateRules(3);
+        }
+        if ($linkSameTitleNameMessage != '') {
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                    'Content' => _t('SeoHeroToolProAnalyse.LinksWithSameTitleAndName', 'There are links with the same Name and Title Attribute. Those are these links:').'<br/>'.$linkSameTitleNameMessage,
+                    'IconMess' => '2',
+              )
+            ));
+            $this->updateRules(2);
         }
 
 
@@ -699,6 +735,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $html = file_get_contents($URL);
         $this->dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
         $this->dom->preserveWhiteSpace = false;
+        $this->pageLinks = $this->dom->getElementsByTagName('a');
         $this->pageHTML = $this->dom->saveHTML();
         $this->pageBody = $this->dom->getElementsByTagName('body')->item(0)->nodeValue;
         $this->pageImages = $this->dom->getElementsByTagName('img');

@@ -18,6 +18,16 @@
         <div class="col-md-12">
           <h1><%t SeoHeroToolPro.ANALYSEHEADLINE 'SEO analysis' %></h1>
           <p><strong><a href="$PageLink" target="_blank">$PageLink</a></strong></p>
+          <% if AccessError == '' %>
+
+          <table class="table">
+              <% with CountResults %>
+              <% loop UnsortedListEntries %>
+              <tr><td class="area">$CountLabel</td><td class="content">$CountValue</td></tr>
+              <% end_loop %>
+              <% end_with %>
+          </table>
+          <% end_if %>
         </div>
     </div>
 
