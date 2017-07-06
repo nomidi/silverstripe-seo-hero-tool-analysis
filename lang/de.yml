@@ -1,5 +1,6 @@
 de:
   SeoHeroToolPro:
+    ANALYSEGENERALACCESSISSUE: Generelles Zugriffsproblem
     ANALYSEHEADLINE: SEO analysis
     ANALYSEGENERAL: Allgemeine Auswertung
     ANALYSETESTS: Prüfungen
@@ -12,6 +13,7 @@ de:
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
   SeoHeroToolProAnalyse:
+    CanNotAccessCurrentPage: 'Bitte prüfen sie, ob die Seite für den Zugriff eventuell Authentifizierungen braucht. Das ist über das Tool nicht möglich.'
     AllImagesWithAltTag: 'Alle Bilder beinhalten Alt-Tags.'
     ContentLengthGood: 'Die Webseite hat mehr als 200 Wörter. Gut gemacht.'
     ContentLengthOK: 'Die Webseite hat weniger als 200 Wörter.'

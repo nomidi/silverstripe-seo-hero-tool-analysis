@@ -21,6 +21,15 @@
         </div>
     </div>
 
+    <% if AccessError %>
+      <div class="row info-boxes">
+        <h2><%t SeoHeroToolPro.ANALYSEGENERALACCESSISSUE 'General Access Issue' %></h2>
+      </div>
+      <div class="col-md-12">
+        <p>$AccessError</p>
+      </div>
+    <% else %>
+
     <div class="row info-boxes">
       <div class="col-md-12">
         <h2><%t SeoHeroToolPro.ANALYSEGENERAL 'Generel Analysis' %></h2>
@@ -186,6 +195,7 @@
   <% end_if %>
 
   </div>
+  <% end_if %>
   </div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 en:
   SeoHeroToolPro:
+    ANALYSEGENERALACCESSISSUE: General Access Issue
     ANALYSEHEADLINE: SEO Analyse
     ANALYSEGENERAL: General Analysis
     ANALYSETESTS: Checks
@@ -12,6 +13,7 @@ en:
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
   SeoHeroToolProAnalyse:
+    CanNotAccessCurrentPage: This page can not be accessed by the Analyse functino. Please check the rights and if there are any authentication necessary.
     AllImagesWithAltTag: 'All Images contain Alt-Tags.'
     ContentLengthGood: 'The site has more than 200 words. Well Done. '
     ContentLengthOK: 'The site has less than 200 words. '

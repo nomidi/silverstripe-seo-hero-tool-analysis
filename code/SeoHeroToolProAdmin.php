@@ -37,7 +37,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $versions = $Page->allVersions();
 
         if ($this->loadPage($URL, $Page) == false) {
-            return false;
+            $render = $this->owner->customise(array(
+              'AccessError' => _t('SeoHeroToolProAnalyse.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse functino. Please check the rights and if there are any authentication necessary.'),
+            ))->renderWith('SeoHeroToolProAnalysePage');
+            return $render;
         }
 
         $this->checkIfSiteRunsLocally();
@@ -599,7 +602,6 @@ class SeoHeroToolProAdmin extends LeftAndMain
         foreach ($documentLinks as $link) {
             $linkName = $link->nodeValue;
             $linkline = 0;
-
             if ($linkName == '') {
                 $lines = explode(PHP_EOL, $this->pageHTML);
                 $countlines = count($lines);
