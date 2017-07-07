@@ -110,3 +110,6 @@ en:
     KeywordNotInUrl: 'Keyword not found in URL for'
     NoImagesFound: 'No Images found on this site.'
     NoKeywordsEntered: 'No Keywords entered'
+    KeywordNotInPageContent: Keyword was not found in Page Content for Keyword
+    KeywordFoundInPageContent: Keyword was found %1$d times on Page
+    KeywordNotInFirstParagraph: Keyword was not found in first Paragraph of the content for Keyword

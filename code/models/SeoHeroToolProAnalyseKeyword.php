@@ -4,6 +4,11 @@ class SeoHeroToolProAnalyseKeyword
 {
     private $keywordRules = array('good' => 0, 'notice' => 0, 'wrong' => 0, 'total' => 0);
 
+    public $dom;
+    public $ContentID = false;
+    public $ContentIDValue = '';
+    public $ContentIDFirstParagraph = '';
+
     private function updateKeywordRules($type = 3)
     {
         $this->keywordRules['total']++;
@@ -30,12 +35,31 @@ class SeoHeroToolProAnalyseKeyword
         return $keyword;
     }
 
-    public function checkKeywords($Page, $pageImages)
+    private function getContentIDValue($contentID)
+    {
+        $this->ContentID = $contentID;
+        $this->ContentIDValue  = strtolower($this->dom->getElementById($contentID)->nodeValue);
+        $domXPath = new DOMXPath($this->dom);
+        $contentConatiner = $domXPath->query('//div[@id="'.$contentID.'"]');
+
+        $dom2 = new DOMDocument;
+        $dom2->appendChild($dom2->importNode($contentConatiner->item(0), true));
+        $this->ContentIDFirstParagraph = $dom2->getElementsByTagName('p')->item(0)->nodeValue;
+    }
+
+    public function checkKeywords($Page, $dom)
     {
         $KeywordEntries = new Arraylist();
+        $this->dom = $dom;
         $URLSegment = $Page->URLSegment;
+        $contentID = Config::inst()->get('SeoHeroToolPro', 'contentID');
+        if ($contentID) {
+            $this->getContentIDValue($contentID);
+        }
         $title = strtolower($Page->Title);
         $metaDescription = strtolower($Page->BetterMetaDescription());
+        $pageImages = $dom->getElementsByTagName('img');
+        $pageBody = $dom->getElementsByTagName('body')->item(0)->nodeValue;
         $pageIsHomepage = false;
         $noImagesOnPage = false;
         $featuredKeywords = $Page->FeaturedKeyword;
@@ -47,8 +71,9 @@ class SeoHeroToolProAnalyseKeyword
             }
             foreach ($keywordArray as $keyword) {
                 if (trim($keyword) != '') {
-                    $keyword = strtolower(trim($keyword));
                     $keywordOutput = trim($keyword);
+                    $keyword = strtolower(trim($keyword));
+
                     # URL Check
                     if (strpos(strtolower($URLSegment), $this->replaceSpecialCharacters($keyword)) === false) {
                         if ($URLSegment == 'home' && $pageIsHomepage === false) {
@@ -123,6 +148,47 @@ class SeoHeroToolProAnalyseKeyword
                         ));
                         $this->updateKeywordRules(3);
                     }
+                    #Content Check
+                    $keywordInContent = 0;
+                    if ($this->ContentID) {
+                        $keywordInContent = substr_count($this->ContentIDValue, $keyword);
+                    } else {
+                        $keywordInContent = substr_count(strtolower($pageBody), $keyword);
+                    }
+                    if ($keywordInContent == 0) {
+                        $KeywordEntries->push(new ArrayData(
+                          array(
+                            'Content' => _t('SeoHeroToolProAnalyse.KeywordNotInPageContent', 'Keyword was not found in Page Content for Keyword').': '.$keywordOutput,
+                            'IconMess' => '1'
+                          )
+                        ));
+                        $this->updateKeywordRules(1);
+                    } else {
+                        $KeywordEntries->push(new ArrayData(
+                          array(
+                            'Content' => sprintf(_t('SeoHeroToolProAnalyse.KeywordFoundInPageContent', 'Keyword was found %1$d times on Page'), $keywordInContent).': '.$keywordOutput,
+                            'IconMess' => '3'
+                          )
+                        ));
+                        $this->updateKeywordRules(3);
+                    }
+                    # keyword in first paragraph
+                    $keywordInFirstParagraph = 0;
+                    if ($this->ContentID && $this->ContentIDFirstParagraph) {
+                        $keywordInFirstParagraph = substr_count($this->ContentIDFirstParagraph, $keyword);
+                    } else {
+                        $keywordInFirstParagraph = substr_count(strtolower($pageBody), $keyword);
+                    }
+                    if ($keywordInFirstParagraph == 0 && $keywordInContent > 0) {
+                        $KeywordEntries->push(new ArrayData(
+                          array(
+                            'Content' => _t('SeoHeroToolProAnalyse.KeywordNotInFirstParagraph', 'Keyword was not found in first Paragraph of the content for Keyword').': '.$keywordOutput,
+                            'IconMess' => '2'
+                          )
+                        ));
+                        $this->updateKeywordRules(2);
+                    }
+
                     # IMAGE Check
                     if ($pageImages->length >= 1) {
                         $keyImgFile = 0;

@@ -35,7 +35,7 @@ de:
     W3CWarningSingular: 'eine HTML Warnung'
     WordCount: 'Wörteranzahl'
     WordCountRecommendation: '(Eine Webseite sollte mehr als 200 Wörter beinhalten)'
-    strongElements: 'Strong Elemente'  
+    strongElements: 'Strong Elemente'
     UsefulFiles: Dateien für Suchengines
     Keyword: Keyword
   SeoHeroToolProAdmin:
@@ -111,3 +111,6 @@ de:
     KeywordNotInUrl: 'Keyword wurde nicht in der URL gefunden für Keyword'
     NoImagesFound: 'Es wurden auf der Seite keine Bilder gefunden.'
     NoKeywordsEntered: 'Es wurden keine Keywords eingegeben.'
+    KeywordNotInPageContent: Keyword wurde nicht im Inhalt gefunden für das Keyword
+    KeywordFoundInPageContent: Keyword wurde %1$d mal im Inhalt gefunden für das Keyword
+    KeywordNotInFirstParagraph: Keyword wurde nicht im ersten Absatz gefunden für das Keyword

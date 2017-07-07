@@ -69,7 +69,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $shtpw3c = $this->getW3CValidation($URL);
         $shtpStructuredData = $this->checkStructuredData($Page);
         $Keywords = new SeoHeroToolProAnalyseKeyword();
-        $shtpKeywords = $Keywords->checkKeywords($Page, $this->pageImages);
+        $shtpKeywords = $Keywords->checkKeywords($Page, $this->dom);
         $keywordRules = $Keywords->getKeywordResults();
         $shtpCountArray = $this->getCountArray();
 
@@ -159,7 +159,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $lengthRecommendation =  _t('SeoHeroToolProAnalyse.TitleLengthRecommendation', 'Recommendation 44 - 61 Characters');
         $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $lengthOfTitle;
 
-        
+
 
         if ($lengthOfTitle < 8) {
             $UnsortedListEntries->push(new ArrayData(
