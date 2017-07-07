@@ -715,7 +715,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } else {
                 $linkTitle = $link->getAttribute('title');
                 if ($linkName == $linkTitle) {
-                    $linkSameTitleNameMessage.= sprintf(_t('SeoHeroToolProAnalyse.LinkHasSameTitleAsValue', 'The link %1$s'), $linkName).'<br/>';
+                    $linkSameTitleNameMessage.= $linkName.'<br/>';
                 }
             }
         }

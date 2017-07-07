@@ -43,7 +43,6 @@ en:
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
   SeoHeroToolProAnalyse:
-    LinkHasSameTitleAsValue: The link %1$s
     LinksWithSameTitleAndName: There are links with the same Name and Title Attribute. Those are these links:
     AllImagesWithAltTag: 'All Images contain Alt-Attributes.'
     ContentLengthGood: 'The site has more than 200 words. Well Done. '
