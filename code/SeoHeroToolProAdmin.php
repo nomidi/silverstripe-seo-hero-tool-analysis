@@ -50,10 +50,12 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $contentID = Config::inst()->get('SeoHeroToolPro', 'contentID');
 
         if ($contentID) {
-            $this->wordCount = str_word_count(strip_tags($this->dom->getElementByID($contentID)->nodeValue));
+            $htmlForWordCount = $this->dom->getElementByID($contentID)->nodeValue;
         } else {
-            $this->wordCount = str_word_count(strip_tags($this->pageBody));
+            $htmlForWordCount = $this->pageBody;
         }
+        $this->wordCount = str_word_count(preg_replace('#\<(.+?)\>#', ' ', $htmlForWordCount));
+
 
         $shtpTitle = $this->checkTitle();
         $shtpSkipToMainContent = $this->checkSkipToMainContent();
@@ -159,7 +161,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $lengthRecommendation =  _t('SeoHeroToolProAnalyse.TitleLengthRecommendation', 'Recommendation 44 - 61 Characters');
         $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $lengthOfTitle;
 
-        
+
 
         if ($lengthOfTitle < 8) {
             $UnsortedListEntries->push(new ArrayData(
