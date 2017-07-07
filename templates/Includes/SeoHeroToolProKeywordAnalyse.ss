@@ -2,7 +2,7 @@
     <% with KeywordResults %>
     <% loop KeywordEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr class="notice"><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr><td>$Up.Headline</td><td class="content">$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>

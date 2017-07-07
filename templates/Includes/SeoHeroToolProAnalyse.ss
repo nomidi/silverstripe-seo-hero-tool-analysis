@@ -3,7 +3,7 @@ $test
     <% with TitleResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -11,7 +11,7 @@ $test
     <% with MetaResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -19,7 +19,7 @@ $test
     <% with URLResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -27,7 +27,7 @@ $test
     <% with WordCountResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -35,7 +35,7 @@ $test
     <% with DirectoryDepthResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -43,7 +43,7 @@ $test
     <% with HeadlineResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -51,7 +51,7 @@ $test
     <% with LinkResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -59,7 +59,7 @@ $test
     <% with StrongResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -67,7 +67,7 @@ $test
     <% with ImageResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -75,7 +75,7 @@ $test
     <% with SkipMainContentResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -83,7 +83,7 @@ $test
     <% with UsefulFilesResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -91,7 +91,7 @@ $test
     <% with StructuredDataResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>
@@ -99,7 +99,7 @@ $test
     <% with W3CResults %>
     <% loop UnsortedListEntries %>
     <% if IconMess == $Top.IconMessVal %>
-    <tr ><td class="area">$Up.Headline</td><td class="content">$Content</td></tr>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
     <% end_if %>
     <% end_loop %>
     <% end_with %>

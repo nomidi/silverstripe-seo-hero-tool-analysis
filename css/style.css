@@ -22,6 +22,14 @@ body{
   background:rgb(236, 240, 245);
 }
 
+.table-bordered tr td:nth-child(1){
+  width: 20%;
+}
+
+.table-bordered tr td:nth-child(3){
+  width: 10%;
+}
+
 .nav-tabs-custom>.nav-tabs {
     margin: 0;
     border-bottom:0;

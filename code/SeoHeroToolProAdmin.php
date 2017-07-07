@@ -14,6 +14,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
     public $pageTitle;
     public $wordCount;
     public $siteRunsLocally;
+    public $linkToWebsite = 'http://seo-hero-tools.com/toollink/';
 
     public function canView($member = null)
     {
@@ -101,6 +102,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'KeywordRulesNotice' => $keywordRules['notice'],
           'KeywordRulesGood' => $keywordRules['good'],
           'KeywordRulesTotal' => $keywordRules['total'],
+          'LinkToWebsite' => $this->linkToWebsite,
           'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
         ))->renderWith('SeoHeroToolProAnalysePage');
         return $render;
