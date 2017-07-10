@@ -75,7 +75,6 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $shtpKeywords = $Keywords->checkKeywords($Page, $this->dom);
         $keywordRules = $Keywords->getKeywordResults();
         $shtpCountArray = $this->getCountArray();
-        $shtpHeaderCheck = $this->checkHTTPHeader($URL);
 
         $render = $this->owner->customise(array(
           'WordCount' => $this->wordCount,
@@ -1161,6 +1160,5 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
         $curlResponse = curl_exec($ch);
         curl_close($ch);
-        debug::show($curlResponse);
     }
 }
