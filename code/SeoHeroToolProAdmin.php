@@ -15,6 +15,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
     public $wordCount;
     public $siteRunsLocally;
     public $linkToWebsite = 'http://seo-hero-tools.com/toollink/';
+    public $linkToPageSpeedInsights = 'https://developers.google.com/speed/pagespeed/insights/?url=';
 
     public function canView($member = null)
     {
@@ -74,6 +75,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $Keywords = new SeoHeroToolProAnalyseKeyword();
         $shtpKeywords = $Keywords->checkKeywords($Page, $this->dom);
         $keywordRules = $Keywords->getKeywordResults();
+        if (!$this->siteRunsLocally) {
+            $shtpPageSpeedLink = $this->linkToPageSpeedInsights.urlencode($URL);
+        } else {
+            $shtpPageSpeedLink = '';
+        }
         $shtpCountArray = $this->getCountArray();
 
         $render = $this->owner->customise(array(
@@ -103,6 +109,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'KeywordRulesGood' => $keywordRules['good'],
           'KeywordRulesTotal' => $keywordRules['total'],
           'LinkToWebsite' => $this->linkToWebsite,
+          'PageSpeedLink' => $shtpPageSpeedLink,
           'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
         ))->renderWith('SeoHeroToolProAnalysePage');
         return $render;

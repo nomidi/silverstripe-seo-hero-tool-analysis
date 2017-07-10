@@ -18,6 +18,9 @@
         <div class="col-md-12">
           <h1><%t SeoHeroToolPro.ANALYSEHEADLINE 'SEO analysis' %></h1>
           <p><strong><a href="$PageLink" target="_blank">$PageLink</a></strong></p>
+          <% if PageSpeedLink %>
+          <p><strong><a href="$PageSpeedLink" target="_blank"><%t SeoHeroToolPro.LinkToPageSpeedInsights 'Open PageSpeed Insights' %></a></strong></p>
+          <% end_if %>
           <% if AccessError == '' %>
 
           <div class="custom-content">
