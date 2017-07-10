@@ -75,6 +75,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $shtpKeywords = $Keywords->checkKeywords($Page, $this->dom);
         $keywordRules = $Keywords->getKeywordResults();
         $shtpCountArray = $this->getCountArray();
+        $shtpHeaderCheck = $this->checkHTTPHeader($URL);
 
         $render = $this->owner->customise(array(
           'WordCount' => $this->wordCount,
@@ -1148,5 +1149,18 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'Headline' => _t('SeoHeroToolProAnalyse.StructuredData', 'Structured Data'),
           'UnsortedListEntries' => $UnsortedListEntries
         );
+    }
+
+    private function checkHTTPHeader($URL)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $URL);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLOPT_NOBODY, 1);
+
+        $curlResponse = curl_exec($ch);
+        curl_close($ch);
+        debug::show($curlResponse);
     }
 }
