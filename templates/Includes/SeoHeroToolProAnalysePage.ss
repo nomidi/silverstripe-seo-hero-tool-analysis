@@ -20,6 +20,8 @@
           <p><strong><a href="$PageLink" target="_blank">$PageLink</a></strong></p>
           <% if PageSpeedLink %>
           <p><strong><a href="$PageSpeedLink" target="_blank"><%t SeoHeroToolPro.LinkToPageSpeedInsights 'Open PageSpeed Insights' %></a></strong></p>
+          <% else_if PageSpeedMessage %>
+          <p><strong>$PageSpeedMessage</strong></p>
           <% end_if %>
           <% if AccessError == '' %>
 

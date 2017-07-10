@@ -14,6 +14,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
     public $pageTitle;
     public $wordCount;
     public $siteRunsLocally;
+    public $pageSpeedKey;
     public $linkToWebsite = 'http://seo-hero-tools.com/toollink/';
     public $linkToPageSpeedInsights = 'https://developers.google.com/speed/pagespeed/insights/?url=';
 
@@ -57,8 +58,6 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $htmlForWordCount = $this->pageBody;
         }
         $this->wordCount = str_word_count(preg_replace('#\<(.+?)\>#', ' ', $htmlForWordCount));
-
-
         $shtpTitle = $this->checkTitle();
         $shtpSkipToMainContent = $this->checkSkipToMainContent();
         $shtpMeta = $this->checkMeta($Page);
@@ -77,9 +76,13 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $keywordRules = $Keywords->getKeywordResults();
         if (!$this->siteRunsLocally) {
             $shtpPageSpeedLink = $this->linkToPageSpeedInsights.urlencode($URL);
+            $this->pageSpeedKey = Config::inst()->get('SeoHeroToolPro', 'PageSpeedAPI');
+            $pageSpeedMessage = '';
         } else {
             $shtpPageSpeedLink = '';
+            $pageSpeedMessage = _t('SeoHeroToolPro.PageSpeedLocally', 'The site runs locally and therefore a PageSpeed can not be calculated.');
         }
+        $this->checkPageSpeed($URL);
         $shtpCountArray = $this->getCountArray();
 
         $render = $this->owner->customise(array(
@@ -109,6 +112,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'KeywordRulesGood' => $keywordRules['good'],
           'KeywordRulesTotal' => $keywordRules['total'],
           'LinkToWebsite' => $this->linkToWebsite,
+          'PageSpeedMessage' => $pageSpeedMessage,
           'PageSpeedLink' => $shtpPageSpeedLink,
           'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
         ))->renderWith('SeoHeroToolProAnalysePage');
@@ -1183,5 +1187,41 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
         $curlResponse = curl_exec($ch);
         curl_close($ch);
+    }
+
+    private function checkPageSpeed($URL)
+    {
+        //Session::clear_all();
+        if (!$this->getAPIRequest('PageSpeed')) {
+            debug::show('Page Speed muss gesetzt werden');
+            $this->setAPIRequestValue('PageSpeed', 'test');
+        } else {
+            debug::show('Page Speed ist gesetzt');
+            $test = Session::get($this->pageTitle.'_PageSpeed');
+            debug::show($test);
+            debug::show(date("d.m.Y H:i:s", $test[0]));
+        }
+    }
+
+    /*
+      Function getRequest checks if a given value shall be requested again or not. Returns true or false
+     */
+    private function getAPIRequest($APIFunction)
+    {
+        $sessionVal = Session::get($this->pageTitle.'_'.$APIFunction);
+        if (isset($sessionVal) && $sessionVal != '') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function setAPIRequestValue($APIFunction, $Value)
+    {
+        Session::set($this->pageTitle.'_'.$APIFunction, array(time(),$Value));
+    }
+
+    private function resetAPIRequestValue()
+    {
     }
 }

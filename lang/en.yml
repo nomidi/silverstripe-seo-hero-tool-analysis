@@ -41,6 +41,7 @@ en:
     Help: Help
     HelpTitle: More Information on
     LinkToPageSpeedInsights: Open PageSpeed Insights
+    PageSpeedLocally: The site runs locally and therefore a PageSpeed can not be calculated.
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
   SeoHeroToolProAnalyse:
