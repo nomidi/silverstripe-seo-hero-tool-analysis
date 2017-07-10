@@ -95,7 +95,7 @@ de:
     headlineWitSomeContent: 'Die Überschrift %1$s hat Inhalt aber keinen Text. Folgender Tag wurde gefunden '
     FoundNoStrongElements: 'Kein "strong" Elemente auf der Webseite gefunden.'
     FoundOneOrMoreStrongElements: 'Ein oder mehrere "strong" Elemente auf der Webseite gefunden.'
-    FoundSitemapXML: Robots.txt gefunden. Inhalt wurde nicht geprüft.
+    FoundSitemapXML: Sitemap.xml gefunden. Inhalt wurde nicht geprüft.
     FoundNoSitemapXML: Es existiert keine Sitemap.xml . HTTP Response ist
     ProblemWithSitemapXML: Sitemap.xml konnte nicht auferufen werden. - The HTTP Response ist
     FoundKeywordInOneImage: 'Keyword wurde in einem Bild gefunden für Keyword '
@@ -117,3 +117,6 @@ de:
     KeywordNotInPageContent: Keyword wurde nicht im Inhalt gefunden für das Keyword
     KeywordFoundInPageContent: Keyword wurde %1$d mal im Inhalt gefunden für das Keyword
     KeywordNotInFirstParagraph: Keyword wurde nicht im ersten Absatz gefunden für das Keyword
+    FoundRobotstxt: Robots.txt Datei gefunden. Der Inhalt wurde nicht überprüft.
+    FoundNoRobotstxt: 'Es wurde keine Robots.txt Datei gefunden. Die HTTP Antwort lautet '
+    ProblemWithRobotstxt: Auf Robots.txt konnte nicht zugegeriffen werden. Die HTTP Antwort lautet

@@ -94,7 +94,7 @@ en:
     headlineWitSomeContent: 'The Headline %1$s has some kind of content but no text. Found the following tag in the Headline '
     FoundNoStrongElements: 'Found no strong elements on website (B / STRONG).'
     FoundOneOrMoreStrongElements: 'Found one or more strong elements on website (B / STRONG).'
-    FoundSitemapXML: Found Robots.txt file. Content was not checked.
+    FoundSitemapXML: Found Sitemap.XML file. Content was not checked.
     FoundNoSitemapXML: No Sitemap.xml existing. HTTP Response is
     ProblemWithSitemapXML: Sitemap.xml file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is
     FoundKeywordInOneImage: 'Found Keyword in one Image Name for'
@@ -116,3 +116,6 @@ en:
     KeywordNotInPageContent: Keyword was not found in Page Content for Keyword
     KeywordFoundInPageContent: Keyword was found %1$d times on Page
     KeywordNotInFirstParagraph: Keyword was not found in first Paragraph of the content for Keyword
+    FoundRobotstxt: Found Robots.txt file. Content was not checked.
+    FoundNoRobotstxt: 'No Robots.txt existing. HTTP Response is '
+    ProblemWithRobotstxt: Robots.txt file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is
