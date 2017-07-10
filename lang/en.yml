@@ -119,3 +119,5 @@ en:
     FoundRobotstxt: Found Robots.txt file. Content was not checked.
     FoundNoRobotstxt: 'No Robots.txt existing. HTTP Response is '
     ProblemWithRobotstxt: Robots.txt file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is
+    SiteIsHTTP: Site can be reached via HTTP. HTTPS would be better.
+    SiteIsHTTPS: Site can be reached via HTTPS.

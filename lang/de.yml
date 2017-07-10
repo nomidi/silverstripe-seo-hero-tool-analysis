@@ -120,3 +120,5 @@ de:
     FoundRobotstxt: Robots.txt Datei gefunden. Der Inhalt wurde nicht überprüft.
     FoundNoRobotstxt: 'Es wurde keine Robots.txt Datei gefunden. Die HTTP Antwort lautet '
     ProblemWithRobotstxt: Auf Robots.txt konnte nicht zugegeriffen werden. Die HTTP Antwort lautet
+    SiteIsHTTP: Webseite wird über HTTP aufgerufen. HTTPS wäre besser.
+    SiteIsHTTPS: Website wird über HTTPS aufgerufen.

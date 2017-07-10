@@ -1015,8 +1015,24 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $UnsortedListEntries = new ArrayList();
         if (isset($_SERVER['HTTPS'])) {
             $server = 'https://'.$_SERVER['SERVER_NAME'];
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.SiteIsHTTPS', 'Site can be reached via HTTPS.'),
+                'IconMess' => '3',
+                'HelpLink' => 'SiteIsHTTPS'
+              )
+            ));
+            $this->updateRules(3);
         } else {
             $server = 'http://'.$_SERVER['SERVER_NAME'];
+            $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.SiteIsHTTP', 'Site can be reached via HTTP. HTTPS would be better.'),
+                'IconMess' => '2',
+                'HelpLink' => 'SiteIsHTTP'
+              )
+            ));
+            $this->updateRules(2);
         }
         # check robots.txt
         $ch = curl_init();
