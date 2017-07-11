@@ -42,6 +42,9 @@ en:
     HelpTitle: More Information on
     LinkToPageSpeedInsights: Open PageSpeed Insights
     PageSpeedLocally: The site runs locally and therefore a PageSpeed can not be calculated.
+    W3CLocally: The site runs locally and therefore a W3C Check can not be performed
+    LastCheckInformation: Lastly checked at
+    PageSpeed: PageSpeed
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
   SeoHeroToolProAnalyse:
@@ -123,3 +126,4 @@ en:
     ProblemWithRobotstxt: Robots.txt file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is
     SiteIsHTTP: Site can be reached via HTTP. HTTPS would be better.
     SiteIsHTTPS: Site can be reached via HTTPS.
+    PageSpeedNoInformation: The Document can not be scanned, maybe the website runs locally?

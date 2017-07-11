@@ -103,4 +103,12 @@ $test
     <% end_if %>
     <% end_loop %>
     <% end_with %>
+
+    <% with PageSpeedResults %>
+    <% loop UnsortedListEntries %>
+    <% if IconMess == $Top.IconMessVal %>
+    <tr ><td>$Up.Headline</td><td>$Content</td><td><a href="$Top.LinkToWebsite{$HelpLink}" title="<%t SeoHeroToolPro.HelpTitle 'More Information on' %> $HelpLink" target="_blank"><%t SeoHeroToolPro.Help 'Help' %></a></td></tr>
+    <% end_if %>
+    <% end_loop %>
+    <% end_with %>
 </table>

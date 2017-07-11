@@ -19,9 +19,14 @@
           <h1><%t SeoHeroToolPro.ANALYSEHEADLINE 'SEO analysis' %></h1>
           <p><strong><a href="$PageLink" target="_blank">$PageLink</a></strong></p>
           <% if PageSpeedLink %>
-          <p><strong><a href="$PageSpeedLink" target="_blank"><%t SeoHeroToolPro.LinkToPageSpeedInsights 'Open PageSpeed Insights' %></a></strong></p>
+          <p><strong><a href="$PageSpeedLink" target="_blank"><%t SeoHeroToolPro.LinkToPageSpeedInsights 'Open PageSpeed Insights' %></a> <%t SeoHeroToolPro.LastCheckInformation 'Lastly checked at ' %> $pageSpeedTimeStamp</strong></p>
           <% else_if PageSpeedMessage %>
           <p><strong>$PageSpeedMessage</strong></p>
+          <% end_if %>
+          <% if W3CLink %>
+          <p><strong><a href="$W3CLink" target="_blank"><%t SeoHeroToolPro.LinkToW3C 'Open W3C Results' %></a> <%t SeoHeroToolPro.LastCheckInformation 'Lastly checked at ' %> $W3CTimeStamp</strong></p>
+          <% else_if W3CMessage %>
+          <p><strong>$W3CMessage</strong></p>
           <% end_if %>
           <% if AccessError == '' %>
 

@@ -42,6 +42,9 @@ de:
     HelpTitle: Mehr Information zur Meldung
     LinkToPageSpeedInsights: Page Speed Insights zur Seite öffnen
     PageSpeedLocally: Die Webseite läuft lokal und deswegen kann der PageSpeed nicht berechnet werden.
+    W3CLocally: Die Webseite läuft lokal und deswegen kann die W3C Prüfung nicht durchgeführt werden.
+    LastCheckInformation: Zuletzt geprüft um
+    PageSpeed: PageSpeed
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
   SeoHeroToolProAnalyse:
@@ -124,3 +127,4 @@ de:
     ProblemWithRobotstxt: Auf Robots.txt konnte nicht zugegeriffen werden. Die HTTP Antwort lautet
     SiteIsHTTP: Webseite wird über HTTP aufgerufen. HTTPS wäre besser.
     SiteIsHTTPS: Website wird über HTTPS aufgerufen.
+    PageSpeedNoInformation: Das Dokument kann nicht untersucht werden. Läuft die Webseite eventuell lokal?

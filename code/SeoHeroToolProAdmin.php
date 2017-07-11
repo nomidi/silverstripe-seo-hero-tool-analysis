@@ -12,11 +12,15 @@ class SeoHeroToolProAdmin extends LeftAndMain
     public $pageImages;
     public $pageLinks;
     public $pageTitle;
+    public $pageID;
     public $wordCount;
     public $siteRunsLocally;
     public $pageSpeedKey;
+    public $pageSpeedTimeStamp;
     public $linkToWebsite = 'http://seo-hero-tools.com/toollink/';
     public $linkToPageSpeedInsights = 'https://developers.google.com/speed/pagespeed/insights/?url=';
+    public $linkToW3CPage = 'https://validator.w3.org/nu/?doc=';
+    public $W3CTimeStamp;
 
     public function canView($member = null)
     {
@@ -37,6 +41,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if (!$Page->ID) {
             return false;
         }
+        $this->pageID = $PageID;
         $URL = $Page->AbsoluteLink();
         $versions = $Page->allVersions();
         Requirements::clear();
@@ -69,20 +74,31 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $shtpLinks = $this->checkLinks($Page);
         $shtpImages = $this->checkImages();
         $shtpStrong = $this->checkStrong();
-        $shtpw3c = $this->getW3CValidation($URL);
         $shtpStructuredData = $this->checkStructuredData($Page);
         $Keywords = new SeoHeroToolProAnalyseKeyword();
         $shtpKeywords = $Keywords->checkKeywords($Page, $this->dom);
         $keywordRules = $Keywords->getKeywordResults();
+        $debugMode = Config::inst()->get('SeoHeroToolPro', 'Debug');
+        $pageSpeedResults = '';
+        $shtpw3c = '';
+        if ($debugMode) {
+            $pageSpeedResults =  $this->checkPageSpeed($URL);
+            $shtpw3c = $this->getW3CValidation($URL);
+        }
+
+
+
         if (!$this->siteRunsLocally) {
             $shtpPageSpeedLink = $this->linkToPageSpeedInsights.urlencode($URL);
-            $this->pageSpeedKey = Config::inst()->get('SeoHeroToolPro', 'PageSpeedAPI');
+            $shtpW3CLink = $this->linkToW3CPage.urlencode($URL);
             $pageSpeedMessage = '';
+            $W3CMessage = '';
         } else {
             $shtpPageSpeedLink = '';
+            $shtpW3CLink = '';
             $pageSpeedMessage = _t('SeoHeroToolPro.PageSpeedLocally', 'The site runs locally and therefore a PageSpeed can not be calculated.');
+            $W3CMessage = _t('SeoHeroToolPro.W3CLocally', 'The site runs locally and therefore a W3C Check can not be performed');
         }
-        $this->checkPageSpeed($URL);
         $shtpCountArray = $this->getCountArray();
 
         $render = $this->owner->customise(array(
@@ -96,6 +112,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'HeadlineResults' => $shtpHeadlineStructure,
           'LinkResults' => $shtpLinks,
           'W3CResults' => $shtpw3c,
+          'PageSpeedResults' => $pageSpeedResults,
           'StrongResults' => $shtpStrong,
           'ImageResults' => $shtpImages,
           'KeywordResults' => $shtpKeywords,
@@ -114,6 +131,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'LinkToWebsite' => $this->linkToWebsite,
           'PageSpeedMessage' => $pageSpeedMessage,
           'PageSpeedLink' => $shtpPageSpeedLink,
+          'PageSpeedTimestamp' =>   $this->pageSpeedTimeStamp,
+          'W3CLink' => $shtpW3CLink,
+          'W3CMessage' => $W3CMessage,
+          'W3CTimeStamp' => $this->W3CTimeStamp,
           'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
         ))->renderWith('SeoHeroToolProAnalysePage');
         return $render;
@@ -125,7 +146,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
      */
     private function checkIfSiteRunsLocally()
     {
-        $this->siteRunsLocally = Config::inst()->get('SeoHeroToolPro', 'locally');
+        $this->siteRunsLocally = Config::inst()->get('SeoHeroToolPro', 'Local');
     }
 
     private function updateRules($type = 3)
@@ -926,10 +947,38 @@ class SeoHeroToolProAdmin extends LeftAndMain
               'Headline' => _t('SeoHeroToolProAnalyse.W3CResult', 'W3C Validator Result'),
               'UnsortedListEntries' => $UnsortedListEntries);
         }
-        $W3CResults = SeoHeroToolProW3CValidator::checkData($URL);
+        if (!$this->getAPIRequest('W3C')) {
+            $results = SeoHeroToolProW3CValidator::checkData($URL);
+            $this->setAPIRequestValue('W3C', $results);
+        }
+        $sessionVal = $this->getAPIRequestValue('W3C');
+        $this->W3CTimeStamp = date("d.m.Y H:i:s", $sessionVal[0]);
+        $W3CResults = $sessionVal[1];
         $foundHTMLErrors = 0;
         $foundHTMLWarnings = 0;
         $nonDocumentError = 0;
+
+        foreach ($W3CResults as $w3centry) {
+            if (is_object($w3centry)) {
+                $message = $w3centry->Message;
+                $messageType = $w3centry->MessageType;
+                $lastLine = $w3centry->lastLine;
+                $lastColumn = $w3centry->lastColumn;
+                $firstColumn = $w3centry->firstColumn;
+                $extract = $w3centry->extract;
+                $hiliteStart = $w3centry->hiliteStart;
+                $hiliteLength = $w3centry->hiliteLength;
+                $subType = $w3centry->subType;
+
+                if ($messageType == 'Error') {
+                    $foundHTMLErrors++;
+                } elseif ($messageType == 'Info' && $w3centry->subType == 'Warning') {
+                    $foundHTMLWarnings++;
+                }
+                $sort++;
+            }
+        }
+
         /*
           If the site is hosted locally there will be a  "Name or service not known message"
          */
@@ -1191,16 +1240,45 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
     private function checkPageSpeed($URL)
     {
-        //Session::clear_all();
-        if (!$this->getAPIRequest('PageSpeed')) {
-            debug::show('Page Speed muss gesetzt werden');
-            $this->setAPIRequestValue('PageSpeed', 'test');
-        } else {
-            debug::show('Page Speed ist gesetzt');
-            $test = Session::get($this->pageTitle.'_PageSpeed');
-            debug::show($test);
-            debug::show(date("d.m.Y H:i:s", $test[0]));
+        $UnsortedListEntries = new ArrayList();
+        $pageSpeedInformationCounter = 0;
+        if ($this->siteRunsLocally) {
+            $UnsortedListEntries->push(new ArrayData(
+            array(
+                  'Content' => _t('SeoHeroToolProAnalyse.SiteRunsLocallyPageSpeed', 'The website runs locally. No PageSpeed check possible.'),
+              'IconMess' => '2',
+              'HelpLink' => 'SiteRunsLocallyPageSpeed'
+            )
+          ));
+            $this->updateRules(2);
+
+            return array(
+            'Headline' => _t('SeoHeroToolPro.PageSpeed', 'PageSpeed Result'),
+            'UnsortedListEntries' => $UnsortedListEntries);
         }
+        $PageSpeedAPI = Config::inst()->get('SeoHeroToolPro', 'PageSpeedAPI');
+        if ($PageSpeedAPI != '') {
+            if (!$this->getAPIRequest('PageSpeed')) {
+                $this->setAPIRequestValue('PageSpeed', 'test');
+            }
+
+            $pageSpeedInformation = $this->getAPIRequestValue('PageSpeed');
+            $this->pageSpeedTimeStamp = date("d.m.Y H:i:s", $pageSpeedInformation[0]);
+        }
+        if ($pageSpeedInformationCounter == 0) {
+            $UnsortedListEntries->push(new ArrayData(
+            array(
+                  'Content' => _t('SeoHeroToolProAnalyse.PageSpeedNoInformation', 'The Document can not be scanned, maybe the website runs locally?'),
+                  'IconMess' => '2',
+                  'HelpLink' => 'PageSpeedNoInformation'
+                )
+            ));
+            $this->updateRules(2);
+        }
+
+        return array(
+            'Headline' => _t('SeoHeroToolPro.PageSpeed', 'PageSpeed'),
+            'UnsortedListEntries' => $UnsortedListEntries);
     }
 
     /*
@@ -1208,20 +1286,34 @@ class SeoHeroToolProAdmin extends LeftAndMain
      */
     private function getAPIRequest($APIFunction)
     {
-        $sessionVal = Session::get($this->pageTitle.'_'.$APIFunction);
+        $sessionVal = Session::get($this->pageID.'_'.$APIFunction);
         if (isset($sessionVal) && $sessionVal != '') {
+            if ($sessionVal[0] < time()-30) {
+                return false;
+            }
             return true;
         } else {
             return false;
         }
     }
 
-    private function setAPIRequestValue($APIFunction, $Value)
+    private function getAPIRequestValue($APIFunction)
     {
-        Session::set($this->pageTitle.'_'.$APIFunction, array(time(),$Value));
+        $sessionVal = Session::get($this->pageID.'_'.$APIFunction);
+        if (isset($sessionVal) && $sessionVal != '') {
+            return $sessionVal;
+        }
     }
 
-    private function resetAPIRequestValue()
+    private function setAPIRequestValue($APIFunction, $Value)
     {
+        Session::set($this->pageID.'_'.$APIFunction, array(time(),$Value));
+    }
+
+    private function resetAPIRequestValue($APIFunction)
+    {
+        if ($this->getAPIRequest($APIFunction)) {
+            Session::clear($this->pageID.'_'.$APIFunction);
+        }
     }
 }
