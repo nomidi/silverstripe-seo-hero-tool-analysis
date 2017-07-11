@@ -15,6 +15,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
     public $pageID;
     public $wordCount;
     public $pageURL;
+    public $pageURLSegment;
     public $siteRunsLocally;
     public $pageSpeedKey;
     public $pageSpeedTimeStamp;
@@ -45,6 +46,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $this->pageID = $PageID;
         $URL = $Page->AbsoluteLink();
         $this->URL = $URL;
+        $this->pageURLSegment = $Page->URLSegment;
         $versions = $Page->allVersions();
         Requirements::clear();
         if ($this->loadPage($URL, $Page) == false) {
@@ -491,6 +493,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $sc = SiteConfig::get()->First();
                 $headlineContent = $value->item(0)->nodeValue;
                 $headlineLength = strlen($headlineContent);
+
                 $lengthRecommendation =  _t('SeoHeroToolPro.HeadLineRecommendation', '(optimal length between 15 and 80 Characters)');
                 $addText = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $headlineLength.' - '.$headlineContent;
                 if ($headlineLength == 0) {
@@ -520,15 +523,6 @@ class SeoHeroToolProAdmin extends LeftAndMain
                         )
                     ));
                     $this->updateRules(2);
-                } elseif ($headlineContent == $sc->Title && $this->URL != "home") {
-                    $UnsortedListEntries->push(new ArrayData(
-                        array(
-                            'Content' => _t('SeoHeroToolProAnalyse.h1SameSiteConfigTitle', 'The h1 tag and site title are the same. Please change the h1 content.'),
-                            'IconMess' => '1',
-                            'HelpLink' => 'h1SameSiteConfigTitle'
-                        )
-                    ));
-                    $this->updateRules(1);
                 } else {
                     $UnsortedListEntries->push(new ArrayData(
                         array(
@@ -538,6 +532,16 @@ class SeoHeroToolProAdmin extends LeftAndMain
                         )
                     ));
                     $this->updateRules(3);
+                }
+                if ($headlineContent == $sc->Title && $this->pageURLSegment != 'home') {
+                    $UnsortedListEntries->push(new ArrayData(
+                      array(
+                          'Content' => _t('SeoHeroToolProAnalyse.h1SameSiteConfigTitle', 'The h1 tag and site title are the same. Please change the h1 content.'),
+                          'IconMess' => '1',
+                          'HelpLink' => 'h1SameSiteConfigTitle'
+                      )
+                  ));
+                    $this->updateRules(1);
                 }
             } else {
                 $countHeadlines = 1;
@@ -701,14 +705,14 @@ class SeoHeroToolProAdmin extends LeftAndMain
                         $start = '';
                         $end = '';
                         if (isset($lines[$i-2])) {
-                            $start = $lines[$i-2].' <br/>'.$lines[$i-1].' <br/>';
+                            $start = $lines[$i-2].$lines[$i-1];
                         } elseif (isset($lines[$i-1])) {
-                            $start = $lines[$i-1].' <br/>';
+                            $start = $lines[$i-1];
                         }
                         if (isset($lines[$i+2])) {
-                            $end = '<br/>'.$lines[$i+1].' <br/>'.$lines[$i+2];
+                            $end = $lines[$i+1].$lines[$i+2];
                         } elseif (isset($lines[$i+1])) {
-                            $end = '<br/>'.$lines[$i+1];
+                            $end = $lines[$i+1];
                         }
 
                         $linkline =    '<code class="html tag start-tag">'.htmlentities($start.$lines[$i].$end).'</code>';
