@@ -470,7 +470,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     $UnsortedListEntries->push(new ArrayData(
                       array(
                           'Content' => _t('SeoHeroToolProAnalyse.NoHX', 'Found no tag').' '.$key,
-                          'IconMess' => '1',
+                          'IconMess' => '2',
                           'HelpLink' => 'NoHX'
                       )
                   ));
@@ -708,7 +708,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                         } elseif (isset($lines[$i+1])) {
                             $end = '<br/>'.$lines[$i+1];
                         }
-                        $linkline = $start.$lines[$i].$end;
+                        $linkline = '<pre>'.$start.$lines[$i].$end.'</pre>';
                     }
                 }
             }
