@@ -65,7 +65,7 @@ de:
     MetaLengthOK: 'Die Länge der Meta-Beschreibung ist gut, könnte aber länger sein.'
     MetaLengthShort: 'Die Meta-Beschreibung ist zu kurz.'
     NoH1: 'H1 Tag nicht gefunden.'
-    NoHX: 'Tag nicht gefunden.'
+    NoHX: 'Kein %1$s Tag gefunden.'
     NoHeadlineStructureError: 'Die Überschriften Struktur enthält keine offensichtlichen Fehler.'
     NoImagesFound: 'Diese Seite beinhaltet keine Bilder.'
     NoMetaDescription: 'Die Meta-Beschreibung ist leer.'
@@ -127,4 +127,11 @@ de:
     ProblemWithRobotstxt: Auf Robots.txt konnte nicht zugegeriffen werden. Die HTTP Antwort lautet
     SiteIsHTTP: Webseite wird über HTTP aufgerufen. HTTPS wäre besser.
     SiteIsHTTPS: Website wird über HTTPS aufgerufen.
-    PageSpeedNoInformation: Das Dokument kann nicht untersucht werden. Läuft die Webseite eventuell lokal?
+    PageSpeedNoInformation: Dokument konnte nicht durchsucht werden. Läuft die Seite lokal oder wurde der PageSpeed API-Key nicht gesetzt?
+    GoodDesktopPageSpeed: Der PageSpeed Wert ist gut.
+    MediocreDesktopPageSpeed: Der PageSpeed Wert ist mittelmässig. Hier könnte eventuell noch etwas verbessert werden.
+    BadDesktopPageSpeed: Der PageSpeed Wert ist schlecht. Hier sollte noch etwas verbessert werden.
+    GoodMobilePageSpeed: Der PageSpeed Wert für mobile Geräte ist gut.
+    MediocreMobilePageSpeed: Der PageSpeed Wert für mobile Geräte ist mittelmässig. Hier könnte eventuell noch etwas verbessert werden.
+    BadMobilePageSpeed: Der PageSpeed Wert für mobile Geräte ist schlecht. Hier sollte noch etwas verbessert werden.
+    PageSpeedNoResults: Die Antwort beinhaltet einen 500-er Fehler. Bitte die Seite manuell prüfen!

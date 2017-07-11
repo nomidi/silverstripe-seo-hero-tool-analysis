@@ -43,7 +43,7 @@ en:
     LinkToPageSpeedInsights: Open PageSpeed Insights
     PageSpeedLocally: The site runs locally and therefore a PageSpeed can not be calculated.
     W3CLocally: The site runs locally and therefore a W3C Check can not be performed
-    LastCheckInformation: Lastly checked at
+    LastCheckInformation: Last checked at
     PageSpeed: PageSpeed
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
@@ -65,7 +65,7 @@ en:
     MetaLengthOK: 'The Meta-Description is fine, but it could be longer. '
     MetaLengthShort: 'The Meta-Description is too short.'
     NoH1: 'Found no H1 tag'
-    NoHX: 'Found no tag'
+    NoHX: 'No %1$s Tag Found'
     NoHeadlineStructureError: 'The Headline Structure does not contain obvious Errors.'
     NoImagesFound: 'This page does not contain any pictures'
     NoMetaDescription: 'The Meta-Description is empty.'
@@ -128,4 +128,11 @@ en:
     ProblemWithRobotstxt: Robots.txt file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is
     SiteIsHTTP: Site can be reached via HTTP. HTTPS would be better.
     SiteIsHTTPS: Site can be reached via HTTPS.
-    PageSpeedNoInformation: The Document can not be scanned, maybe the website runs locally?
+    PageSpeedNoInformation: The Document can not be scanned, maybe the website runs locally or the PageSpeed API-key is not set?
+    GoodDesktopPageSpeed: The PageSpeed is quite good.
+    MediocreDesktopPageSpeed: The PageSpeed is mediocre. This could be probably done better.
+    BadDesktopPageSpeed: The PageSpeed is far from good. Please check how you can enhance this value.
+    GoodMobilePageSpeed: The PageSpeed for mobile devices is quite good.
+    MediocreMobilePageSpeed: The PageSpeed for mobile devices is mediocre. This could be probably done better.
+    BadMobilePageSpeed: The PageSpeed for mobile devices is far from good. Please check how you can enhance this value.
+    PageSpeedNoResults: The Response delivers an Error Code 500. Please check site manually!

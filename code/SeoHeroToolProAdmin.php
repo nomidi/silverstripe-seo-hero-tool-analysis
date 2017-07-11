@@ -85,13 +85,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $debugMode = Config::inst()->get('SeoHeroToolPro', 'Debug');
         $pageSpeedResults = '';
         $shtpw3c = '';
+        $pageSpeedResults =  $this->checkPageSpeed($URL);
         if ($debugMode) {
-            $pageSpeedResults =  $this->checkPageSpeed($URL);
             $shtpw3c = $this->getW3CValidation($URL);
         }
-
-
-
         if (!$this->siteRunsLocally) {
             $shtpPageSpeedLink = $this->linkToPageSpeedInsights.urlencode($URL);
             $shtpW3CLink = $this->linkToW3CPage.urlencode($URL);
@@ -139,6 +136,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'W3CLink' => $shtpW3CLink,
           'W3CMessage' => $W3CMessage,
           'W3CTimeStamp' => $this->W3CTimeStamp,
+          'DebugMode' => $debugMode,
           'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
         ))->renderWith('SeoHeroToolProAnalysePage');
         return $render;
@@ -473,7 +471,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 } else {
                     $UnsortedListEntries->push(new ArrayData(
                       array(
-                          'Content' => _t('SeoHeroToolProAnalyse.NoHX', 'Found no tag').' '.$key,
+                          'Content' => sprintf(_t('SeoHeroToolProAnalyse.NoHX', 'No %1$s Tag Found'), $key),
                           'IconMess' => '2',
                           'HelpLink' => 'NoHX'
                       )
@@ -1266,16 +1264,111 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $PageSpeedAPI = Config::inst()->get('SeoHeroToolPro', 'PageSpeedAPI');
         if ($PageSpeedAPI != '') {
             if (!$this->getAPIRequest('PageSpeed')) {
-                $this->setAPIRequestValue('PageSpeed', 'test');
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, 'https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url='.urlencode($URL).'&strategy=desktop');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+
+                $curlResponse = curl_exec($ch);
+                curl_close($ch);
+                $decodedInformation = json_decode($curlResponse);
+                if ($decodedInformation->error->code == '500') {
+                    $UnsortedListEntries->push(new ArrayData(
+                      array(
+                      'Content' => _t('SeoHeroToolProAnalyse.PageSpeedNoResults', 'The response delivers an Error Code 500. Please check site manually!'),
+                      'IconMess' => '1',
+                      'HelpLink' => 'PageSpeedNoResults'
+                      )
+                    ));
+                    $this->updateRules(1);
+                    return array(
+                      'Headline' => _t('SeoHeroToolPro.PageSpeed', 'PageSpeed Result'),
+                      'UnsortedListEntries' => $UnsortedListEntries);
+                }
+
+                $desktopScore = $decodedInformation->ruleGroups->SPEED->score;
+
+
+
+                $chmob = curl_init();
+                curl_setopt($chmob, CURLOPT_URL, 'https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url='.urlencode($URL).'&strategy=mobile');
+                curl_setopt($chmob, CURLOPT_RETURNTRANSFER, 1);
+                $mobResponse = curl_exec($chmob);
+                curl_close($chmob);
+                $decodedMobInformation = json_decode($mobResponse);
+                $mobileScore = $decodedMobInformation->ruleGroups->SPEED->score;
+                $scoreValue = array('desktop'=>$desktopScore,'mobile'=>$mobileScore);
+
+                $this->setAPIRequestValue('PageSpeed', $scoreValue);
             }
 
             $pageSpeedInformation = $this->getAPIRequestValue('PageSpeed');
             $this->pageSpeedTimeStamp = date("d.m.Y H:i:s", $pageSpeedInformation[0]);
+            $desktopValue = $pageSpeedInformation[1]['desktop'];
+            $mobileValue = $pageSpeedInformation[1]['mobile'];
+            $pageSpeedInformationCounter++;
+            if ($desktopValue >= 85) {
+                $UnsortedListEntries->push(new ArrayData(
+                  array(
+                        'Content' => _t('SeoHeroToolProAnalyse.GoodDesktopPageSpeed', 'The PageSpeed is quite good.').' '.$desktopValue,
+                    'IconMess' => '3',
+                    'HelpLink' => 'GoodDesktopPageSpeed'
+                  )
+                ));
+                $this->updateRules(3);
+            } elseif ($desktopValue < 85 && $desktopValue > 60) {
+                $UnsortedListEntries->push(new ArrayData(
+                  array(
+                        'Content' => _t('SeoHeroToolProAnalyse.MediocreDesktopPageSpeed', 'The PageSpeed is mediocre. This could be probably done better.').' '.$desktopValue,
+                    'IconMess' => '2',
+                    'HelpLink' => 'MediocreDesktopPageSpeed'
+                  )
+                ));
+                $this->updateRules(2);
+            } else {
+                $UnsortedListEntries->push(new ArrayData(
+                  array(
+                        'Content' => _t('SeoHeroToolProAnalyse.BadDesktopPageSpeed', 'The PageSpeed is far from good. Please check how you can enhance this value.').' '.$desktopValue,
+                    'IconMess' => '1',
+                    'HelpLink' => 'BadDesktopPageSpeed'
+                  )
+                ));
+                $this->updateRules(1);
+            }
+
+            if ($mobileValue >= 85) {
+                $UnsortedListEntries->push(new ArrayData(
+                  array(
+                        'Content' => _t('SeoHeroToolProAnalyse.GoodMobilePageSpeed', 'The PageSpeed for mobile devices is quite good.').' '.$mobileValue,
+                    'IconMess' => '3',
+                    'HelpLink' => 'GoodMobilePageSpeed'
+                  )
+                ));
+                $this->updateRules(3);
+            } elseif ($mobileValue < 85 && $mobileValue > 60) {
+                $UnsortedListEntries->push(new ArrayData(
+                  array(
+                        'Content' => _t('SeoHeroToolProAnalyse.MediocreMobilePageSpeed', 'The PageSpeed for mobile devices is mediocre. This could be probably done better.').' '.$mobileValue,
+                    'IconMess' => '2',
+                    'HelpLink' => 'MediocreMobilePageSpeed'
+                  )
+                ));
+                $this->updateRules(2);
+            } else {
+                $UnsortedListEntries->push(new ArrayData(
+                  array(
+                        'Content' => _t('SeoHeroToolProAnalyse.BadMobilePageSpeed', 'The PageSpeed for mobile devices is far from good. Please check how you can enhance this value.').' '.$mobileValue,
+                    'IconMess' => '1',
+                    'HelpLink' => 'BadMobilePageSpeed'
+                  )
+                ));
+                $this->updateRules(1);
+            }
         }
         if ($pageSpeedInformationCounter == 0) {
             $UnsortedListEntries->push(new ArrayData(
             array(
-                  'Content' => _t('SeoHeroToolProAnalyse.PageSpeedNoInformation', 'The Document can not be scanned, maybe the website runs locally?'),
+                  'Content' => _t('SeoHeroToolProAnalyse.PageSpeedNoInformation', 'The Document can not be scanned, maybe the website runs locally or the PageSpeed API-key is not set?'),
                   'IconMess' => '2',
                   'HelpLink' => 'PageSpeedNoInformation'
                 )
