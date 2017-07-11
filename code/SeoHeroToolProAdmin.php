@@ -86,9 +86,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $pageSpeedResults = '';
         $shtpw3c = '';
         $pageSpeedResults =  $this->checkPageSpeed($URL);
-        if ($debugMode) {
-            $shtpw3c = $this->getW3CValidation($URL);
-        }
+        $shtpw3c = $this->getW3CValidation($URL);
         if (!$this->siteRunsLocally) {
             $shtpPageSpeedLink = $this->linkToPageSpeedInsights.urlencode($URL);
             $shtpW3CLink = $this->linkToW3CPage.urlencode($URL);
@@ -954,35 +952,25 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
         if (!$this->getAPIRequest('W3C')) {
             $results = SeoHeroToolProW3CValidator::checkData($URL);
-            $this->setAPIRequestValue('W3C', $results);
+            $messages = $results->messages;
+            $error = 0;
+            $warning = 0;
+            foreach ($messages as $mes) {
+                if ($mes->type == 'error') {
+                    $error++;
+                } elseif ($mes->type == 'warning') {
+                    $warning++;
+                }
+            }
+            $errorsAndWarnings = array('error'=>$error,'warning'=>$warning);
+            $this->setAPIRequestValue('W3C', $errorsAndWarnings);
         }
         $sessionVal = $this->getAPIRequestValue('W3C');
         $this->W3CTimeStamp = date("d.m.Y H:i:s", $sessionVal[0]);
         $W3CResults = $sessionVal[1];
-        $foundHTMLErrors = 0;
-        $foundHTMLWarnings = 0;
+        $foundHTMLErrors = $sessionVal[1]['error'];
+        $foundHTMLWarnings = $sessionVal[1]['warning'];
         $nonDocumentError = 0;
-
-        foreach ($W3CResults as $w3centry) {
-            if (is_object($w3centry)) {
-                $message = $w3centry->Message;
-                $messageType = $w3centry->MessageType;
-                $lastLine = $w3centry->lastLine;
-                $lastColumn = $w3centry->lastColumn;
-                $firstColumn = $w3centry->firstColumn;
-                $extract = $w3centry->extract;
-                $hiliteStart = $w3centry->hiliteStart;
-                $hiliteLength = $w3centry->hiliteLength;
-                $subType = $w3centry->subType;
-
-                if ($messageType == 'Error') {
-                    $foundHTMLErrors++;
-                } elseif ($messageType == 'Info' && $w3centry->subType == 'Warning') {
-                    $foundHTMLWarnings++;
-                }
-                $sort++;
-            }
-        }
 
         /*
           If the site is hosted locally there will be a  "Name or service not known message"
@@ -1013,12 +1001,16 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $messageFoundHTMLErrors = _t('SeoHeroToolPro.W3CErrorSingular', 'one HTML error');
             } elseif ($foundHTMLErrors > 1) {
                 $messageFoundHTMLErrors = _t('SeoHeroToolPro.W3CErrorPlural', 'several HTML errors');
+            } else {
+                $messageFoundHTMLErrors = _t('SeoHeroToolPro.W3CErrorNone', 'no HTML errors');
             }
 
             if ($foundHTMLWarnings == 1) {
                 $messageFoundHTMLWarnings = _t('SeoHeroToolPro.W3CWarningSingular', 'one HTML warning');
             } elseif ($foundHTMLWarnings > 1) {
                 $messageFoundHTMLWarnings = _t('SeoHeroToolPro.W3CWarningPlural', 'several HTML warnings');
+            } else {
+                $messageFoundHTMLWarnings = _t('SeoHeroToolPro.W3CWarningNone', 'no HTML warnings');
             }
             $UnsortedListEntries->push(new ArrayData(
             array(
@@ -1067,7 +1059,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(3);
         }
         return array(
-          'Headline' => _t('SeoHeroToolProAnalyse.SkipToMainContent', 'Skip to main content'),
+          'Headline' => _t('SeoHeroToolPro.SkipToMainContent', 'Skip to main content'),
           'UnsortedListEntries' => $UnsortedListEntries
         );
     }

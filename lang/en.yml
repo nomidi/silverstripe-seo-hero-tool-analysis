@@ -30,8 +30,10 @@ en:
     URLLengthRecommendation: '(Optimal length is between 20 - 120 Characters)'
     W3CErrorPlural: 'several HTML errors'
     W3CErrorSingular: 'one HTML error'
+    W3CErrorNone: 'no HTML error'
     W3CWarningPlural: 'several HTML warnings'
     W3CWarningSingular: 'one HTML warning'
+    W3CWarningNone: 'no HTML warning'
     W3CResult: 'W3C Validator Result'
     WordCount: 'Word Count'
     WordCountRecommendation: '(A page should contain more than 200 words)'
@@ -45,6 +47,7 @@ en:
     W3CLocally: The site runs locally and therefore a W3C Check can not be performed
     LastCheckInformation: Last checked at
     PageSpeed: PageSpeed
+    SkipToMainContent: Skip to main content
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
   SeoHeroToolProAnalyse:
@@ -136,3 +139,5 @@ en:
     MediocreMobilePageSpeed: The PageSpeed for mobile devices is mediocre. This could be probably done better.
     BadMobilePageSpeed: The PageSpeed for mobile devices is far from good. Please check how you can enhance this value.
     PageSpeedNoResults: The Response delivers an Error Code 500. Please check site manually!
+    NoSkipToMainContentFound: No skip to main content link found on page.
+    SkipToMainContentFound: Skip to main content found on page.
