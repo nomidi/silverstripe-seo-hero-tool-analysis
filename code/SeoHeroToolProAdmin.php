@@ -14,6 +14,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
     public $pageTitle;
     public $pageID;
     public $wordCount;
+    public $pageURL;
     public $siteRunsLocally;
     public $pageSpeedKey;
     public $pageSpeedTimeStamp;
@@ -43,6 +44,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
         $this->pageID = $PageID;
         $URL = $Page->AbsoluteLink();
+        $this->URL = $URL;
         $versions = $Page->allVersions();
         Requirements::clear();
         if ($this->loadPage($URL, $Page) == false) {
@@ -490,7 +492,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $headlineContent = $value->item(0)->nodeValue;
                 $headlineLength = strlen($headlineContent);
                 $lengthRecommendation =  _t('SeoHeroToolPro.HeadLineRecommendation', '(optimal length between 15 and 80 Characters)');
-                $addText = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $headlineLength;
+                $addText = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $headlineLength.' - '.$headlineContent;
                 if ($headlineLength == 0) {
                     $UnsortedListEntries->push(new ArrayData(
                         array(
@@ -518,7 +520,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                         )
                     ));
                     $this->updateRules(2);
-                } elseif ($headlineContent == $sc->Title) {
+                } elseif ($headlineContent == $sc->Title && $this->URL != "home") {
                     $UnsortedListEntries->push(new ArrayData(
                         array(
                             'Content' => _t('SeoHeroToolProAnalyse.h1SameSiteConfigTitle', 'The h1 tag and site title are the same. Please change the h1 content.'),
@@ -543,7 +545,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     $headlineContent = $singleHeadline->textContent;
                     $headlineLength = strlen($headlineContent);
                     $lengthRecommendation =  _t('SeoHeroToolProAnalyse.HeadLineRecommendation', '(optimal length between 15 and 80 Characters)');
-                    $addText = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $headlineLength;
+                    $addText = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $headlineLength.' - '.$headlineContent;
                     if ($headlineLength == 0) {
                         $i = 0;
                         $searchedHeadlinePos = 0;
@@ -708,7 +710,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
                         } elseif (isset($lines[$i+1])) {
                             $end = '<br/>'.$lines[$i+1];
                         }
-                        $linkline = '<pre>'.$start.$lines[$i].$end.'</pre>';
+
+                        $linkline =    '<code class="html tag start-tag">'.htmlentities($start.$lines[$i].$end).'</code>';
                     }
                 }
             }
