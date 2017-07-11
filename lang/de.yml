@@ -92,7 +92,7 @@ de:
     h1LengthTooLong: 'Die h1 Überschrift ist zu lang.'
     h1LengthTooShort: 'Die h1 Überschrift ist zu kurz.'
     h1LengthGood: 'Die h1 Überschrift hat eine gute Länge.'
-    h1SameSiteConfigTitle: 'Die h1 Überschrift stimmt mit dem Titel aus der Seitenconfiguration überein'
+    h1SameSiteConfigTitle: 'Die h1 Überschrift stimmt mit dem Allgemeinen Titel aus der Seitenconfiguration überein'
     headlineLenghtGood: ' Überschrift hat eine gute Länge'
     headlineLengthEmpty: 'Die Überschrift %1$s ist leer'
     headlineLengthTooLong: ' Überschrift ist recht lang.'

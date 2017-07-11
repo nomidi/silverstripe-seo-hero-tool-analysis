@@ -92,6 +92,8 @@ en:
     h1LengthTooLong: 'The h1 Headline it quite long.'
     h1LengthTooShort: 'The h1 Headline it quite short.'
     h1SameSiteConfigTitle: 'The h1 tag has a good length'
+    h1LengthGood: 'The h1 tag has a good length'
+    h1SameSiteConfigTitle: 'The h1 tag and general site title are the same. Please change the h1 content.'
     headlineLenghtGood: ' Headline has a good length.'
     headlineLengthEmpty: 'The Headline %1$s is empty'
     headlineLengthTooLong: ' Headline is quite long.'

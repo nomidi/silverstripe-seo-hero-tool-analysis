@@ -536,7 +536,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 if ($headlineContent == $sc->Title && $this->pageURLSegment != 'home') {
                     $UnsortedListEntries->push(new ArrayData(
                       array(
-                          'Content' => _t('SeoHeroToolProAnalyse.h1SameSiteConfigTitle', 'The h1 tag and site title are the same. Please change the h1 content.'),
+                          'Content' => _t('SeoHeroToolProAnalyse.h1SameSiteConfigTitle', 'The h1 tag and general site title are the same. Please change the h1 content.').' - '.$headlineContent,
                           'IconMess' => '1',
                           'HelpLink' => 'h1SameSiteConfigTitle'
                       )
