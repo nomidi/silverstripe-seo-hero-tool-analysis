@@ -728,6 +728,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $linkName = $this->checkNodeValue($link);
             $linkline = 0;
 
+
             if (!$linkName) {
                 $lines = explode(PHP_EOL, $this->pageHTML);
                 $countlines = count($lines);
@@ -748,22 +749,23 @@ class SeoHeroToolProAdmin extends LeftAndMain
                         }
 
                         $linkline =    '<code class="html tag start-tag">'.htmlentities($start.$lines[$i].$end).'</code>';
-                        $UnsortedListEntries->push(new ArrayData(
-                          array(
-                              'Content' =>
-                              sprintf(
-                                  _t('SeoHeroToolProAnalyse.LinkNoAttrTitleAndNoLinkDescription',
-                                      'Please check the following area for a Link with an empty "a" tag<em>%s</em>'),
-                                  $linkline
-                              ),
-                                  'IconMess' => '1',
-                                  'HelpLink' => 'LinkNoAttrTitleAndNoLinkDescription'
-                              )
-                        ));
-                        $this->updateRules(1);
                     }
                 }
+                $UnsortedListEntries->push(new ArrayData(
+                  array(
+                      'Content' =>
+                      sprintf(
+                          _t('SeoHeroToolProAnalyse.LinkNoAttrTitleAndNoLinkDescription',
+                              'Please check the following area for a Link with an empty "a" tag<em>%s</em>'),
+                          $linkline
+                      ),
+                          'IconMess' => '1',
+                          'HelpLink' => 'LinkNoAttrTitleAndNoLinkDescription'
+                      )
+                ));
+                $this->updateRules(1);
             }
+
             if (!$link->hasAttribute('title')) {
                 $UnsortedListEntries->push(new ArrayData(
                       array(
@@ -791,7 +793,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 }
             }
         }
-        #die();
+
         if ($linkError == 0 && $documentLinks->length > 0) {
             $UnsortedListEntries->push(new ArrayData(
               array(
