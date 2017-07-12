@@ -681,11 +681,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
     private function checkSibling($object)
     {
-        if (is_object($object) && is_object($this->nextElementSibling($object))) {
-            foreach ($this->nextElementSibling($object)->childNodes as $morenodes) {
-                return $morenodes;
-            }
+        foreach ($this->nextElementSibling($object)->childNodes as $morenodes) {
+            return $morenodes;
         }
+
         return false;
     }
 
@@ -701,9 +700,17 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
     private function checkNodeValue($object)
     {
-        if (strlen(trim($object->nodeValue)) >= 1) {
-            return $object->nodeValue;
-        } elseif (is_object($object->nextSibling)  && $sibling = $this->checkSibling($object)) {
+        $innerHTML = $this->dom->saveHTML($object);
+        $innerText = trim(strip_tags($innerHTML));
+        if (strlen($innerText) >= 1) {
+            return $innerText;
+        } else {
+            #svg und img noch abfragen
+            return false;
+        }
+
+        /*elseif (is_object($object->nextSibling)  && $sibling = $this->checkSibling($object)) {
+            print_r($object);
             if (strlen(trim($sibling->nodeValue)) >= 1) {
                 return $sibling->nodeValue;
             } else {
@@ -711,10 +718,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
             }
         } else {
             return false;
-        }
+        }*/
     }
 
-    
+
     /*
       The function checkLinks() checks the links for titles and if there is content within the <a>-tags.
       @param $Page - the actual Page
@@ -728,10 +735,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
         foreach ($documentLinks as $link) {
             $linkName = $this->checkNodeValue($link);
-            $linkline = 0;
+
+            $linkline =    '<code class="html tag start-tag">'.htmlentities($this->dom->saveHTML($link)).'</code>';
 
             if (!$linkName) {
-                $linkline =    '<code class="html tag start-tag">'.htmlentities($this->dom->saveHTML($link)).'</code>';
                 $UnsortedListEntries->push(new ArrayData(
                   array(
                       'Content' =>
@@ -748,13 +755,18 @@ class SeoHeroToolProAdmin extends LeftAndMain
             }
 
             if (!$link->hasAttribute('title')) {
+                if ($linkName == "") {
+                    $linkNoAttrTitle = $linkline;
+                } else {
+                    $linkNoAttrTitle = $linkName;
+                }
                 $UnsortedListEntries->push(new ArrayData(
                       array(
                           'Content' =>
                           sprintf(
                               _t('SeoHeroToolProAnalyse.LinkNoAttrTitle',
                                   'The Link %s has no title attribute'),
-                              $linkName
+                              $linkNoAttrTitle
                           ),
                               'IconMess' => '1',
                               'HelpLink' => 'LinkNoAttrTitle'
