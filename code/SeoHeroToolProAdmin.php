@@ -936,6 +936,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
     private function getW3CValidation($URL)
     {
         $UnsortedListEntries = new ArrayList();
+        $nonDocumentError = 0;
         if ($this->siteRunsLocally) {
             $UnsortedListEntries->push(new ArrayData(
           array(
@@ -953,6 +954,9 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if (!$this->getAPIRequest('W3C')) {
             $results = SeoHeroToolProW3CValidator::checkData($URL);
             $messages = $results->messages;
+            if (isset($messages[0]->type) && $messages[0]->type == 'non-document-error') {
+                $nonDocumentError = 1;
+            }
             $error = 0;
             $warning = 0;
             foreach ($messages as $mes) {
@@ -970,12 +974,12 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $W3CResults = $sessionVal[1];
         $foundHTMLErrors = $sessionVal[1]['error'];
         $foundHTMLWarnings = $sessionVal[1]['warning'];
-        $nonDocumentError = 0;
+
 
         /*
           If the site is hosted locally there will be a  "Name or service not known message"
          */
-        if (isset($W3CResults->messages[0]->type) && $W3CResults->messages[0]->type == 'non-document-error') {
+        if ($nonDocumentError == 1) {
             $UnsortedListEntries->push(new ArrayData(
             array(
                   'Content' => _t('SeoHeroToolProAnalyse.W3CNon-Document-Error', 'The Document can not be scanned, maybe the website runs locally?'),
@@ -1265,37 +1269,37 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 curl_close($ch);
                 $decodedInformation = json_decode($curlResponse);
                 if ($decodedInformation->error->code == '500') {
-                    $UnsortedListEntries->push(new ArrayData(
-                      array(
-                      'Content' => _t('SeoHeroToolProAnalyse.PageSpeedNoResults', 'The response delivers an Error Code 500. Please check site manually!'),
-                      'IconMess' => '1',
-                      'HelpLink' => 'PageSpeedNoResults'
-                      )
-                    ));
-                    $this->updateRules(1);
-                    return array(
-                      'Headline' => _t('SeoHeroToolPro.PageSpeed', 'PageSpeed Result'),
-                      'UnsortedListEntries' => $UnsortedListEntries);
+                    $scoreValue = array('desktop'=>0,'mobile'=>0,'error'=>500);
+                    $this->setAPIRequestValue('PageSpeed', $scoreValue);
+                } else {
+                    $desktopScore = $decodedInformation->ruleGroups->SPEED->score;
+                    $chmob = curl_init();
+                    curl_setopt($chmob, CURLOPT_URL, 'https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url='.urlencode($URL).'&strategy=mobile');
+                    curl_setopt($chmob, CURLOPT_RETURNTRANSFER, 1);
+                    $mobResponse = curl_exec($chmob);
+                    curl_close($chmob);
+                    $decodedMobInformation = json_decode($mobResponse);
+                    $mobileScore = $decodedMobInformation->ruleGroups->SPEED->score;
+                    $scoreValue = array('desktop'=>$desktopScore,'mobile'=>$mobileScore);
+                    $this->setAPIRequestValue('PageSpeed', $scoreValue);
                 }
-
-                $desktopScore = $decodedInformation->ruleGroups->SPEED->score;
-
-
-
-                $chmob = curl_init();
-                curl_setopt($chmob, CURLOPT_URL, 'https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url='.urlencode($URL).'&strategy=mobile');
-                curl_setopt($chmob, CURLOPT_RETURNTRANSFER, 1);
-                $mobResponse = curl_exec($chmob);
-                curl_close($chmob);
-                $decodedMobInformation = json_decode($mobResponse);
-                $mobileScore = $decodedMobInformation->ruleGroups->SPEED->score;
-                $scoreValue = array('desktop'=>$desktopScore,'mobile'=>$mobileScore);
-
-                $this->setAPIRequestValue('PageSpeed', $scoreValue);
             }
 
             $pageSpeedInformation = $this->getAPIRequestValue('PageSpeed');
             $this->pageSpeedTimeStamp = date("d.m.Y H:i:s", $pageSpeedInformation[0]);
+            if (isset($pageSpeedInformation[1]['error']) && $pageSpeedInformation[1]['error'] == '500') {
+                $UnsortedListEntries->push(new ArrayData(
+                array(
+                'Content' => _t('SeoHeroToolProAnalyse.PageSpeedNoResults', 'The response delivers an Error Code 500. Please check site manually!'),
+                'IconMess' => '1',
+                'HelpLink' => 'PageSpeedNoResults'
+                )
+              ));
+                $this->updateRules(1);
+                return array(
+                'Headline' => _t('SeoHeroToolPro.PageSpeed', 'PageSpeed Result'),
+                'UnsortedListEntries' => $UnsortedListEntries);
+            }
             $desktopValue = $pageSpeedInformation[1]['desktop'];
             $mobileValue = $pageSpeedInformation[1]['mobile'];
             $pageSpeedInformationCounter++;

@@ -18,25 +18,19 @@
         <div class="col-md-12">
           <h1><%t SeoHeroToolPro.ANALYSEHEADLINE 'SEO analysis' %></h1>
           <p><strong><a href="$PageLink" target="_blank">$PageLink</a></strong></p>
-          <% if PageSpeedLink %>
-          <p><strong><a href="$PageSpeedLink" target="_blank"><%t SeoHeroToolPro.LinkToPageSpeedInsights 'Open PageSpeed Insights' %></a> <% if pageSpeedTimeStamp %><%t SeoHeroToolPro.LastCheckInformation 'Last checked at ' %> $pageSpeedTimeStamp<% end_if %></strong></p>
-          <% else_if PageSpeedMessage %>
-          <p><strong>$PageSpeedMessage</strong></p>
-          <% end_if %>
-          <% if W3CLink %>
-          <p><strong><a href="$W3CLink" target="_blank"><%t SeoHeroToolPro.LinkToW3C 'Open W3C Results' %></a> <% if W3CTimeStamp %><%t SeoHeroToolPro.LastCheckInformation 'Last checked at ' %> $W3CTimeStamp<% end_if %></strong></p>
-          <% else_if W3CMessage %>
-          <p><strong>$W3CMessage</strong></p>
-          <% end_if %>
           <% if AccessError == '' %>
 
           <div class="custom-content">
-            <table class="table table-bordered ">
+            <table class="table table-bordered">
                 <% with CountResults %>
                 <% loop UnsortedListEntries %>
-                <tr><td class="area">$CountLabel</td><td class="content">$CountValue</td></tr>
+                <tr><td>$CountLabel</td><td>$CountValue</td></tr>
                 <% end_loop %>
                 <% end_with %>
+                <tr><td><%t SeoHeroToolPro.PageSpeed 'PageSpeed' %></td><% if PageSpeedResults %><td><% with PageSpeedResults %><% loop UnsortedListEntries %>$Content<% end_loop %><% end_with %></td><% end_if %>
+                  <td><% if PageSpeedLink %><a href="$PageSpeedLink" target="_blank"><%t SeoHeroToolPro.LinkToPageSpeedInsights 'Open PageSpeed Insights' %></a><% else %>$PageSpeedMessage<% end_if %></td><% if pageSpeedTimeStamp %><td><%t SeoHeroToolPro.LastCheckInformation 'Last checked at ' %>$pageSpeedTimeStamp</td><% end_if %></tr>
+                <tr><td><%t SeoHeroToolPro.W3CResult 'W3C Result' %></td><% if W3CResults %><td><% with W3CResults %><% loop UnsortedListEntries %>$Content<% end_loop %><% end_with %></td>
+                  <% end_if %><td><% if W3CLink %><a href="$W3CLink" target="_blank"><%t SeoHeroToolPro.LinkToW3C 'Open W3C Results' %></a><% else %>$W3CMessage<% end_if %></td><% if W3CTimeStamp %><td><%t SeoHeroToolPro.LastCheckInformation 'Last checked at ' %> $W3CTimeStamp</td><% end_if %></tr>
             </table>
           </div>
           <% end_if %>
