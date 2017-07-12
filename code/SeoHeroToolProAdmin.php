@@ -704,7 +704,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if (strlen($object->nodeValue) >= 1) {
             return $object->nodeValue;
         } elseif (is_object($object->nextSibling)  && $sibling = $this->checkSibling($object)) {
-            return $sibling->nodeValue;
+            if (strlen($object->nodeValue) >= 1) {
+                return $sibling->nodeValue;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
