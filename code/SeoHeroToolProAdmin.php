@@ -135,6 +135,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'W3CMessage' => $W3CMessage,
           'W3CTimeStamp' => $this->W3CTimeStamp,
           'DebugMode' => $debugMode,
+          'ContentLocale'=>'de-DE',
           'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
         ))->renderWith('SeoHeroToolProAnalysePage');
         return $render;
@@ -678,6 +679,36 @@ class SeoHeroToolProAdmin extends LeftAndMain
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
+    private function checkSibling($object)
+    {
+        if (is_object($object) && is_object($this->nextElementSibling($object))) {
+            foreach ($this->nextElementSibling($object)->childNodes as $morenodes) {
+                return $morenodes;
+            }
+        }
+        return false;
+    }
+
+    private function nextElementSibling($node)
+    {
+        while ($node && ($node = $node->nextSibling)) {
+            if ($node instanceof DOMElement) {
+                break;
+            }
+        }
+        return $node;
+    }
+
+    private function checkNodeValue($object)
+    {
+        if (strlen($object->nodeValue) >= 1) {
+            return $object->nodeValue;
+        } elseif (is_object($object->nextSibling)  && $sibling = $this->checkSibling($object)) {
+            return $sibling->nodeValue;
+        } else {
+            return false;
+        }
+    }
     /*
       The function checkLinks() checks the links for titles and if there is content within the <a>-tags.
       @param $Page - the actual Page
@@ -690,9 +721,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $linkSameTitleNameMessage = '';
 
         foreach ($documentLinks as $link) {
-            $linkName = $link->nodeValue;
+            $linkName = $this->checkNodeValue($link);
             $linkline = 0;
-            if ($linkName == '') {
+
+            if (!$linkName) {
                 $lines = explode(PHP_EOL, $this->pageHTML);
                 $countlines = count($lines);
                 for ($i=1;  $i < $countlines; $i++) {
@@ -712,37 +744,38 @@ class SeoHeroToolProAdmin extends LeftAndMain
                         }
 
                         $linkline =    '<code class="html tag start-tag">'.htmlentities($start.$lines[$i].$end).'</code>';
+                        $UnsortedListEntries->push(new ArrayData(
+                          array(
+                              'Content' =>
+                              sprintf(
+                                  _t('SeoHeroToolProAnalyse.LinkNoAttrTitleAndNoLinkDescription',
+                                      'Please check the following area for a Link with an empty "a" tag<em>%s</em>'),
+                                  $linkline
+                              ),
+                                  'IconMess' => '1',
+                                  'HelpLink' => 'LinkNoAttrTitleAndNoLinkDescription'
+                              )
+                        ));
+                        $this->updateRules(1);
                     }
                 }
             }
             if (!$link->hasAttribute('title')) {
-                if ($linkName != '') {
-                    $UnsortedListEntries->push(new ArrayData(
+                $UnsortedListEntries->push(new ArrayData(
                       array(
                           'Content' =>
                           sprintf(
                               _t('SeoHeroToolProAnalyse.LinkNoAttrTitle',
                                   'The Link %s has no title attribute'),
-                              $link->nodeValue
+                              $linkName
                           ),
                               'IconMess' => '1',
                               'HelpLink' => 'LinkNoAttrTitle'
                           )
                     ));
-                } else {
-                    $UnsortedListEntries->push(new ArrayData(
-                      array(
-                          'Content' =>
-                          sprintf(
-                              _t('SeoHeroToolProAnalyse.LinkNoAttrTitleAndNoLinkDescription',
-                                  'Please check the following area for a Link with an empty "a" tag<em>%s</em>'),
-                              $linkline
-                          ),
-                              'IconMess' => '1',
-                              'HelpLink' => 'LinkNoAttrTitleAndNoLinkDescription'
-                          )
-                    ));
-                }
+
+
+
 
 
                 $linkError = 1;
@@ -754,6 +787,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 }
             }
         }
+        #die();
         if ($linkError == 0 && $documentLinks->length > 0) {
             $UnsortedListEntries->push(new ArrayData(
               array(
