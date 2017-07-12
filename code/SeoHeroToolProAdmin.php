@@ -701,10 +701,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
     private function checkNodeValue($object)
     {
-        if (strlen($object->nodeValue) >= 1) {
+        if (strlen(trim($object->nodeValue)) >= 1) {
             return $object->nodeValue;
         } elseif (is_object($object->nextSibling)  && $sibling = $this->checkSibling($object)) {
-            if (strlen($object->nodeValue) >= 1) {
+            if (strlen(trim($sibling->nodeValue)) >= 1) {
                 return $sibling->nodeValue;
             } else {
                 return false;
@@ -713,6 +713,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
             return false;
         }
     }
+
+    
     /*
       The function checkLinks() checks the links for titles and if there is content within the <a>-tags.
       @param $Page - the actual Page
@@ -728,29 +730,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $linkName = $this->checkNodeValue($link);
             $linkline = 0;
 
-
             if (!$linkName) {
-                $lines = explode(PHP_EOL, $this->pageHTML);
-                $countlines = count($lines);
-                for ($i=1;  $i < $countlines; $i++) {
-                    preg_match("/<a href=.*?><\/a>/", $lines[$i], $matches, PREG_OFFSET_CAPTURE);
-                    if (isset($matches[0])) {
-                        $start = '';
-                        $end = '';
-                        if (isset($lines[$i-2])) {
-                            $start = $lines[$i-2].$lines[$i-1];
-                        } elseif (isset($lines[$i-1])) {
-                            $start = $lines[$i-1];
-                        }
-                        if (isset($lines[$i+2])) {
-                            $end = $lines[$i+1].$lines[$i+2];
-                        } elseif (isset($lines[$i+1])) {
-                            $end = $lines[$i+1];
-                        }
-
-                        $linkline =    '<code class="html tag start-tag">'.htmlentities($start.$lines[$i].$end).'</code>';
-                    }
-                }
+                $linkline =    '<code class="html tag start-tag">'.htmlentities($this->dom->saveHTML($link)).'</code>';
                 $UnsortedListEntries->push(new ArrayData(
                   array(
                       'Content' =>
