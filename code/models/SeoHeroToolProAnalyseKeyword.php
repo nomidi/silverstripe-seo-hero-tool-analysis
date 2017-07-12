@@ -44,7 +44,9 @@ class SeoHeroToolProAnalyseKeyword
 
         $dom2 = new DOMDocument;
         $dom2->appendChild($dom2->importNode($contentConatiner->item(0), true));
-        $this->ContentIDFirstParagraph = $dom2->getElementsByTagName('p')->item(0)->nodeValue;
+        if (is_object($dom2->getElementsByTagName('p')->item(0))) {
+            $this->ContentIDFirstParagraph =$dom2->getElementsByTagName('p')->item(0)->nodeValue;
+        }
     }
 
     public function checkKeywords($Page, $dom)
