@@ -30,6 +30,9 @@ body{
   width: 10%;
 }
 
+.table-bordered .tr-api td:nth-child(3){
+  width: 20%;
+}
 
 .nav-tabs-custom>.nav-tabs {
     margin: 0;
