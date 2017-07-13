@@ -727,6 +727,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         foreach ($documentLinks as $link) {
             $linkName = $this->checkNodeValue($link);
             $linkline = 0;
+            debug::show($this->dom->saveHTML($link));
 
 
             if (!$linkName) {
