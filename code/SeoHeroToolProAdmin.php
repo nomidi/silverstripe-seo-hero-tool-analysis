@@ -681,11 +681,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
     private function checkSibling($object)
     {
-        if (is_object($object) && is_object($this->nextElementSibling($object))) {
-            foreach ($this->nextElementSibling($object)->childNodes as $morenodes) {
-                return $morenodes;
-            }
+        foreach ($this->nextElementSibling($object)->childNodes as $morenodes) {
+            return $morenodes;
         }
+
         return false;
     }
 
@@ -701,18 +700,28 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
     private function checkNodeValue($object)
     {
-        if (strlen($object->nodeValue) >= 1) {
-            return $object->nodeValue;
-        } elseif (is_object($object->nextSibling)  && $sibling = $this->checkSibling($object)) {
-            if (strlen($object->nodeValue) >= 1) {
+        $innerHTML = $this->dom->saveHTML($object);
+        $innerText = trim(strip_tags($innerHTML));
+        if (strlen($innerText) >= 1) {
+            return $innerText;
+        } else {
+            #svg und img noch abfragen
+            return false;
+        }
+
+        /*elseif (is_object($object->nextSibling)  && $sibling = $this->checkSibling($object)) {
+            print_r($object);
+            if (strlen(trim($sibling->nodeValue)) >= 1) {
                 return $sibling->nodeValue;
             } else {
                 return false;
             }
         } else {
             return false;
-        }
+        }*/
     }
+
+
     /*
       The function checkLinks() checks the links for titles and if there is content within the <a>-tags.
       @param $Page - the actual Page
@@ -726,32 +735,9 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
         foreach ($documentLinks as $link) {
             $linkName = $this->checkNodeValue($link);
-            $linkline = 0;
-            debug::show($this->dom->saveHTML($link));
-
+            $linkline =    '<code class="html tag start-tag">'.htmlentities($this->dom->saveHTML($link)).'</code>';
 
             if (!$linkName) {
-                $lines = explode(PHP_EOL, $this->pageHTML);
-                $countlines = count($lines);
-                for ($i=1;  $i < $countlines; $i++) {
-                    preg_match("/<a href=.*?><\/a>/", $lines[$i], $matches, PREG_OFFSET_CAPTURE);
-                    if (isset($matches[0])) {
-                        $start = '';
-                        $end = '';
-                        if (isset($lines[$i-2])) {
-                            $start = $lines[$i-2].$lines[$i-1];
-                        } elseif (isset($lines[$i-1])) {
-                            $start = $lines[$i-1];
-                        }
-                        if (isset($lines[$i+2])) {
-                            $end = $lines[$i+1].$lines[$i+2];
-                        } elseif (isset($lines[$i+1])) {
-                            $end = $lines[$i+1];
-                        }
-
-                        $linkline =    '<code class="html tag start-tag">'.htmlentities($start.$lines[$i].$end).'</code>';
-                    }
-                }
                 $UnsortedListEntries->push(new ArrayData(
                   array(
                       'Content' =>
@@ -768,13 +754,18 @@ class SeoHeroToolProAdmin extends LeftAndMain
             }
 
             if (!$link->hasAttribute('title')) {
+                if ($linkName == "") {
+                    $linkNoAttrTitle = $linkline;
+                } else {
+                    $linkNoAttrTitle = $linkName;
+                }
                 $UnsortedListEntries->push(new ArrayData(
                       array(
                           'Content' =>
                           sprintf(
                               _t('SeoHeroToolProAnalyse.LinkNoAttrTitle',
                                   'The Link %s has no title attribute'),
-                              $linkName
+                              $linkNoAttrTitle
                           ),
                               'IconMess' => '1',
                               'HelpLink' => 'LinkNoAttrTitle'
