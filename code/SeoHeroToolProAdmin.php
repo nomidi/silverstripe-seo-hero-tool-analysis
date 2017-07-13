@@ -705,6 +705,24 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if (strlen($innerText) >= 1) {
             return $innerText;
         } else {
+            foreach ($object->childNodes as $child) {
+                $innerElement = $this->dom->saveHTML($child);
+                $imgneedle = '<img';
+                $imgres = strpos($innerElement, $imgneedle);
+                $svgneedle = '<svg';
+                $svgres = strpos($innerElement, $svgneedle);
+
+                if ($imgres) {
+                    $resend = strpos($innerElement, '>', $imgres);
+                    $resstart = $imgres;
+                } elseif ($svgres) {
+                    $resend = strpos($innerElement, '>', $svgres);
+                    $resstart = $svgres;
+                }
+                if ($resend) {
+                    return htmlentities(substr($innerElement, $resstart, $resend+1-$resstart));
+                }
+            }
             #svg und img noch abfragen
             return false;
         }
