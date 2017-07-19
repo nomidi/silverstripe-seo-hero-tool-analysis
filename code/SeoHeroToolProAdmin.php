@@ -713,7 +713,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $imgres = strpos($innerElement, $imgneedle);
                 $svgneedle = '<svg';
                 $svgres = strpos($innerElement, $svgneedle);
-
+                $resend = false;
                 if ($imgres) {
                     $resend = strpos($innerElement, '>', $imgres);
                     $resstart = $imgres;
