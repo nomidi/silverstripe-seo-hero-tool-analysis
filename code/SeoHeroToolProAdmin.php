@@ -196,7 +196,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
         $titleHelpLink = "";
         $lengthRecommendation =  _t('SeoHeroToolPro.TitleLengthRecommendation', 'Recommendation 44 - 56 Characters');
-        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $lengthOfTitle;
+        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $lengthOfTitle;
 
 
 
