@@ -193,7 +193,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $UnsortedListEntries = new ArrayList();
 
         $titleHelpLink = "";
-        $lengthRecommendation =  _t('SeoHeroToolProAnalyse.TitleLengthRecommendation', 'Recommendation 44 - 61 Characters');
+        $lengthRecommendation =  _t('SeoHeroToolProAnalyse.TitleLengthRecommendation', 'Recommendation 44 - 56 Characters');
         $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolProAnalyse.Length', 'Length').': ' . $lengthOfTitle;
 
 
