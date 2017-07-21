@@ -710,14 +710,14 @@ class SeoHeroToolProAdmin extends LeftAndMain
             foreach ($object->childNodes as $child) {
                 $innerElement = $this->dom->saveHTML($child);
                 $imgneedle = '<img';
-                $imgres = strpos($innerElement, $imgneedle);
+                $imgres = stripos($innerElement, $imgneedle);
                 $svgneedle = '<svg';
-                $svgres = strpos($innerElement, $svgneedle);
+                $svgres = stripos($innerElement, $svgneedle);
                 $resend = false;
-                if ($imgres) {
+                if ($imgres !== false) {
                     $resend = strpos($innerElement, '>', $imgres);
                     $resstart = $imgres;
-                } elseif ($svgres) {
+                } elseif ($svgres !== false) {
                     $resend = strpos($innerElement, '>', $svgres);
                     $resstart = $svgres;
                 }
