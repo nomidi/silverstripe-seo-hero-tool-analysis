@@ -69,6 +69,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $this->wordCount = str_word_count(preg_replace('#\<(.+?)\>#', ' ', $htmlForWordCount));
         $shtpTitle = $this->checkTitle();
         $shtpSkipToMainContent = $this->checkSkipToMainContent();
+        $shtpAMPLink = $this->checkAMPLink();
         $shtpMeta = $this->checkMeta($Page);
         $shtpURL = $this->checkURL($Page);
         $shtpUsefulFiles = $this->checkForUsefulFiles();
@@ -118,6 +119,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'UsefulFilesResults' => $shtpUsefulFiles,
           'StructuredDataResults' => $shtpStructuredData,
           'SkipMainContentResults' => $shtpSkipToMainContent,
+          'AMPLinkResult' => $shtpAMPLink,
           'CountResults' => $shtpCountArray,
           'RulesWrong' => $this->rules['wrong'],
           'RulesNotice' => $this->rules['notice'],
@@ -711,7 +713,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $imgres = strpos($innerElement, $imgneedle);
                 $svgneedle = '<svg';
                 $svgres = strpos($innerElement, $svgneedle);
-
+                $resend = false;
                 if ($imgres) {
                     $resend = strpos($innerElement, '>', $imgres);
                     $resstart = $imgres;
@@ -1117,6 +1119,95 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'UnsortedListEntries' => $UnsortedListEntries
         );
     }
+
+    /**
+    * Check that given URL is valid and exists.
+     * @param string $url URL to check
+     * @return bool TRUE when valid | FALSE anyway
+     */
+      private function urlExists($url)
+      {
+          // Remove all illegal characters from a url
+          $url = filter_var($url, FILTER_SANITIZE_URL);
+
+          // Validate URI
+          if (filter_var($url, FILTER_VALIDATE_URL) === false
+              // check only for http/https schemes.
+              || !in_array(strtolower(parse_url($url, PHP_URL_SCHEME)), ['http','https'], true)
+          ) {
+              return false;
+          }
+
+          // Check that URL exists
+          $file_headers = @get_headers($url);
+          return !(!$file_headers || $file_headers[0] === 'HTTP/1.1 404 Not Found');
+      }
+
+
+    /*
+    The function checkAMPLink() checks if there is an link to an amp Page
+    */
+    private function checkAMPLink()
+    {
+        $UnsortedListEntries = new ArrayList();
+        $search = 'rel="amphtml"';
+        if (!strpos(strtolower($this->pageHTML), $search)) {
+            $UnsortedListEntries->push(new ArrayData(
+            array(
+              'Content' => _t('SeoHeroToolProAnalyse.NoAMPLinkFound', 'No AMP Link found on page.'),
+              'IconMess' => '2',
+              'HelpLink' => 'NoAMPLinkFound'
+            )
+          ));
+            $this->updateRules(2);
+        } else {
+            $UnsortedListEntries->push(new ArrayData(
+            array(
+              'Content' => _t('SeoHeroToolProAnalyse.AMPLinkFound', 'AMP Link found on page.'),
+              'IconMess' => '3',
+              'HelpLink' => 'NoAMPLinkFound'
+            )
+          ));
+            $this->updateRules(3);
+            //überprüfe ob die SEite existiert
+            $searchPattern = "/<link rel=\"amphtml\" href=\"([^<]*)\">/s";
+            preg_match_all($searchPattern, $this->pageHTML, $aMatch);
+
+            $ampPage = $aMatch[1][0];
+            if ($this->urlExists($ampPage)) {
+                $UnsortedListEntries->push(new ArrayData(
+                array(
+                'Content' => _t('SeoHeroToolProAnalyse.AMPPageFound', 'AMP Page exists.'),
+                'IconMess' => '3',
+                'HelpLink' => 'NoAMPLinkFound'
+              )
+            ));
+                $this->updateRules(3);
+            } else {
+                $UnsortedListEntries->push(new ArrayData(
+              array(
+                'Content' => _t('SeoHeroToolProAnalyse.NoAMPPageFound', 'The AMP Page dos not exists.'),
+                'IconMess' => '1',
+                'HelpLink' => 'NoAMPLinkFound'
+              )
+            ));
+                $this->updateRules(1);
+            }
+        }
+        return array(
+          'Headline' => _t('SeoHeroToolPro.AMPLink', 'AMP Link found'),
+          'UnsortedListEntries' => $UnsortedListEntries
+        );
+    }
+
+    /*
+    The function checkAMPLinkPageExists() checks if there an amp link in head if the page exists
+    */
+    private function checkAMPLinkPageExists()
+    {
+        $UnsortedListEntries = new ArrayList();
+    }
+
 
     /*
       The function checkForUsefulFiles() checks if in the main folder of this project there is a robots.txt and sitemap.xml file and if they are accessible.
