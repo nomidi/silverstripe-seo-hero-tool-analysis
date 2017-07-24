@@ -40,14 +40,25 @@ class SeoHeroToolProAdmin extends LeftAndMain
     {
         $PageID = $this->request->param('ID');
         $Page = Page::get()->byID($PageID);
-        if (!$Page->ID) {
-            return false;
+        if (!$Page || !$Page->ID) {
+            $render = $this->owner->customise(array(
+            'AccessError' => _t('SeoHeroToolPro.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
+              'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
+          ))->renderWith('SeoHeroToolProAnalysePage');
+            return $render;
         }
         $this->pageID = $PageID;
         $URL = $Page->AbsoluteLink();
         $this->URL = $URL.'?stage=Stage';
         $this->pageURLSegment = $Page->URLSegment;
         $versions = $Page->allVersions();
+        $publishInformation = '';
+        if (!$versions->First->WasPublished) {
+            $publishInformation = _t('SeoHeroToolPro.ActualVersionNotPublished', 'The actual version of this Page is currently not Published.');
+            $this->URL = $URL.'?stage=Stage';
+        } else {
+            $publishInformation = _t('SeoHeroToolPro.ActualVersionPublished', 'The actual version of this Page is published.');
+        }
         Requirements::clear();
         if ($this->loadPage($this->URL, $Page) == false) {
             $render = $this->owner->customise(array(
@@ -133,6 +144,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'PageSpeedMessage' => $pageSpeedMessage,
           'PageSpeedLink' => $shtpPageSpeedLink,
           'PageSpeedTimestamp' =>   $this->pageSpeedTimeStamp,
+          'ActualPublishedStatus' => $publishInformation,
           'W3CLink' => $shtpW3CLink,
           'W3CMessage' => $W3CMessage,
           'W3CTimeStamp' => $this->W3CTimeStamp,
