@@ -50,6 +50,9 @@ de:
     SkipToMainContent: Skip to main content
     LinkToW3C: W3C Ergebnisse öffnen
     AMPLink: AMP Link
+    ActualVersionNotPublished: Die aktuelle Version der Website ist nicht veröffentlicht.
+    ActualVersionPublished: Die aktuelle Version der Website ist veröffentlicht.
+    PublishStatus: Veröffentlichungsstatus
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
   SeoHeroToolProAnalyse:

@@ -50,6 +50,9 @@ en:
     SkipToMainContent: Skip to main content
     LinkToW3C: Open W3C Results
     AMPLink: AMP Link
+    ActualVersionNotPublished: The actual version of this Page is not published.
+    ActualVersionPublished: The actual version of this Page is published.
+    PublishStatus: Publish Status
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
   SeoHeroToolProAnalyse:

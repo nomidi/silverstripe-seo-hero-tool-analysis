@@ -54,7 +54,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $versions = $Page->allVersions();
         $publishInformation = '';
         if (!$versions->First()->WasPublished) {
-            $publishInformation = _t('SeoHeroToolPro.ActualVersionNotPublished', 'The actual version of this Page is currently not Published.');
+            $publishInformation = _t('SeoHeroToolPro.ActualVersionNotPublished', 'The actual version of this Page is not published.');
             $this->URL = $URL.'?stage=Stage';
         } else {
             $publishInformation = _t('SeoHeroToolPro.ActualVersionPublished', 'The actual version of this Page is published.');
