@@ -45,11 +45,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
         $this->pageID = $PageID;
         $URL = $Page->AbsoluteLink();
-        $this->URL = $URL;
+        $this->URL = $URL.'?stage=Stage';
         $this->pageURLSegment = $Page->URLSegment;
         $versions = $Page->allVersions();
         Requirements::clear();
-        if ($this->loadPage($URL, $Page) == false) {
+        if ($this->loadPage($this->URL, $Page) == false) {
             $render = $this->owner->customise(array(
               'AccessError' => _t('SeoHeroToolPro.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
                 'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
@@ -840,7 +840,13 @@ class SeoHeroToolProAdmin extends LeftAndMain
     private function PageExists($URL)
     {
         $header = @get_headers($URL);
-        return is_array($header) ? preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/', $header[0]) : false;
+        if (is_array($header)) {
+            if (preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/', $header[0]) || preg_match('/^HTTP\\/\\d+\\.\\d+\\s+3\\d\\d\\s+.*$/', $header[0])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     /*
