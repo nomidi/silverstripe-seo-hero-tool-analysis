@@ -1503,14 +1503,25 @@ class SeoHeroToolProAdmin extends LeftAndMain
             }
         }
         if ($pageSpeedInformationCounter == 0) {
-            $UnsortedListEntries->push(new ArrayData(
-            array(
-                  'Content' => _t('SeoHeroToolProAnalyse.PageSpeedNoInformation', 'The Document can not be scanned, maybe the website runs locally or the PageSpeed API-key is not set?'),
-                  'IconMess' => '2',
-                  'HelpLink' => 'PageSpeedNoInformation'
-                )
-            ));
-            $this->updateRules(2);
+            if ($PageSpeedAPI != '') {
+                $UnsortedListEntries->push(new ArrayData(
+              array(
+                    'Content' => _t('SeoHeroToolProAnalyse.PageSpeedNoResultsNoError', 'The Document can not be scanned, but no error was found in the return'),
+                    'IconMess' => '2',
+                    'HelpLink' => 'PageSpeedNoInformation'
+                  )
+              ));
+                $this->updateRules(2);
+            } else {
+                $UnsortedListEntries->push(new ArrayData(
+              array(
+                    'Content' => _t('SeoHeroToolProAnalyse.PageSpeedKeyNotSet', 'The Document can not be scanned as the PageSpeed API-key is not set'),
+                    'IconMess' => '2',
+                    'HelpLink' => 'PageSpeedNoInformation'
+                  )
+              ));
+                $this->updateRules(2);
+            }
         }
 
         return array(
