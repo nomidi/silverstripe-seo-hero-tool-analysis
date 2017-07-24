@@ -54,10 +54,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $versions = $Page->allVersions();
         $publishInformation = '';
         if (!$versions->First()->WasPublished) {
-            $publishInformation = _t('SeoHeroToolPro.ActualVersionNotPublished', 'The actual version of this Page is not published.');
-            $this->URL = $URL.'?stage=Stage';
-        } else {
-            $publishInformation = _t('SeoHeroToolPro.ActualVersionPublished', 'The actual version of this Page is published.');
+            $render = $this->owner->customise(array(
+                  'AccessError' => _t('SeoHeroToolPro.ActualVersionNotPublished', 'The actual version of this Page is not published. Please publish it as the Seo Hero Tool can just access published websites.'),
+                    'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
+                ))->renderWith('SeoHeroToolProAnalysePage');
         }
         Requirements::clear();
         if ($this->loadPage($this->URL, $Page) == false) {
