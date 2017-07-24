@@ -1032,15 +1032,27 @@ class SeoHeroToolProAdmin extends LeftAndMain
           If the site is hosted locally there will be a  "Name or service not known message"
          */
         if ($nonDocumentError == 1) {
-            $UnsortedListEntries->push(new ArrayData(
-            array(
-                  'Content' => _t('SeoHeroToolProAnalyse.W3CNon-Document-Error', 'The Document can not be scanned, maybe the website runs locally?'),
-                  'IconMess' => '2',
-                  'HelpLink' => 'W3CNon-Document-Error'
-                )
-              ));
-            $this->updateRules(2);
-            $nonDocumentError = 1;
+            if (isset($this->siteRunsLocally)) {
+                $UnsortedListEntries->push(new ArrayData(
+              array(
+                    'Content' => _t('SeoHeroToolProAnalyse.W3CLocally', 'The site runs locally and therefore a W3C Check can not be performed'),
+                    'IconMess' => '2',
+                    'HelpLink' => 'W3CLocally'
+                  )
+                ));
+                $this->updateRules(2);
+                $nonDocumentError = 1;
+            } else {
+                $UnsortedListEntries->push(new ArrayData(
+              array(
+                    'Content' => _t('SeoHeroToolProAnalyse.W3CNon-Document-Error', 'The Document can not be scanned, maybe the website runs locally?'),
+                    'IconMess' => '2',
+                    'HelpLink' => 'W3CNon-Document-Error'
+                  )
+                ));
+                $this->updateRules(2);
+                $nonDocumentError = 1;
+            }
         }
 
         if ($foundHTMLErrors == 0 && $foundHTMLWarnings == 0 && $nonDocumentError == 0) {
