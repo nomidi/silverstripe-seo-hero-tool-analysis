@@ -49,6 +49,7 @@ en:
     PageSpeed: PageSpeed
     SkipToMainContent: Skip to main content
     LinkToW3C: Open W3C Results
+    AMPLink: AMP Link
   SeoHeroToolProAdmin:
     MENUTITLE: SeoHeroToolPro
   SeoHeroToolProAnalyse:
@@ -144,3 +145,7 @@ en:
     PageSpeedKeyNotSet: The Document can not be scanned as the PageSpeed API-key is not set
     NoSkipToMainContentFound: No skip to main content link found on page.
     SkipToMainContentFound: Skip to main content found on page.
+    NoAMPLinkFound: No AMP Link found on page.
+    AMPLinkFound: AMP Link found on page.
+    AMPPageFound: AMP Page exists.
+    NoAMPPageFound: The AMP Page dos not exists.
