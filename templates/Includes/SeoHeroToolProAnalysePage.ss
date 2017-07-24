@@ -26,8 +26,8 @@
                 <% loop UnsortedListEntries %>
                 <tr><td>$CountLabel</td><td colspan="2">$CountValue</td></tr>
                 <% end_loop %>
-                <tr><td><%t SeoHeroToolPro.PublishStatus 'Actual Status' %></td><td>$ActualPublishedStatus</td></tr>
                 <% end_with %>
+                <tr><td><%t SeoHeroToolPro.PublishStatus 'Actual Status' %></td><td>$ActualPublishedStatus</td></tr>
                 <tr class="tr-api"><td><%t SeoHeroToolPro.PageSpeed 'PageSpeed' %></td><% if PageSpeedResults %><td><% with PageSpeedResults %><% loop UnsortedListEntries %>$Content<% end_loop %><% end_with %><% if pageSpeedTimeStamp %><br/><%t SeoHeroToolPro.LastCheckInformation 'Last checked at ' %>$pageSpeedTimeStamp<% end_if %></td><% end_if %>
                   <td><% if PageSpeedLink %><a href="$PageSpeedLink" target="_blank"><%t SeoHeroToolPro.LinkToPageSpeedInsights 'Open PageSpeed Insights' %></a><% else %>$PageSpeedMessage<% end_if %></td></tr>
                 <tr class="tr-api"><td><%t SeoHeroToolPro.W3CResult 'W3C Result' %></td><% if W3CResults %><td><% with W3CResults %><% loop UnsortedListEntries %>$Content<% end_loop %><% end_with %><% if W3CTimeStamp %><br/><%t SeoHeroToolPro.LastCheckInformation 'Last checked at ' %> $W3CTimeStamp<% end_if %></td>
