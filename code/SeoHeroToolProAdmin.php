@@ -1032,7 +1032,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
           If the site is hosted locally there will be a  "Name or service not known message"
          */
         if ($nonDocumentError == 1) {
-            if (isset($this->siteRunsLocally)) {
+            if ($this->siteRunsLocally) {
                 $UnsortedListEntries->push(new ArrayData(
               array(
                     'Content' => _t('SeoHeroToolProAnalyse.W3CLocally', 'The site runs locally and therefore a W3C Check can not be performed'),
