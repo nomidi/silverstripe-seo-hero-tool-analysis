@@ -49,7 +49,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
         $this->pageID = $PageID;
         $URL = $Page->AbsoluteLink();
-        $this->URL = $URL.'?stage=Stage';
+        $this->URL = $URL;
         $this->pageURLSegment = $Page->URLSegment;
         $versions = $Page->allVersions();
         $publishInformation = '';
