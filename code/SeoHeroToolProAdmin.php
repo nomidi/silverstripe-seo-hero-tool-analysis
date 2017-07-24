@@ -1312,7 +1312,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(2);
         }
         return array(
-          'Headline' => _t('SeoHeroToolProAnalyse.UsefulFiles', 'Files for Search Engines'),
+          'Headline' => _t('SeoHeroToolPro.UsefulFiles', 'Files for Search Engines'),
           'UnsortedListEntries' => $UnsortedListEntries
         );
     }
@@ -1363,7 +1363,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(2);
         }
         return array(
-          'Headline' => _t('SeoHeroToolProAnalyse.StructuredData', 'Structured Data'),
+          'Headline' => _t('SeoHeroToolPro.StructuredData', 'Structured Data'),
           'UnsortedListEntries' => $UnsortedListEntries
         );
     }
