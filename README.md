@@ -20,21 +20,12 @@ Either `true` or `false`. If this is set to true some Tests will noe be performe
 
 ### PageSpeedAPI
 The PageSpeed API Key which is needed to access the PageSpeed API. To start with PageSpeed Insights API just follow the linnk [PageSpeed Insights API](https://developers.google.com/speed/docs/insights/v4/getting-started).
+Without a PageSpeed API Key the PageSpeed can not be obtained.
 
 ### contentID
-The ID of the Main Content on this site. If this is set, this will use the content within this ID for the Word Count.
+The ID of the Main Content on this site. If there is a valid value for `contentID` all text within this ID will be used for Word Count.
 
-## todo
-
-
-### Options in config.yml:
-SeoHeroToolAnalysis:
-  locally: true
-
-Tells the website that it runs locally. Therefore no W3C Validator Check will be performed and no link for testing the structured data (if available) will be displayed.
-
-### Update Readme
-Update the Readme for a better description of this Tool
+# todo
 
 ### Add test cases
 Add tests for this tool similar to the tests in SEO Hero Tool.
