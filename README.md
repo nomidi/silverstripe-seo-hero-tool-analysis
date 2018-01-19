@@ -22,6 +22,3 @@ Add tests for this tool similar to the tests in SEO Hero Tool.
 
 ### Add Travis Support
 Now that this tool is public add Travis support for an automated test after each submit.
-
-### Rename classes
-Rename classes to reflect name change of this module.
