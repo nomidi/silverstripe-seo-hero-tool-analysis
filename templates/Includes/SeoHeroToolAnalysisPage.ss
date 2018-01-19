@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><%t SeoHeroToolPro.ANALYSEHEADLINE 'SEO Auswertung' %> $PageLink</title>
-  <link rel="stylesheet" href="$SHTProPath/thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="$SHTProPath/thirdparty/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="$SHTProPath/css/style.css">
-  <script src="$SHTProPath/thirdparty/jquery-3.2.1.min.js" ></script>
-  <script src="$SHTProPath/thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js" ></script>
+  <title><%t SeoHeroToolAnalysis.ANALYSEHEADLINE 'SEO Auswertung' %> $PageLink</title>
+  <link rel="stylesheet" href="$SHTAnalysisPath/thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="$SHTAnalysisPath/thirdparty/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="$SHTAnalysisPath/css/style.css">
+  <script src="$SHTAnalysisPath/thirdparty/jquery-3.2.1.min.js" ></script>
+  <script src="$SHTAnalysisPath/thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js" ></script>
 
 </head>
 <body>
@@ -16,7 +16,7 @@
     <div class="row">
 
         <div class="col-md-12">
-          <h1><%t SeoHeroToolPro.ANALYSEHEADLINE 'SEO analysis' %></h1>
+          <h1><%t SeoHeroToolAnalysis.ANALYSEHEADLINE 'SEO analysis' %></h1>
           <p><strong><a href="$PageLink" target="_blank">$PageLink</a></strong></p>
           <% if AccessError == '' %>
 
@@ -27,10 +27,10 @@
                 <tr><td>$CountLabel</td><td colspan="2">$CountValue</td></tr>
                 <% end_loop %>
                 <% end_with %>
-                <tr class="tr-api"><td><%t SeoHeroToolPro.PageSpeed 'PageSpeed' %></td><% if PageSpeedResults %><td><% with PageSpeedResults %><% loop UnsortedListEntries %>$Content<% end_loop %><% end_with %><% if pageSpeedTimeStamp %><br/><%t SeoHeroToolPro.LastCheckInformation 'Last checked at ' %>$pageSpeedTimeStamp<% end_if %></td><% end_if %>
-                  <td><% if PageSpeedLink %><a href="$PageSpeedLink" target="_blank"><%t SeoHeroToolPro.LinkToPageSpeedInsights 'Open PageSpeed Insights' %></a><% else %>$PageSpeedMessage<% end_if %></td></tr>
-                <tr class="tr-api"><td><%t SeoHeroToolPro.W3CResult 'W3C Result' %></td><% if W3CResults %><td><% with W3CResults %><% loop UnsortedListEntries %>$Content<% end_loop %><% end_with %><% if W3CTimeStamp %><br/><%t SeoHeroToolPro.LastCheckInformation 'Last checked at ' %> $W3CTimeStamp<% end_if %></td>
-                  <% end_if %><td><% if W3CLink %><a href="$W3CLink" target="_blank"><%t SeoHeroToolPro.LinkToW3C 'Open W3C Results' %></a><% else %>$W3CMessage<% end_if %></td></tr>
+                <tr class="tr-api"><td><%t SeoHeroToolAnalysis.PageSpeed 'PageSpeed' %></td><% if PageSpeedResults %><td><% with PageSpeedResults %><% loop UnsortedListEntries %>$Content<% end_loop %><% end_with %><% if pageSpeedTimeStamp %><br/><%t SeoHeroToolAnalysis.LastCheckInformation 'Last checked at ' %>$pageSpeedTimeStamp<% end_if %></td><% end_if %>
+                  <td><% if PageSpeedLink %><a href="$PageSpeedLink" target="_blank"><%t SeoHeroToolAnalysis.LinkToPageSpeedInsights 'Open PageSpeed Insights' %></a><% else %>$PageSpeedMessage<% end_if %></td></tr>
+                <tr class="tr-api"><td><%t SeoHeroToolAnalysis.W3CResult 'W3C Result' %></td><% if W3CResults %><td><% with W3CResults %><% loop UnsortedListEntries %>$Content<% end_loop %><% end_with %><% if W3CTimeStamp %><br/><%t SeoHeroToolAnalysis.LastCheckInformation 'Last checked at ' %> $W3CTimeStamp<% end_if %></td>
+                  <% end_if %><td><% if W3CLink %><a href="$W3CLink" target="_blank"><%t SeoHeroToolAnalysis.LinkToW3C 'Open W3C Results' %></a><% else %>$W3CMessage<% end_if %></td></tr>
             </table>
           </div>
           <% end_if %>
@@ -40,7 +40,7 @@
     <% if AccessError %>
     <div class="row info-boxes">
       <div class="col-md-12">
-        <h2><%t SeoHeroToolPro.ANALYSEGENERALACCESSISSUE 'General Access Issue' %></h2>
+        <h2><%t SeoHeroToolAnalysis.ANALYSEGENERALACCESSISSUE 'General Access Issue' %></h2>
       </div>
       <div class="col-md-12">
         <p>$AccessError</p>
@@ -50,12 +50,12 @@
 
     <div class="row info-boxes">
       <div class="col-md-12">
-        <h2><%t SeoHeroToolPro.ANALYSEGENERAL 'Generel Analysis' %></h2>
+        <h2><%t SeoHeroToolAnalysis.ANALYSEGENERAL 'Generel Analysis' %></h2>
       </div>
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-info">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSETESTS 'Checks' %></h3>
+            <h3><%t SeoHeroToolAnalysis.ANALYSETESTS 'Checks' %></h3>
             <p>$RulesTotal</p>
           </div>
           <span class="glyphicon glyphicon-check button-xl" aria-hidden="true"></span>
@@ -65,7 +65,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-success">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEPASSED 'Passed' %></h3>
+            <h3><%t SeoHeroToolAnalysis.ANALYSEPASSED 'Passed' %></h3>
             <p>$RulesGood</p>
           </div>
           <div class="icon">
@@ -76,7 +76,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-warning">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEWARNING 'Notice' %></h3>
+            <h3><%t SeoHeroToolAnalysis.ANALYSEWARNING 'Notice' %></h3>
             <p>$RulesNotice</p>
           </div>
           <div class="icon">
@@ -87,7 +87,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-danger">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEERROR 'Error' %></h3>
+            <h3><%t SeoHeroToolAnalysis.ANALYSEERROR 'Error' %></h3>
             <p>$RulesWrong</p>
           </div>
           <div class="icon">
@@ -109,13 +109,13 @@
 
         <div class="tab-content">
           <div class="tab-pane active" id="analyse-home" role="tabpanel">
-            <% include SeoHeroToolProAnalyse IconMessVal=3 %>
+            <% include SeoHeroToolAnalysis IconMessVal=3 %>
           </div>
           <div class="tab-pane" id="analyse-warning" role="tabpanel">
-            <% include SeoHeroToolProAnalyse IconMessVal=2 %>
+            <% include SeoHeroToolAnalysis IconMessVal=2 %>
           </div>
           <div class="tab-pane" id="analyse-error" role="tabpanel">
-            <% include SeoHeroToolProAnalyse IconMessVal=1 %>
+            <% include SeoHeroToolAnalysis IconMessVal=1 %>
           </div>
         </div>
       </div>
@@ -129,21 +129,21 @@
     <% if $KeywordRulesTotal == 0 %>
     <div class="row">
       <div class="col-md-12">
-      <h2><%t SeoHeroToolPro.ANALYSEKEYWORDHEADLINE 'Keyword Analysis' %></h2>
+      <h2><%t SeoHeroToolAnalysis.ANALYSEKEYWORDHEADLINE 'Keyword Analysis' %></h2>
       </div>
       <div>
-      <div class="col-md-12"><p><%t SeoHeroToolPro.NOKEYWORDS 'No keywords entered for this website.' %></p>
+      <div class="col-md-12"><p><%t SeoHeroToolAnalysis.NOKEYWORDS 'No keywords entered for this website.' %></p>
       </div>
     </div>
   <% else %>
     <div class="row info-boxes">
       <div class="col-md-12">
-        <h2><%t SeoHeroToolPro.ANALYSEKEYWORDHEADLINE 'Keyword Auswertung' %></h2>
+        <h2><%t SeoHeroToolAnalysis.ANALYSEKEYWORDHEADLINE 'Keyword Auswertung' %></h2>
       </div>
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-info">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSETESTS 'Checks' %></h3>
+            <h3><%t SeoHeroToolAnalysis.ANALYSETESTS 'Checks' %></h3>
             <p>$KeywordRulesTotal</p>
           </div>
           <span class="glyphicon glyphicon-check button-xl" aria-hidden="true"></span>
@@ -153,7 +153,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-success">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEPASSED 'Passed' %></h3>
+            <h3><%t SeoHeroToolAnalysis.ANALYSEPASSED 'Passed' %></h3>
             <p>$KeywordRulesGood</p>
           </div>
           <div class="icon">
@@ -164,7 +164,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-warning">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEWARNING 'Notice' %></h3>
+            <h3><%t SeoHeroToolAnalysis.ANALYSEWARNING 'Notice' %></h3>
             <p>$KeywordRulesNotice</p>
           </div>
           <div class="icon">
@@ -175,7 +175,7 @@
       <div class="col-lg-3 col-xs-6">
         <div class="alert alert-danger">
           <div class="inner">
-            <h3><%t SeoHeroToolPro.ANALYSEERROR 'Error' %></h3>
+            <h3><%t SeoHeroToolAnalysis.ANALYSEERROR 'Error' %></h3>
             <p>$KeywordRulesWrong</p>
           </div>
           <div class="icon">
@@ -196,13 +196,13 @@
 
         <div class="tab-content">
           <div class="tab-pane active" id="keyword-home" role="tabpanel">
-            <% include SeoHeroToolProKeywordAnalyse IconMessVal=3 %>
+            <% include SeoHeroToolAnalysisKeywordAnalyse IconMessVal=3 %>
           </div>
           <div class="tab-pane" id="keyword-warning" role="tabpanel">
-              <% include SeoHeroToolProKeywordAnalyse IconMessVal=2 %>
+              <% include SeoHeroToolAnalysisKeywordAnalyse IconMessVal=2 %>
           </div>
           <div class="tab-pane" id="keyword-error" role="tabpanel">
-              <% include SeoHeroToolProKeywordAnalyse IconMessVal=1 %>
+              <% include SeoHeroToolAnalysisKeywordAnalyse IconMessVal=1 %>
           </div>
         </div>
       </div>

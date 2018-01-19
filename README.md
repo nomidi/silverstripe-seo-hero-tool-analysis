@@ -1,7 +1,7 @@
-# SEO Hero Tool Analyse
+# SEO Hero Tool Analysis
 
 An Addition to SEO Hero Tool which can be also found on Github [SEO Hero Tool on Github](https://github.com/nomidi/silverstripe-seo-hero-tool).
-The SEO Hero Tool Analyse extends the functionality of the SEO Hero Tool by adding a Button to each page which on click starts an analysis of the actual website.
+The SEO Hero Tool Analysis extends the functionality of the SEO Hero Tool by adding a Button to each page which on click starts an analysis of the actual website.
 This analysis checks several parameters and gives an detailled overview of the findings.
 
 
@@ -9,7 +9,7 @@ This analysis checks several parameters and gives an detailled overview of the f
 
 
 ### Options in config.yml:
-SeoHeroToolPro:
+SeoHeroToolAnalysis:
   locally: true
 
 Tells the website that it runs locally. Therefore no W3C Validator Check will be performed and no link for testing the structured data (if available) will be displayed.

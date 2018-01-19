@@ -1,6 +1,6 @@
 <?php
 
-class SeoHeroToolProW3CValidator
+class SeoHeroToolAnalysisW3CValidator
 {
     public static function checkData($Link)
     {

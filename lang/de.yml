@@ -1,5 +1,5 @@
 de:
-  SeoHeroToolPro:
+  SeoHeroToolAnalysis:
     ANALYSEGENERALACCESSISSUE: Generelles Zugriffsproblem
     ANALYSEHEADLINE: SEO Analyse
     ANALYSEGENERAL: Allgemeine Auswertung
@@ -51,9 +51,6 @@ de:
     LinkToW3C: W3C Ergebnisse öffnen
     AMPLink: AMP Link
     ActualVersionNotPublished: Die aktuelle Version der Website ist nicht veröffentlicht. Bitte veröffentlichen sie die Webseite, da dass SEO Hero Tool Pro nur veröffentlichte Webseiten prüfen kann.
-  SeoHeroToolProAdmin:
-    MENUTITLE: SeoHeroToolPro
-  SeoHeroToolProAnalyse:
     LinksWithSameTitleAndName: Es gibt Links mit dem gleichen Namen und Titel Attribute. Dies sind die folgenden Links:
     AllImagesWithAltTag: 'Alle Bilder beinhalten Alt-Attribute.'
     ContentLengthGood: 'Die Webseite hat mehr als 200 Wörter. Gut gemacht.'
@@ -149,3 +146,5 @@ de:
     AMPLinkFound: Es wurde ein AMP Link auf der Webseite gefunden.
     AMPPageFound: Die AMP Seite existiert.
     NoAMPPageFound: Die AMP Seite existiert nicht.
+  SeoHeroToolAnalysisAdmin:
+    MENUTITLE: SeoHeroTool Analysis

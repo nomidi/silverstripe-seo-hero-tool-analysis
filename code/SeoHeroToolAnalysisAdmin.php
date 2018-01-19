@@ -1,9 +1,9 @@
 <?php
 
-class SeoHeroToolProAdmin extends LeftAndMain
+class SeoHeroToolAnalysisAdmin extends LeftAndMain
 {
     private static $url_segment = 'shtpro-admin';
-    private static $allowed_actions = array('Analyse');
+    private static $allowed_actions = array('Analysis');
 
     public $dom;
     public $rules = array('good' => 0, 'notice' => 0, 'wrong' => 0, 'total' => 0);
@@ -36,15 +36,15 @@ class SeoHeroToolProAdmin extends LeftAndMain
     /*
 ^     Functino Analyse checks the actual site
      */
-    public function Analyse()
+    public function Analysis()
     {
         $PageID = $this->request->param('ID');
         $Page = Page::get()->byID($PageID);
         if (!$Page || !$Page->ID) {
             $render = $this->owner->customise(array(
-            'AccessError' => _t('SeoHeroToolPro.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
-              'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
-          ))->renderWith('SeoHeroToolProAnalysePage');
+            'AccessError' => _t('SeoHeroToolAnalysis.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
+              'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
+          ))->renderWith('SeoHeroToolAnalysisPage');
             return $render;
         }
         $this->pageID = $PageID;
@@ -55,22 +55,22 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $publishInformation = '';
         if (!$versions->First()->WasPublished) {
             $render = $this->owner->customise(array(
-                  'AccessError' => _t('SeoHeroToolPro.ActualVersionNotPublished', 'The actual version of this Page is not published. Please publish it as the Seo Hero Tool can just access published websites.'),
-                    'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
-                ))->renderWith('SeoHeroToolProAnalysePage');
+                  'AccessError' => _t('SeoHeroToolAnalysis.ActualVersionNotPublished', 'The actual version of this Page is not published. Please publish it as the Seo Hero Tool can just access published websites.'),
+                    'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
+                ))->renderWith('SeoHeroToolAnalysisPage');
         }
         Requirements::clear();
         if ($this->loadPage($this->URL, $Page) == false) {
             $render = $this->owner->customise(array(
-              'AccessError' => _t('SeoHeroToolPro.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
-                'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
-            ))->renderWith('SeoHeroToolProAnalysePage');
+              'AccessError' => _t('SeoHeroToolAnalysis.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
+                'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
+            ))->renderWith('SeoHeroToolAnalysisPage');
             return $render;
         }
 
         $this->checkIfSiteRunsLocally();
 
-        $contentID = Config::inst()->get('SeoHeroToolPro', 'contentID');
+        $contentID = Config::inst()->get('SeoHeroToolAnalysis', 'contentID');
 
         if ($contentID) {
             $htmlForWordCount = $this->dom->getElementByID($contentID)->nodeValue;
@@ -91,10 +91,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $shtpImages = $this->checkImages();
         $shtpStrong = $this->checkStrong();
         $shtpStructuredData = $this->checkStructuredData($Page);
-        $Keywords = new SeoHeroToolProAnalyseKeyword();
+        $Keywords = new SeoHeroToolAnalysisKeyword();
         $shtpKeywords = $Keywords->checkKeywords($Page, $this->dom);
         $keywordRules = $Keywords->getKeywordResults();
-        $debugMode = Config::inst()->get('SeoHeroToolPro', 'Debug');
+        $debugMode = Config::inst()->get('SeoHeroToolAnalysis', 'Debug');
         $pageSpeedResults = '';
         $shtpw3c = '';
         $pageSpeedResults =  $this->checkPageSpeed($URL);
@@ -107,8 +107,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $shtpPageSpeedLink = '';
             $shtpW3CLink = '';
-            $pageSpeedMessage = _t('SeoHeroToolPro.PageSpeedLocally', 'The site runs locally and therefore a PageSpeed can not be calculated.');
-            $W3CMessage = _t('SeoHeroToolPro.W3CLocally', 'The site runs locally and therefore a W3C Check can not be performed');
+            $pageSpeedMessage = _t('SeoHeroToolAnalysis.PageSpeedLocally', 'The site runs locally and therefore a PageSpeed can not be calculated.');
+            $W3CMessage = _t('SeoHeroToolAnalysis.W3CLocally', 'The site runs locally and therefore a W3C Check can not be performed');
         }
         $shtpCountArray = $this->getCountArray();
 
@@ -150,8 +150,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
           'W3CTimeStamp' => $this->W3CTimeStamp,
           'DebugMode' => $debugMode,
           'ContentLocale'=>'de-DE',
-          'SHTProPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
-        ))->renderWith('SeoHeroToolProAnalysePage');
+          'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_ANALYSIS_PATH,
+        ))->renderWith('SeoHeroToolAnalysisPage');
         return $render;
     }
 
@@ -161,7 +161,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
      */
     private function checkIfSiteRunsLocally()
     {
-        $this->siteRunsLocally = Config::inst()->get('SeoHeroToolPro', 'Local');
+        $this->siteRunsLocally = Config::inst()->get('SeoHeroToolAnalysis', 'Local');
     }
 
     private function updateRules($type = 3)
@@ -184,15 +184,15 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $shtpCountArray = new ArrayList();
 
         $shtpCountArray->push(array(
-          'CountLabel'=>_t('SeoHeroToolPro.NumberOfWords', 'Number of Words'),
+          'CountLabel'=>_t('SeoHeroToolAnalysis.NumberOfWords', 'Number of Words'),
           'CountValue'=> $this->wordCount
         ));
         $shtpCountArray->push(array(
-          'CountLabel'=>_t('SeoHeroToolPro.NumberOfImages', 'Number of Images'),
+          'CountLabel'=>_t('SeoHeroToolAnalysis.NumberOfImages', 'Number of Images'),
           'CountValue'=> $this->pageImages->length
         ));
         $shtpCountArray->push(array(
-          'CountLabel'=>_t('SeoHeroToolPro.NumberOfLinks', 'Number of Links'),
+          'CountLabel'=>_t('SeoHeroToolAnalysis.NumberOfLinks', 'Number of Links'),
           'CountValue'=> $this->pageLinks->length
         ));
         return array('UnsortedListEntries'=>$shtpCountArray);
@@ -207,15 +207,15 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $UnsortedListEntries = new ArrayList();
 
         $titleHelpLink = "";
-        $lengthRecommendation =  _t('SeoHeroToolPro.TitleLengthRecommendation', 'Recommendation 44 - 56 Characters');
-        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $lengthOfTitle;
+        $lengthRecommendation =  _t('SeoHeroToolAnalysis.TitleLengthRecommendation', 'Recommendation 44 - 56 Characters');
+        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolAnalysis.Length', 'Length').': ' . $lengthOfTitle;
 
 
 
         if ($lengthOfTitle < 8) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                  'Content' => _t('SeoHeroToolProAnalyse.TitleLengthShort', 'The title of this site is too short! ').$returnLength,
+                  'Content' => _t('SeoHeroToolAnalysis.TitleLengthShort', 'The title of this site is too short! ').$returnLength,
                   'IconMess' => '1',
                   'HelpLink' => 'TitleLengthShort',
               )
@@ -224,7 +224,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } elseif ($lengthOfTitle >= 8 && $lengthOfTitle < 44) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.TitleLengthOK', 'The title of this site is fine, but it could be longer. '). $returnLength,
+                'Content' => _t('SeoHeroToolAnalysis.TitleLengthOK', 'The title of this site is fine, but it could be longer. '). $returnLength,
                 'IconMess' => '2',
                 'HelpLink' => 'TitleLengthOK',
                 )
@@ -233,7 +233,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } elseif ($lengthOfTitle >= 44 && $lengthOfTitle < 56) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                  'Content' => _t('SeoHeroToolProAnalyse.TitleLengthGood', 'The title of this site is perfect. Well Done! '). $returnLength,
+                  'Content' => _t('SeoHeroToolAnalysis.TitleLengthGood', 'The title of this site is perfect. Well Done! '). $returnLength,
 
                   'IconMess' => '3',
                   'HelpLink' => 'TitleLengthGood',
@@ -243,7 +243,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                  'Content' => _t('SeoHeroToolProAnalyse.TitleLengthLong', 'The title of this site is too long. '). $returnLength,
+                  'Content' => _t('SeoHeroToolAnalysis.TitleLengthLong', 'The title of this site is too long. '). $returnLength,
                   'IconMess' => '1',
                   'HelpLink' => 'TitleLengthLong',
                 )
@@ -251,7 +251,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(1);
         }
         return array(
-          'Headline' => _t('SeoHeroToolPro.Title', 'Title'),
+          'Headline' => _t('SeoHeroToolAnalysis.Title', 'Title'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -265,13 +265,13 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $lengthOfMetaDescription = strlen($metaDescription);
         $metaDescHelpLink = 'http://www.searchmetrics.com/de/glossar/meta-description/';
         $UnsortedListEntries = new ArrayList();
-        $lengthRecommendation =  _t('SeoHeroToolPro.MetaLengthRecommendation', '(Optimal length is between 120 - 140 Characters)');
-        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $lengthOfMetaDescription;
+        $lengthRecommendation =  _t('SeoHeroToolAnalysis.MetaLengthRecommendation', '(Optimal length is between 120 - 140 Characters)');
+        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolAnalysis.Length', 'Length').': ' . $lengthOfMetaDescription;
 
         if ($lengthOfMetaDescription == 0) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                  'Content' => _t('SeoHeroToolProAnalyse.NoMetaDescription', 'The Meta-Description is empty.'),
+                  'Content' => _t('SeoHeroToolAnalysis.NoMetaDescription', 'The Meta-Description is empty.'),
                   'IconMess' => '1',
                   'HelpLink' => 'NoMetaDescription',
                 )
@@ -280,7 +280,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } elseif ($lengthOfMetaDescription < 79) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                  'Content' => _t('SeoHeroToolProAnalyse.MetaLengthShort', 'The Meta-Description is too short.'). $returnLength,
+                  'Content' => _t('SeoHeroToolAnalysis.MetaLengthShort', 'The Meta-Description is too short.'). $returnLength,
                   'IconMess' => '1',
                   'HelpLink' => 'MetaLengthShort',
                 )
@@ -289,7 +289,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } elseif ($lengthOfMetaDescription >= 80 && $lengthOfMetaDescription < 120) {
             $UnsortedListEntries->push(new ArrayData(
                 array(
-                    'Content' => _t('SeoHeroToolProAnalyse.MetaLengthOK', 'The Meta-Description is fine, but it could be longer. '). $returnLength,
+                    'Content' => _t('SeoHeroToolAnalysis.MetaLengthOK', 'The Meta-Description is fine, but it could be longer. '). $returnLength,
                     'IconMess' => '2',
                     'HelpLink' => 'MetaLengthOK',
                 )
@@ -298,7 +298,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } elseif ($lengthOfMetaDescription >= 120 && $lengthOfMetaDescription <= 140) {
             $UnsortedListEntries->push(new ArrayData(
                 array(
-                    'Content' => _t('SeoHeroToolProAnalyse.MetaLengthGood', 'The length of the Meta-Description is perfect. Well Done! '). $returnLength,
+                    'Content' => _t('SeoHeroToolAnalysis.MetaLengthGood', 'The length of the Meta-Description is perfect. Well Done! '). $returnLength,
                     'IconMess' => '3',
                     'HelpLink' => 'MetaLengthGood',
                 )
@@ -307,7 +307,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                  'Content' => _t('SeoHeroToolProAnalyse.MetaLengthLong', 'The Meta-Description is too long. ') . $returnLength,
+                  'Content' => _t('SeoHeroToolAnalysis.MetaLengthLong', 'The Meta-Description is too long. ') . $returnLength,
                   'IconMess' => '1',
                   'HelpLink' => 'MetaLengthLong',
                 )
@@ -315,7 +315,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(1);
         }
         return array(
-          'Headline' => _t('SeoHeroToolPro.Metadescription', 'Meta-Description'),
+          'Headline' => _t('SeoHeroToolAnalysis.Metadescription', 'Meta-Description'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -329,13 +329,13 @@ class SeoHeroToolProAdmin extends LeftAndMain
         $UnsortedListEntries = new ArrayList();
         $lengthOfURL = strlen($URL);
         $urlHelpLink = 'http://www.seo-scene.de/seo/geheimnis-perfekte-seo-urls-1417.html';
-        $lengthRecommendation =  _t('SeoHeroToolPro.URLLengthRecommendation', '(Optimal length is between 20 - 120 Characters)');
-        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $lengthOfURL;
+        $lengthRecommendation =  _t('SeoHeroToolAnalysis.URLLengthRecommendation', '(Optimal length is between 20 - 120 Characters)');
+        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolAnalysis.Length', 'Length').': ' . $lengthOfURL;
 
         if ($URL == "home") {
             $UnsortedListEntries->push(new ArrayData(
                 array(
-                    'Content' => _t('SeoHeroToolProAnalyse.URLLengthHome', 'The URL of the homepage has to be "home"'),
+                    'Content' => _t('SeoHeroToolAnalysis.URLLengthHome', 'The URL of the homepage has to be "home"'),
                     'IconMess' => '3',
                     'HelpLink' => 'URLLengthHome',
                 )
@@ -344,7 +344,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } elseif ($lengthOfURL < 10) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                  'Content' => _t('SeoHeroToolProAnalyse.URLLengthShort', 'The length of the URL is way too short. ').$returnLength,
+                  'Content' => _t('SeoHeroToolAnalysis.URLLengthShort', 'The length of the URL is way too short. ').$returnLength,
                   'IconMess' => '1',
                   'HelpLink' => 'URLLengthShort',
               )
@@ -353,7 +353,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } elseif ($lengthOfURL >= 10 && $lengthOfURL < 20) {
             $UnsortedListEntries->push(new ArrayData(
                 array(
-                    'Content' => _t('SeoHeroToolProAnalyse.URLLengthOK', 'The length of the URL is fine but it could be longer. ').$returnLength,
+                    'Content' => _t('SeoHeroToolAnalysis.URLLengthOK', 'The length of the URL is fine but it could be longer. ').$returnLength,
                     'IconMess' => '2',
                     'HelpLink' => 'URLLengthOK',
                 )
@@ -362,7 +362,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } elseif ($lengthOfURL >= 20 && $lengthOfURL <= 120) {
             $UnsortedListEntries->push(new ArrayData(
                 array(
-                    'Content' => _t('SeoHeroToolProAnalyse.URLLengthGood', 'The length of the URL is perfect. Well Done! ').$returnLength,
+                    'Content' => _t('SeoHeroToolAnalysis.URLLengthGood', 'The length of the URL is perfect. Well Done! ').$returnLength,
                     'IconMess' => '3',
                     'HelpLink' => 'URLLengthGood',
                 )
@@ -371,7 +371,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
                 array(
-                    'Content' => _t('SeoHeroToolProAnalyse.URLLengthLong', 'The length of the URL is too long. ').$returnLength,
+                    'Content' => _t('SeoHeroToolAnalysis.URLLengthLong', 'The length of the URL is too long. ').$returnLength,
                     'IconMess' => '1',
                     'HelpLink' => 'URLLengthLong',
                 )
@@ -380,19 +380,19 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
 
         return array(
-          'Headline' => _t('SeoHeroToolPro.URL', 'URL Parameter'),
+          'Headline' => _t('SeoHeroToolAnalysis.URL', 'URL Parameter'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
     private function checkWordCount()
     {
         $UnsortedListEntries = new ArrayList();
-        $lengthRecommendation =  _t('SeoHeroToolPro.WordCountRecommendation', '(A page should contain more than 200 words)');
-        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $this->wordCount;
+        $lengthRecommendation =  _t('SeoHeroToolAnalysis.WordCountRecommendation', '(A page should contain more than 200 words)');
+        $returnLength = $lengthRecommendation.' - '._t('SeoHeroToolAnalysis.Length', 'Length').': ' . $this->wordCount;
         if ($this->wordCount < 50) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                  'Content' => _t('SeoHeroToolProAnalyse.ContentLengthShort', 'The sites text is way too short. ') .$returnLength,
+                  'Content' => _t('SeoHeroToolAnalysis.ContentLengthShort', 'The sites text is way too short. ') .$returnLength,
                   'IconMess' => '1',
                   'HelpLink' => 'ContentLengthShort'
                 )
@@ -401,7 +401,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } elseif ($this->wordCount >= 50 && $this->wordCount <= 200) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                  'Content' => _t('SeoHeroToolProAnalyse.ContentLengthOK', 'The site has less than 200 words. '). $returnLength,
+                  'Content' => _t('SeoHeroToolAnalysis.ContentLengthOK', 'The site has less than 200 words. '). $returnLength,
                   'IconMess' => '2',
                   'HelpLink' => 'ContentLengthOK'
                 )
@@ -410,7 +410,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                  'Content' => _t('SeoHeroToolProAnalyse.ContentLengthGood', 'The site has more than 200 words. Well Done. '). $returnLength,
+                  'Content' => _t('SeoHeroToolAnalysis.ContentLengthGood', 'The site has more than 200 words. Well Done. '). $returnLength,
                   'IconMess' => '3',
                   'HelpLink' => 'ContentLengthGood'
                 )
@@ -418,7 +418,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(3);
         }
         return array(
-          'Headline' => _t('SeoHeroToolPro.WordCount', 'Word Count'),
+          'Headline' => _t('SeoHeroToolAnalysis.WordCount', 'Word Count'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -431,11 +431,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
     {
         $UnsortedListEntries = new ArrayList();
         $folders = substr_count($Page->Link(), "/");
-        $addText = _t('SeoHeroToolPro.DirectoryDepth', ' DirectoryDepth').': '.$folders;
+        $addText = _t('SeoHeroToolAnalysis.DirectoryDepth', ' DirectoryDepth').': '.$folders;
         if ($folders > 5) {
             $UnsortedListEntries->push(new ArrayData(
             array(
-                'Content' => _t('SeoHeroToolProAnalyse.TooHighDirectoryDepth', 'The Directory Depth should be as small as possible. '). $addText,
+                'Content' => _t('SeoHeroToolAnalysis.TooHighDirectoryDepth', 'The Directory Depth should be as small as possible. '). $addText,
                 'IconMess' => '2',
                 'HelpLink' => 'TooHighDirectoryDepth'
                 )
@@ -444,7 +444,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.FineDirectoryDepth', 'The Directory Depth is perfect. '). $addText,
+                'Content' => _t('SeoHeroToolAnalysis.FineDirectoryDepth', 'The Directory Depth is perfect. '). $addText,
                 'IconMess' => '3',
                 'HelpLink' => 'FineDirectoryDepth'
                 )
@@ -452,7 +452,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(3);
         }
         return array(
-          'Headline' => _t('SeoHeroToolProAnalyse.DirectoryDepth', ' DirectoryDepth'),
+          'Headline' => _t('SeoHeroToolAnalysis.DirectoryDepth', ' DirectoryDepth'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -475,7 +475,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 if ($key == 'h1') {
                     $UnsortedListEntries->push(new ArrayData(
                         array(
-                            'Content' => _t('SeoHeroToolProAnalyse.NoH1', 'There is no h1-Tag.'),
+                            'Content' => _t('SeoHeroToolAnalysis.NoH1', 'There is no h1-Tag.'),
                             'IconMess' => '1',
                             'HelpLink' => 'NoH1'
                         )
@@ -484,7 +484,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 } else {
                     $UnsortedListEntries->push(new ArrayData(
                       array(
-                          'Content' => sprintf(_t('SeoHeroToolProAnalyse.NoHX', 'No %1$s Tag Found'), $key),
+                          'Content' => sprintf(_t('SeoHeroToolAnalysis.NoHX', 'No %1$s Tag Found'), $key),
                           'IconMess' => '2',
                           'HelpLink' => 'NoHX'
                       )
@@ -494,7 +494,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } elseif ($headlineCount > 1 && $key == 'h1') {
                 $UnsortedListEntries->push(new ArrayData(
                     array(
-                        'Content' => _t('SeoHeroToolProAnalyse.TooMuchH1', 'There is more than one h1-Tag'),
+                        'Content' => _t('SeoHeroToolAnalysis.TooMuchH1', 'There is more than one h1-Tag'),
                         'IconMess' => '2',
                         'HelpLink' => 'TooMuchH1'
                     )
@@ -505,12 +505,12 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $headlineContent = $value->item(0)->nodeValue;
                 $headlineLength = strlen($headlineContent);
 
-                $lengthRecommendation =  _t('SeoHeroToolPro.HeadLineRecommendation', '(optimal length between 15 and 80 Characters)');
-                $addText = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $headlineLength.' - '.$headlineContent;
+                $lengthRecommendation =  _t('SeoHeroToolAnalysis.HeadLineRecommendation', '(optimal length between 15 and 80 Characters)');
+                $addText = $lengthRecommendation.' - '._t('SeoHeroToolAnalysis.Length', 'Length').': ' . $headlineLength.' - '.$headlineContent;
                 if ($headlineLength == 0) {
                     $UnsortedListEntries->push(new ArrayData(
                         array(
-                            'Content' => _t('SeoHeroToolProAnalyse.h1LengthEmpty', 'The h1 Headline is empty').' '.$addText,
+                            'Content' => _t('SeoHeroToolAnalysis.h1LengthEmpty', 'The h1 Headline is empty').' '.$addText,
                             'IconMess' => '1',
                             'HelpLink' => 'h1LengthEmpty'
                         )
@@ -519,7 +519,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 } elseif ($headlineLength < 15) {
                     $UnsortedListEntries->push(new ArrayData(
                         array(
-                            'Content' => _t('SeoHeroToolProAnalyse.h1LengthTooShort', 'The h1 Headline it quite short.').' '.$addText,
+                            'Content' => _t('SeoHeroToolAnalysis.h1LengthTooShort', 'The h1 Headline it quite short.').' '.$addText,
                             'IconMess' => '2',
                             'HelpLink' => 'h1LengthTooShort'
                         )
@@ -528,7 +528,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 } elseif ($headlineLength > 80) {
                     $UnsortedListEntries->push(new ArrayData(
                         array(
-                            'Content' => _t('SeoHeroToolProAnalyse.h1LengthTooLong', 'The h1 Headline it quite long.').' '.$addText,
+                            'Content' => _t('SeoHeroToolAnalysis.h1LengthTooLong', 'The h1 Headline it quite long.').' '.$addText,
                             'IconMess' => '2',
                             'HelpLink' => 'h1LengthTooLong'
                         )
@@ -537,7 +537,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 } else {
                     $UnsortedListEntries->push(new ArrayData(
                         array(
-                          'Content' => _t('SeoHeroToolProAnalyse.h1LengthGood', 'The h1 tag has a good length').' '.$addText,
+                          'Content' => _t('SeoHeroToolAnalysis.h1LengthGood', 'The h1 tag has a good length').' '.$addText,
                           'IconMess' => '3',
                           'HelpLink' => 'h1LengthGood'
                         )
@@ -547,7 +547,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 if ($headlineContent == $sc->Title && $this->pageURLSegment != 'home') {
                     $UnsortedListEntries->push(new ArrayData(
                       array(
-                          'Content' => _t('SeoHeroToolProAnalyse.h1SameSiteConfigTitle', 'The h1 tag and general site title are the same. Please change the h1 content.').' - '.$headlineContent,
+                          'Content' => _t('SeoHeroToolAnalysis.h1SameSiteConfigTitle', 'The h1 tag and general site title are the same. Please change the h1 content.').' - '.$headlineContent,
                           'IconMess' => '1',
                           'HelpLink' => 'h1SameSiteConfigTitle'
                       )
@@ -559,8 +559,8 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 foreach ($value as $singleHeadline) {
                     $headlineContent = $singleHeadline->textContent;
                     $headlineLength = strlen($headlineContent);
-                    $lengthRecommendation =  _t('SeoHeroToolProAnalyse.HeadLineRecommendation', '(optimal length between 15 and 80 Characters)');
-                    $addText = $lengthRecommendation.' - '._t('SeoHeroToolPro.Length', 'Length').': ' . $headlineLength.' - '.$headlineContent;
+                    $lengthRecommendation =  _t('SeoHeroToolAnalysis.HeadLineRecommendation', '(optimal length between 15 and 80 Characters)');
+                    $addText = $lengthRecommendation.' - '._t('SeoHeroToolAnalysis.Length', 'Length').': ' . $headlineLength.' - '.$headlineContent;
                     if ($headlineLength == 0) {
                         $i = 0;
                         $searchedHeadlinePos = 0;
@@ -578,7 +578,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                                 $presumableTag = substr($headlineTagContent, 1, strpos($headlineTagContent, ' '));
                                 $UnsortedListEntries->push(new ArrayData(
                                   array(
-                                      'Content' =>   sprintf(_t('SeoHeroToolProAnalyse.headlineWitSomeContent', 'The Headline %1$s has some kind of content but no text. Found the following tag in the Headline ').': '.$presumableTag, $key),
+                                      'Content' =>   sprintf(_t('SeoHeroToolAnalysis.headlineWitSomeContent', 'The Headline %1$s has some kind of content but no text. Found the following tag in the Headline ').': '.$presumableTag, $key),
                                       'IconMess' => '2',
                                       'HelpLink' => 'headlineWitSomeContent'
                                   )
@@ -587,7 +587,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                             } else {
                                 $UnsortedListEntries->push(new ArrayData(
                                     array(
-                                        'Content' =>   sprintf(_t('SeoHeroToolProAnalyse.headlineLengthEmpty', 'The Headline %1$s is empty').' '.$addText, $key),
+                                        'Content' =>   sprintf(_t('SeoHeroToolAnalysis.headlineLengthEmpty', 'The Headline %1$s is empty').' '.$addText, $key),
                                         'IconMess' => '1',
                                         'HelpLink' => 'headlineLengthEmpty'
                                     )
@@ -597,7 +597,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                         } else {
                             $UnsortedListEntries->push(new ArrayData(
                                 array(
-                                    'Content' =>   sprintf(_t('SeoHeroToolProAnalyse.headlineLengthEmpty', 'The Headline %1$s is empty').' '.$addText, $key),
+                                    'Content' =>   sprintf(_t('SeoHeroToolAnalysis.headlineLengthEmpty', 'The Headline %1$s is empty').' '.$addText, $key),
                                     'IconMess' => '1',
                                     'HelpLink' => 'headlineLengthEmpty'
                                 )
@@ -607,7 +607,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     } elseif ($headlineLength < 10) {
                         $UnsortedListEntries->push(new ArrayData(
                             array(
-                                'Content' => $key._t('SeoHeroToolProAnalyse.headlineLengthTooShort', ' Headline is quite short.').' '.$addText,
+                                'Content' => $key._t('SeoHeroToolAnalysis.headlineLengthTooShort', ' Headline is quite short.').' '.$addText,
                                 'IconMess' => '2',
                                 'HelpLink' => 'headlineLengthTooShort'
                             )
@@ -616,7 +616,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     } elseif ($headlineLength > 80) {
                         $UnsortedListEntries->push(new ArrayData(
                             array(
-                                'Content' => $key._t('SeoHeroToolProAnalyse.headlineLengthTooLong', ' Headline is quite long.') .' '.$addText,
+                                'Content' => $key._t('SeoHeroToolAnalysis.headlineLengthTooLong', ' Headline is quite long.') .' '.$addText,
                                 'IconMess' => '2',
                                 'HelpLink' => 'headlineLengthTooLong'
                             )
@@ -625,7 +625,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     } else {
                         $UnsortedListEntries->push(new ArrayData(
                             array(
-                                'Content' => $key._t('SeoHeroToolProAnalyse.headlineLenghtGood', ' Headline has a good length.').' '.$addText,
+                                'Content' => $key._t('SeoHeroToolAnalysis.headlineLenghtGood', ' Headline has a good length.').' '.$addText,
                                 'IconMess' => '3',
                                 'HelpLink' => 'headlineLenghtGood'
 
@@ -665,7 +665,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                     array(
                         'Content' =>
                         sprintf(
-                            _t('SeoHeroToolProAnalyse.HeadlineStructureError',
+                            _t('SeoHeroToolAnalysis.HeadlineStructureError',
                                 'There is at least H%1$d Headline but no H%2$d Headline.'),
                             $hsKey, $hsKey - 1
                         ),
@@ -679,7 +679,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } elseif ($hsKey == 1 && $headlineStructureError == 0) {
                 $UnsortedListEntries->push(new ArrayData(
                     array(
-                        'Content' =>_t('SeoHeroToolProAnalyse.NoHeadlineStructureError', 'The Headline Structure does not contain obvious Errors.'),
+                        'Content' =>_t('SeoHeroToolAnalysis.NoHeadlineStructureError', 'The Headline Structure does not contain obvious Errors.'),
                         'IconMess' => '3',
                         'HelpLink' => 'NoHeadlineStructureError'
 
@@ -689,7 +689,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             }
         }
         return array(
-            'Headline' => _t('SeoHeroToolPro.Headlines', 'Headlines'),
+            'Headline' => _t('SeoHeroToolAnalysis.Headlines', 'Headlines'),
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -774,7 +774,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                   array(
                       'Content' =>
                       sprintf(
-                          _t('SeoHeroToolProAnalyse.LinkNoAttrTitleAndNoLinkDescription',
+                          _t('SeoHeroToolAnalysis.LinkNoAttrTitleAndNoLinkDescription',
                               'Please check the following area for a Link with an empty "a" tag<em>%s</em>'),
                           $linkline
                       ),
@@ -795,7 +795,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                       array(
                           'Content' =>
                           sprintf(
-                              _t('SeoHeroToolProAnalyse.LinkNoAttrTitle',
+                              _t('SeoHeroToolAnalysis.LinkNoAttrTitle',
                                   'The Link %s has no title attribute'),
                               $linkNoAttrTitle
                           ),
@@ -821,7 +821,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($linkError == 0 && $documentLinks->length > 0) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                    'Content' => _t('SeoHeroToolProAnalyse.AllLinksHaveTitle', 'All links have a title attribute'),
+                    'Content' => _t('SeoHeroToolAnalysis.AllLinksHaveTitle', 'All links have a title attribute'),
                     'IconMess' => '3',
                     'HelpLink' => 'AllLinksHaveTitle'
               )
@@ -831,7 +831,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($linkSameTitleNameMessage != '') {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                    'Content' => _t('SeoHeroToolProAnalyse.LinksWithSameTitleAndName', 'There are links with the same Name and Title Attribute. Those are these links:').'<br/>'.$linkSameTitleNameMessage,
+                    'Content' => _t('SeoHeroToolAnalysis.LinksWithSameTitleAndName', 'There are links with the same Name and Title Attribute. Those are these links:').'<br/>'.$linkSameTitleNameMessage,
                     'IconMess' => '2',
                     'HelpLink' => 'LinksWithSameTitleAndName'
               )
@@ -841,7 +841,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
 
         return array(
-            'Headline' => _t('SeoHeroToolPro.Links', 'Links'),
+            'Headline' => _t('SeoHeroToolAnalysis.Links', 'Links'),
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -895,7 +895,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($domStrongCount == 0) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.FoundNoStrongElements', 'Found no strong elements on website (B / STRONG).'),
+                'Content' => _t('SeoHeroToolAnalysis.FoundNoStrongElements', 'Found no strong elements on website (B / STRONG).'),
                 'IconMess' => '2',
                 'HelpLink' => 'FoundNoStrongElements'
               )
@@ -904,7 +904,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.FoundOneOrMoreStrongElements', 'Found one or more strong elements on website (B / STRONG).'),
+                'Content' => _t('SeoHeroToolAnalysis.FoundOneOrMoreStrongElements', 'Found one or more strong elements on website (B / STRONG).'),
                 'IconMess' => '3',
                 'HelpLink' => 'FoundOneOrMoreStrongElements'
               )
@@ -912,7 +912,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(3);
         }
         return array(
-          'Headline' => _t('SeoHeroToolPro.strongElements', 'Strong elements'),
+          'Headline' => _t('SeoHeroToolAnalysis.strongElements', 'Strong elements'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -934,18 +934,18 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $imgFileNameWithoutPath = substr($imgFileName, strrpos($imgFileName, '/')+1);
                 $imgFileNameWithoutExtension = substr($imgFileNameWithoutPath, 0, strrpos($imgFileNameWithoutPath, '.'));
                 if (trim($imgAltTag) == '') {
-                    $message .= sprintf(_t('SeoHeroToolPro.ImageWithoutAltTag', 'The Image %1$s does not contain an Alt-Tag.').'<br/>', $imgFileName);
+                    $message .= sprintf(_t('SeoHeroToolAnalysis.ImageWithoutAltTag', 'The Image %1$s does not contain an Alt-Tag.').'<br/>', $imgFileName);
                     $imagesWithoutAltTag++;
                 }
                 if ($imgAltTag == $imgFileNameWithoutPath || $imgAltTag == $imgFileNameWithoutExtension) {
-                    $sameNameMessage .= sprintf(_t('SeoHeroToolPro.ImageWithSameAltAndFileName', 'The Image %1$s has the same filename and alt tag.'), $imgFileName);
+                    $sameNameMessage .= sprintf(_t('SeoHeroToolAnalysis.ImageWithSameAltAndFileName', 'The Image %1$s has the same filename and alt tag.'), $imgFileName);
                     $imagesWithSameAltTagAndFilename++;
                 }
             }
             if ($imagesWithoutAltTag == 0) {
                 $UnsortedListEntries->push(new ArrayData(
                   array(
-                    'Content' => _t('SeoHeroToolProAnalyse.AllImagesWithAltTag', 'All Images contain Alt-Tags.'),
+                    'Content' => _t('SeoHeroToolAnalysis.AllImagesWithAltTag', 'All Images contain Alt-Tags.'),
                     'IconMess' => '3',
                     'HelpLink' => 'AllImagesWithAltTag'
                   )
@@ -954,7 +954,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } elseif ($imagesWithoutAltTag >= 1) {
                 $UnsortedListEntries->push(new ArrayData(
                     array(
-                      'Content' => sprintf(_t('SeoHeroToolProAnalyse.ImagesWithoutAltTagMessage', '%1$d out of %2$d Images are not having alt-Tags. The images are the following:').' <br/>'.$message, $imagesWithoutAltTag, $domImageCount),
+                      'Content' => sprintf(_t('SeoHeroToolAnalysis.ImagesWithoutAltTagMessage', '%1$d out of %2$d Images are not having alt-Tags. The images are the following:').' <br/>'.$message, $imagesWithoutAltTag, $domImageCount),
                       'IconMess' => '1',
                       'HelpLink' => 'ImagesWithoutAltTagMessage'
                     )
@@ -964,7 +964,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             if ($imagesWithSameAltTagAndFilename == 0) {
                 $UnsortedListEntries->push(new ArrayData(
                 array(
-                  'Content' => _t('SeoHeroToolProAnalyse.AllImagesWithDiffferentFilenameAndAltTag', 'All Images have for filename and alt-tag different values.'),
+                  'Content' => _t('SeoHeroToolAnalysis.AllImagesWithDiffferentFilenameAndAltTag', 'All Images have for filename and alt-tag different values.'),
                   'IconMess' => '3',
                   'HelpLink' => 'AllImagesWithDiffferentFilenameAndAltTag'
 
@@ -974,7 +974,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } elseif ($imagesWithSameAltTagAndFilename >= 1) {
                 $UnsortedListEntries->push(new ArrayData(
                 array(
-                  'Content' => sprintf(_t('SeoHeroToolProAnalyse.ImagesWithoutDifferentFilenameAndAltTag', '%1$d out of %2$d Images have the same alt-tag and filename. Those images are the following:').' <br/>'.$sameNameMessage, $imagesWithoutAltTag, $domImageCount),
+                  'Content' => sprintf(_t('SeoHeroToolAnalysis.ImagesWithoutDifferentFilenameAndAltTag', '%1$d out of %2$d Images have the same alt-tag and filename. Those images are the following:').' <br/>'.$sameNameMessage, $imagesWithoutAltTag, $domImageCount),
                   'IconMess' => '2',
                   'HelpLink' => 'ImagesWithoutDifferentFilenameAndAltTag'
                 )
@@ -982,7 +982,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $this->updateRules(2);
             }
         } else {
-            $imageCountText = _t('SeoHeroToolProAnalyse.NoImagesFound', 'This page does not contain any pictures');
+            $imageCountText = _t('SeoHeroToolAnalysis.NoImagesFound', 'This page does not contain any pictures');
             $UnsortedListEntries->push(new ArrayData(
                 array(
                     'Content' => $imageCountText,
@@ -993,13 +993,13 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(2);
         }
         return array(
-          'Headline' => _t('SeoHeroToolPro.Images', 'Images'),
+          'Headline' => _t('SeoHeroToolAnalysis.Images', 'Images'),
           'UnsortedListEntries' => $UnsortedListEntries);
     }
 
     /*
       The function getW3CValidation() checks if the site runs locally. In that case no check will be performed. Otherweise
-      the SeoHeroToolProW3CValidator will be called to check the actual Page for HTML Error and Warning.
+      the SeoHeroToolAnalysisW3CValidator will be called to check the actual Page for HTML Error and Warning.
       The result will be returned.
       @param $URL - the actual Page
      */
@@ -1010,7 +1010,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($this->siteRunsLocally) {
             $UnsortedListEntries->push(new ArrayData(
           array(
-                'Content' => _t('SeoHeroToolProAnalyse.SiteRunsLocally', 'The website runs locally. No W3C Validation possible.'),
+                'Content' => _t('SeoHeroToolAnalysis.SiteRunsLocally', 'The website runs locally. No W3C Validation possible.'),
                 'IconMess' => '2',
                 'HelpLink' => 'SiteRunsLocally'
               )
@@ -1018,11 +1018,11 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(2);
 
             return array(
-              'Headline' => _t('SeoHeroToolProAnalyse.W3CResult', 'W3C Validator Result'),
+              'Headline' => _t('SeoHeroToolAnalysis.W3CResult', 'W3C Validator Result'),
               'UnsortedListEntries' => $UnsortedListEntries);
         }
         if (!$this->getAPIRequest('W3C')) {
-            $results = SeoHeroToolProW3CValidator::checkData($URL);
+            $results = SeoHeroToolAnalysisW3CValidator::checkData($URL);
             $messages = $results->messages;
             if (isset($messages[0]->type) && $messages[0]->type == 'non-document-error') {
                 $nonDocumentError = 1;
@@ -1053,7 +1053,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             if ($this->siteRunsLocally) {
                 $UnsortedListEntries->push(new ArrayData(
               array(
-                    'Content' => _t('SeoHeroToolProAnalyse.W3CLocally', 'The site runs locally and therefore a W3C Check can not be performed'),
+                    'Content' => _t('SeoHeroToolAnalysis.W3CLocally', 'The site runs locally and therefore a W3C Check can not be performed'),
                     'IconMess' => '2',
                     'HelpLink' => 'W3CLocally'
                   )
@@ -1063,7 +1063,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } else {
                 $UnsortedListEntries->push(new ArrayData(
               array(
-                    'Content' => _t('SeoHeroToolProAnalyse.W3CNon-Document-Error', 'The Document can not be scanned, maybe the website runs locally?'),
+                    'Content' => _t('SeoHeroToolAnalysis.W3CNon-Document-Error', 'The Document can not be scanned, maybe the website runs locally?'),
                     'IconMess' => '2',
                     'HelpLink' => 'W3CNon-Document-Error'
                   )
@@ -1076,7 +1076,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($foundHTMLErrors == 0 && $foundHTMLWarnings == 0 && $nonDocumentError == 0) {
             $UnsortedListEntries->push(new ArrayData(
             array(
-                  'Content' => _t('SeoHeroToolProAnalyse.W3CNNoErrorsAndWarning', 'The Validator did not find any Errors or Warnings in your Document.'),
+                  'Content' => _t('SeoHeroToolAnalysis.W3CNNoErrorsAndWarning', 'The Validator did not find any Errors or Warnings in your Document.'),
                   'IconMess' => '3',
                   'HelpLink' => 'W3CNNoErrorsAndWarning'
                 )
@@ -1084,24 +1084,24 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(3);
         } elseif ($nonDocumentError == 0) {
             if ($foundHTMLErrors == 1) {
-                $messageFoundHTMLErrors = _t('SeoHeroToolPro.W3CErrorSingular', 'one HTML error');
+                $messageFoundHTMLErrors = _t('SeoHeroToolAnalysis.W3CErrorSingular', 'one HTML error');
             } elseif ($foundHTMLErrors > 1) {
-                $messageFoundHTMLErrors = _t('SeoHeroToolPro.W3CErrorPlural', 'several HTML errors');
+                $messageFoundHTMLErrors = _t('SeoHeroToolAnalysis.W3CErrorPlural', 'several HTML errors');
             } else {
-                $messageFoundHTMLErrors = _t('SeoHeroToolPro.W3CErrorNone', 'no HTML errors');
+                $messageFoundHTMLErrors = _t('SeoHeroToolAnalysis.W3CErrorNone', 'no HTML errors');
             }
 
             if ($foundHTMLWarnings == 1) {
-                $messageFoundHTMLWarnings = _t('SeoHeroToolPro.W3CWarningSingular', 'one HTML warning');
+                $messageFoundHTMLWarnings = _t('SeoHeroToolAnalysis.W3CWarningSingular', 'one HTML warning');
             } elseif ($foundHTMLWarnings > 1) {
-                $messageFoundHTMLWarnings = _t('SeoHeroToolPro.W3CWarningPlural', 'several HTML warnings');
+                $messageFoundHTMLWarnings = _t('SeoHeroToolAnalysis.W3CWarningPlural', 'several HTML warnings');
             } else {
-                $messageFoundHTMLWarnings = _t('SeoHeroToolPro.W3CWarningNone', 'no HTML warnings');
+                $messageFoundHTMLWarnings = _t('SeoHeroToolAnalysis.W3CWarningNone', 'no HTML warnings');
             }
             $UnsortedListEntries->push(new ArrayData(
             array(
                   'Content' => sprintf(
-                _t('SeoHeroToolProAnalyse.W3CCountMessage',
+                _t('SeoHeroToolAnalysis.W3CCountMessage',
                     'Es wurden auf der Seite %1$s und %2$s gefunden'),
                 $messageFoundHTMLWarnings, $messageFoundHTMLErrors),
                   'IconMess' => '1',
@@ -1114,7 +1114,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
 
 
         return array(
-            'Headline' => _t('SeoHeroToolPro.W3CResult', 'W3C Validator Result'),
+            'Headline' => _t('SeoHeroToolAnalysis.W3CResult', 'W3C Validator Result'),
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 
@@ -1128,7 +1128,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if (!strpos(strtolower($this->pageBody), $search)) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.NoSkipToMainContentFound', 'No skip to main content link found on page.'),
+                'Content' => _t('SeoHeroToolAnalysis.NoSkipToMainContentFound', 'No skip to main content link found on page.'),
                 'IconMess' => '2',
                 'HelpLink' => 'NoSkipToMainContentFound'
               )
@@ -1137,7 +1137,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
             array(
-              'Content' => _t('SeoHeroToolProAnalyse.SkipToMainContentFound', 'Skip to main content found on page.'),
+              'Content' => _t('SeoHeroToolAnalysis.SkipToMainContentFound', 'Skip to main content found on page.'),
               'IconMess' => '3',
               'HelpLink' => 'SkipToMainContentFound'
             )
@@ -1145,7 +1145,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(3);
         }
         return array(
-          'Headline' => _t('SeoHeroToolPro.SkipToMainContent', 'Skip to main content'),
+          'Headline' => _t('SeoHeroToolAnalysis.SkipToMainContent', 'Skip to main content'),
           'UnsortedListEntries' => $UnsortedListEntries
         );
     }
@@ -1184,7 +1184,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if (!strpos(strtolower($this->pageHTML), $search)) {
             $UnsortedListEntries->push(new ArrayData(
             array(
-              'Content' => _t('SeoHeroToolProAnalyse.NoAMPLinkFound', 'No AMP Link found on page.'),
+              'Content' => _t('SeoHeroToolAnalysis.NoAMPLinkFound', 'No AMP Link found on page.'),
               'IconMess' => '2',
               'HelpLink' => 'NoAMPLinkFound'
             )
@@ -1193,7 +1193,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
             array(
-              'Content' => _t('SeoHeroToolProAnalyse.AMPLinkFound', 'AMP Link found on page.'),
+              'Content' => _t('SeoHeroToolAnalysis.AMPLinkFound', 'AMP Link found on page.'),
               'IconMess' => '3',
               'HelpLink' => 'NoAMPLinkFound'
             )
@@ -1207,7 +1207,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             if ($this->urlExists($ampPage)) {
                 $UnsortedListEntries->push(new ArrayData(
                 array(
-                'Content' => _t('SeoHeroToolProAnalyse.AMPPageFound', 'AMP Page exists.'),
+                'Content' => _t('SeoHeroToolAnalysis.AMPPageFound', 'AMP Page exists.'),
                 'IconMess' => '3',
                 'HelpLink' => 'NoAMPLinkFound'
               )
@@ -1216,7 +1216,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } else {
                 $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.NoAMPPageFound', 'The AMP Page dos not exists.'),
+                'Content' => _t('SeoHeroToolAnalysis.NoAMPPageFound', 'The AMP Page dos not exists.'),
                 'IconMess' => '1',
                 'HelpLink' => 'NoAMPLinkFound'
               )
@@ -1225,7 +1225,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             }
         }
         return array(
-          'Headline' => _t('SeoHeroToolPro.AMPLink', 'AMP Link found'),
+          'Headline' => _t('SeoHeroToolAnalysis.AMPLink', 'AMP Link found'),
           'UnsortedListEntries' => $UnsortedListEntries
         );
     }
@@ -1249,7 +1249,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $server = 'https://'.$_SERVER['SERVER_NAME'];
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.SiteIsHTTPS', 'Site can be reached via HTTPS.'),
+                'Content' => _t('SeoHeroToolAnalysis.SiteIsHTTPS', 'Site can be reached via HTTPS.'),
                 'IconMess' => '3',
                 'HelpLink' => 'SiteIsHTTPS'
               )
@@ -1259,7 +1259,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $server = 'http://'.$_SERVER['SERVER_NAME'];
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.SiteIsHTTP', 'Site can be reached via HTTP. HTTPS would be better.'),
+                'Content' => _t('SeoHeroToolAnalysis.SiteIsHTTP', 'Site can be reached via HTTP. HTTPS would be better.'),
                 'IconMess' => '2',
                 'HelpLink' => 'SiteIsHTTP'
               )
@@ -1279,7 +1279,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if (strpos($curlResponeArray[0], ' 200 OK')) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.FoundRobotstxt', 'Found Robots.txt file. Content was not checked.'),
+                'Content' => _t('SeoHeroToolAnalysis.FoundRobotstxt', 'Found Robots.txt file. Content was not checked.'),
                 'IconMess' => '3',
                 'HelpLink' => 'FoundRobotstxt'
               )
@@ -1288,7 +1288,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } elseif (strpos($curlResponeArray[0], ' 404')) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.FoundNoRobotstxt', 'No Robots.txt existing. HTTP Response is ').': '.$curlResponeArray[0],
+                'Content' => _t('SeoHeroToolAnalysis.FoundNoRobotstxt', 'No Robots.txt existing. HTTP Response is ').': '.$curlResponeArray[0],
                 'IconMess' => '1',
                 'HelpLink' => 'FoundNoRobotstxt'
               )
@@ -1297,7 +1297,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.ProblemWithRobotstxt', 'Robots.txt file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is').': '.$curlResponeArray[0],
+                'Content' => _t('SeoHeroToolAnalysis.ProblemWithRobotstxt', 'Robots.txt file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is').': '.$curlResponeArray[0],
                 'IconMess' => '2',
                 'HelpLink' => 'ProblemWithRobotstxt'
               )
@@ -1316,7 +1316,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if (strpos($chsmResponseArray[0], ' 200 OK')) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.FoundSitemapXML', 'Found Robots.txt file. Content was not checked.'),
+                'Content' => _t('SeoHeroToolAnalysis.FoundSitemapXML', 'Found Robots.txt file. Content was not checked.'),
                 'IconMess' => '3',
                 'HelpLink' => 'FoundSitemapXML'
               )
@@ -1325,7 +1325,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } elseif (strpos($chsmResponseArray[0], ' 404')) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.FoundNoSitemapXML', 'No Sitemap.xml existing. HTTP Response is ').': '.$chsmResponseArray[0],
+                'Content' => _t('SeoHeroToolAnalysis.FoundNoSitemapXML', 'No Sitemap.xml existing. HTTP Response is ').': '.$chsmResponseArray[0],
                 'IconMess' => '1',
                 'HelpLink' => 'FoundNoSitemapXML'
               )
@@ -1334,7 +1334,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.ProblemWithSitemapXML', 'Sitemap.xml file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is').': '.$chsmResponseArray[0],
+                'Content' => _t('SeoHeroToolAnalysis.ProblemWithSitemapXML', 'Sitemap.xml file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is').': '.$chsmResponseArray[0],
                 'IconMess' => '2',
                 'HelpLink' => 'ProblemWithSitemapXML'
               )
@@ -1342,7 +1342,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(2);
         }
         return array(
-          'Headline' => _t('SeoHeroToolPro.UsefulFiles', 'Files for Search Engines'),
+          'Headline' => _t('SeoHeroToolAnalysis.UsefulFiles', 'Files for Search Engines'),
           'UnsortedListEntries' => $UnsortedListEntries
         );
     }
@@ -1357,7 +1357,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($this->siteRunsLocally) {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.SitesRunsLocally', 'Website runs locally. Therefore it is not possible to check for structured Data.'),
+                'Content' => _t('SeoHeroToolAnalysis.SitesRunsLocally', 'Website runs locally. Therefore it is not possible to check for structured Data.'),
                 'IconMess' => '2',
                 'HelpLink' => 'SitesRunsLocally'
               )
@@ -1376,7 +1376,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if (count($sDatas) >= 1) {
             $UnsortedListEntries->push(new ArrayData(
             array(
-              'Content' => _t('SeoHeroToolProAnalyse.StructuredDataFound', ' Found structured Data. You can check the structured Data here').': '.'<a href="https://search.google.com/structured-data/testing-tool?hl=de#url=' . urldecode($Page->AbsoluteLink()) . '" target="_blank">Structured Data Google</a>',
+              'Content' => _t('SeoHeroToolAnalysis.StructuredDataFound', ' Found structured Data. You can check the structured Data here').': '.'<a href="https://search.google.com/structured-data/testing-tool?hl=de#url=' . urldecode($Page->AbsoluteLink()) . '" target="_blank">Structured Data Google</a>',
               'IconMess' => '3',
               'HelpLink' => 'StructuredDataFound'
             )
@@ -1385,7 +1385,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         } else {
             $UnsortedListEntries->push(new ArrayData(
               array(
-                'Content' => _t('SeoHeroToolProAnalyse.NoStructuredDataFound', 'No structured Data found.'),
+                'Content' => _t('SeoHeroToolAnalysis.NoStructuredDataFound', 'No structured Data found.'),
                 'IconMess' => '2',
                 'HelpLink' => 'NoStructuredDataFound'
               )
@@ -1393,7 +1393,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(2);
         }
         return array(
-          'Headline' => _t('SeoHeroToolPro.StructuredData', 'Structured Data'),
+          'Headline' => _t('SeoHeroToolAnalysis.StructuredData', 'Structured Data'),
           'UnsortedListEntries' => $UnsortedListEntries
         );
     }
@@ -1417,7 +1417,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         if ($this->siteRunsLocally) {
             $UnsortedListEntries->push(new ArrayData(
             array(
-                  'Content' => _t('SeoHeroToolProAnalyse.SiteRunsLocallyPageSpeed', 'The website runs locally. No PageSpeed check possible.'),
+                  'Content' => _t('SeoHeroToolAnalysis.SiteRunsLocallyPageSpeed', 'The website runs locally. No PageSpeed check possible.'),
               'IconMess' => '2',
               'HelpLink' => 'SiteRunsLocallyPageSpeed'
             )
@@ -1425,10 +1425,10 @@ class SeoHeroToolProAdmin extends LeftAndMain
             $this->updateRules(2);
 
             return array(
-            'Headline' => _t('SeoHeroToolPro.PageSpeed', 'PageSpeed Result'),
+            'Headline' => _t('SeoHeroToolAnalysis.PageSpeed', 'PageSpeed Result'),
             'UnsortedListEntries' => $UnsortedListEntries);
         }
-        $PageSpeedAPI = Config::inst()->get('SeoHeroToolPro', 'PageSpeedAPI');
+        $PageSpeedAPI = Config::inst()->get('SeoHeroToolAnalysis', 'PageSpeedAPI');
         if ($PageSpeedAPI != '') {
             if (!$this->getAPIRequest('PageSpeed')) {
                 $ch = curl_init();
@@ -1439,6 +1439,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
                 $curlResponse = curl_exec($ch);
                 curl_close($ch);
                 $decodedInformation = json_decode($curlResponse);
+                debug::show($decodedInformation->error->code);
                 if ($decodedInformation->error->code == '500') {
                     $scoreValue = array('desktop'=>0,'mobile'=>0,'error'=>500);
                     $this->setAPIRequestValue('PageSpeed', $scoreValue);
@@ -1461,14 +1462,14 @@ class SeoHeroToolProAdmin extends LeftAndMain
             if (isset($pageSpeedInformation[1]['error']) && $pageSpeedInformation[1]['error'] == '500') {
                 $UnsortedListEntries->push(new ArrayData(
                 array(
-                'Content' => _t('SeoHeroToolProAnalyse.PageSpeedNoResults', 'The response delivers an Error Code 500. Please check site manually!'),
+                'Content' => _t('SeoHeroToolAnalysis.PageSpeedNoResults', 'The response delivers an Error Code 500. Please check site manually!'),
                 'IconMess' => '1',
                 'HelpLink' => 'PageSpeedNoResults'
                 )
               ));
                 $this->updateRules(1);
                 return array(
-                'Headline' => _t('SeoHeroToolPro.PageSpeed', 'PageSpeed Result'),
+                'Headline' => _t('SeoHeroToolAnalysis.PageSpeed', 'PageSpeed Result'),
                 'UnsortedListEntries' => $UnsortedListEntries);
             }
             $desktopValue = $pageSpeedInformation[1]['desktop'];
@@ -1477,7 +1478,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             if ($desktopValue >= 85) {
                 $UnsortedListEntries->push(new ArrayData(
                   array(
-                        'Content' => _t('SeoHeroToolProAnalyse.GoodDesktopPageSpeed', 'The PageSpeed is quite good.').' '.$desktopValue,
+                        'Content' => _t('SeoHeroToolAnalysis.GoodDesktopPageSpeed', 'The PageSpeed is quite good.').' '.$desktopValue,
                     'IconMess' => '3',
                     'HelpLink' => 'GoodDesktopPageSpeed'
                   )
@@ -1486,7 +1487,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } elseif ($desktopValue < 85 && $desktopValue > 60) {
                 $UnsortedListEntries->push(new ArrayData(
                   array(
-                        'Content' => _t('SeoHeroToolProAnalyse.MediocreDesktopPageSpeed', 'The PageSpeed is mediocre. This could be probably done better.').' '.$desktopValue,
+                        'Content' => _t('SeoHeroToolAnalysis.MediocreDesktopPageSpeed', 'The PageSpeed is mediocre. This could be probably done better.').' '.$desktopValue,
                     'IconMess' => '2',
                     'HelpLink' => 'MediocreDesktopPageSpeed'
                   )
@@ -1495,7 +1496,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } else {
                 $UnsortedListEntries->push(new ArrayData(
                   array(
-                        'Content' => _t('SeoHeroToolProAnalyse.BadDesktopPageSpeed', 'The PageSpeed is far from good. Please check how you can enhance this value.').' '.$desktopValue,
+                        'Content' => _t('SeoHeroToolAnalysis.BadDesktopPageSpeed', 'The PageSpeed is far from good. Please check how you can enhance this value.').' '.$desktopValue,
                     'IconMess' => '1',
                     'HelpLink' => 'BadDesktopPageSpeed'
                   )
@@ -1506,7 +1507,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             if ($mobileValue >= 85) {
                 $UnsortedListEntries->push(new ArrayData(
                   array(
-                        'Content' => _t('SeoHeroToolProAnalyse.GoodMobilePageSpeed', 'The PageSpeed for mobile devices is quite good.').' '.$mobileValue,
+                        'Content' => _t('SeoHeroToolAnalysis.GoodMobilePageSpeed', 'The PageSpeed for mobile devices is quite good.').' '.$mobileValue,
                     'IconMess' => '3',
                     'HelpLink' => 'GoodMobilePageSpeed'
                   )
@@ -1515,7 +1516,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } elseif ($mobileValue < 85 && $mobileValue > 60) {
                 $UnsortedListEntries->push(new ArrayData(
                   array(
-                        'Content' => _t('SeoHeroToolProAnalyse.MediocreMobilePageSpeed', 'The PageSpeed for mobile devices is mediocre. This could be probably done better.').' '.$mobileValue,
+                        'Content' => _t('SeoHeroToolAnalysis.MediocreMobilePageSpeed', 'The PageSpeed for mobile devices is mediocre. This could be probably done better.').' '.$mobileValue,
                     'IconMess' => '2',
                     'HelpLink' => 'MediocreMobilePageSpeed'
                   )
@@ -1524,7 +1525,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } else {
                 $UnsortedListEntries->push(new ArrayData(
                   array(
-                        'Content' => _t('SeoHeroToolProAnalyse.BadMobilePageSpeed', 'The PageSpeed for mobile devices is far from good. Please check how you can enhance this value.').' '.$mobileValue,
+                        'Content' => _t('SeoHeroToolAnalysis.BadMobilePageSpeed', 'The PageSpeed for mobile devices is far from good. Please check how you can enhance this value.').' '.$mobileValue,
                     'IconMess' => '1',
                     'HelpLink' => 'BadMobilePageSpeed'
                   )
@@ -1536,7 +1537,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             if ($PageSpeedAPI != '') {
                 $UnsortedListEntries->push(new ArrayData(
               array(
-                    'Content' => _t('SeoHeroToolProAnalyse.PageSpeedNoResultsNoError', 'The Document can not be scanned, but no error was found in the return'),
+                    'Content' => _t('SeoHeroToolAnalysis.PageSpeedNoResultsNoError', 'The Document can not be scanned, but no error was found in the return'),
                     'IconMess' => '2',
                     'HelpLink' => 'PageSpeedNoInformation'
                   )
@@ -1545,7 +1546,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
             } else {
                 $UnsortedListEntries->push(new ArrayData(
               array(
-                    'Content' => _t('SeoHeroToolProAnalyse.PageSpeedKeyNotSet', 'The Document can not be scanned as the PageSpeed API-key is not set'),
+                    'Content' => _t('SeoHeroToolAnalysis.PageSpeedKeyNotSet', 'The Document can not be scanned as the PageSpeed API-key is not set'),
                     'IconMess' => '2',
                     'HelpLink' => 'PageSpeedNoInformation'
                   )
@@ -1555,7 +1556,7 @@ class SeoHeroToolProAdmin extends LeftAndMain
         }
 
         return array(
-            'Headline' => _t('SeoHeroToolPro.PageSpeed', 'PageSpeed'),
+            'Headline' => _t('SeoHeroToolAnalysis.PageSpeed', 'PageSpeed'),
             'UnsortedListEntries' => $UnsortedListEntries);
     }
 

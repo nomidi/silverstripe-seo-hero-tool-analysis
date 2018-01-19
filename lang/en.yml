@@ -1,5 +1,5 @@
 en:
-  SeoHeroToolPro:
+  SeoHeroToolAnalysis:
     ANALYSEGENERALACCESSISSUE: General Access Issue
     ANALYSEHEADLINE: SEO Analyse
     ANALYSEGENERAL: General Analysis
@@ -50,10 +50,6 @@ en:
     SkipToMainContent: Skip to main content
     LinkToW3C: Open W3C Results
     AMPLink: AMP Link
-    ActualVersionNotPublished: The actual version of this Page is not published. Please publish it as the Seo Hero Tool can just access published websites.
-  SeoHeroToolProAdmin:
-    MENUTITLE: SeoHeroToolPro
-  SeoHeroToolProAnalyse:
     LinksWithSameTitleAndName: There are links with the same Name and Title Attribute. Those are these links:
     AllImagesWithAltTag: 'All Images contain Alt-Attributes.'
     ContentLengthGood: 'The site has more than 200 words. Well Done. '
@@ -150,3 +146,6 @@ en:
     AMPLinkFound: AMP Link found on page.
     AMPPageFound: AMP Page exists.
     NoAMPPageFound: The AMP Page dos not exists.
+    ActualVersionNotPublished: The actual version of this Page is not published. Please publish it as the Seo Hero Tool can just access published websites.
+  SeoHeroToolAnalysisAdmin:
+    MENUTITLE: SeoHeroTool Analysis
