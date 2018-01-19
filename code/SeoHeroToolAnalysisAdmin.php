@@ -1439,9 +1439,11 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
                 $curlResponse = curl_exec($ch);
                 curl_close($ch);
                 $decodedInformation = json_decode($curlResponse);
-                debug::show($decodedInformation->error->code);
                 if ($decodedInformation->error->code == '500') {
                     $scoreValue = array('desktop'=>0,'mobile'=>0,'error'=>500);
+                    $this->setAPIRequestValue('PageSpeed', $scoreValue);
+                } elseif ($decodedInformation->error->code == '400') {
+                    $scoreValue = array('desktop'=>0,'mobile'=>0,'error'=>400);
                     $this->setAPIRequestValue('PageSpeed', $scoreValue);
                 } else {
                     $desktopScore = $decodedInformation->ruleGroups->SPEED->score;
@@ -1471,6 +1473,18 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
                 return array(
                 'Headline' => _t('SeoHeroToolAnalysis.PageSpeed', 'PageSpeed Result'),
                 'UnsortedListEntries' => $UnsortedListEntries);
+            } elseif (isset($pageSpeedInformation[1]['error']) && $pageSpeedInformation[1]['error'] == '400') {
+                $UnsortedListEntries->push(new ArrayData(
+              array(
+              'Content' => _t('SeoHeroToolAnalysis.PageSpeedNoResults400', 'The response delivers an Error Code 400. Please check site manually!'),
+              'IconMess' => '1',
+              'HelpLink' => 'PageSpeedNoResults'
+              )
+            ));
+                $this->updateRules(1);
+                return array(
+              'Headline' => _t('SeoHeroToolAnalysis.PageSpeed', 'PageSpeed Result'),
+              'UnsortedListEntries' => $UnsortedListEntries);
             }
             $desktopValue = $pageSpeedInformation[1]['desktop'];
             $mobileValue = $pageSpeedInformation[1]['mobile'];

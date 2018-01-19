@@ -137,7 +137,8 @@ en:
     GoodMobilePageSpeed: The PageSpeed for mobile devices is quite good.
     MediocreMobilePageSpeed: The PageSpeed for mobile devices is mediocre. This could be probably done better.
     BadMobilePageSpeed: The PageSpeed for mobile devices is far from good. Please check how you can enhance this value.
-    PageSpeedNoResults: The Response delivers an Error Code 500. Please check site manually!
+    PageSpeedNoResults500: The Response delivers an Error Code 500. Please check site manually!
+    PageSpeedNoResults400: The Response delivers an Error Code 400. Please check site manually! It may run locally.
     PageSpeedNoResultsNoError: The Document can not be scanned, but no error was found in the return
     PageSpeedKeyNotSet: The Document can not be scanned as the PageSpeed API-key is not set
     NoSkipToMainContentFound: No skip to main content link found on page.

@@ -22,3 +22,5 @@ Add tests for this tool similar to the tests in SEO Hero Tool.
 
 ### Add Travis Support
 Now that this tool is public add Travis support for an automated test after each submit.
+
+To add your own Feature Request please use the Github Issues for this project.

@@ -137,7 +137,8 @@ de:
     GoodMobilePageSpeed: Der PageSpeed Wert für mobile Geräte ist gut.
     MediocreMobilePageSpeed: Der PageSpeed Wert für mobile Geräte ist mittelmässig. Hier könnte eventuell noch etwas verbessert werden.
     BadMobilePageSpeed: Der PageSpeed Wert für mobile Geräte ist schlecht. Hier sollte noch etwas verbessert werden.
-    PageSpeedNoResults: Die Antwort beinhaltet einen 500-er Fehler. Bitte die Seite manuell prüfen!
+    PageSpeedNoResults500: Die Antwort beinhaltet einen 500-er Fehler. Bitte die Seite manuell prüfen!
+    PageSpeedNoResults400: Die Antwort beinhaltet einen 400-er Fehler. Bitte die Seite manuell prüfen! Sie läuft eventuell lokal.
     PageSpeedNoResultsNoError: Die Datei konnte nicht gescannt werden, es gab keinen Fehler als Rückmeldung.
     PageSpeedKeyNotSet: Die Datei konnte nicht gescannt werden, der der PageSpeed API Key nicht gesetzt ist.
     NoSkipToMainContentFound: Kein skip to main content Link gefudnen.
