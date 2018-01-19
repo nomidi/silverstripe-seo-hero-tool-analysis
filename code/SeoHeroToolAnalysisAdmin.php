@@ -1464,7 +1464,7 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
             if (isset($pageSpeedInformation[1]['error']) && $pageSpeedInformation[1]['error'] == '500') {
                 $UnsortedListEntries->push(new ArrayData(
                 array(
-                'Content' => _t('SeoHeroToolAnalysis.PageSpeedNoResults', 'The response delivers an Error Code 500. Please check site manually!'),
+                'Content' => _t('SeoHeroToolAnalysis.PageSpeedNoResults500', 'The response delivers an Error Code 500. Please check site manually!'),
                 'IconMess' => '1',
                 'HelpLink' => 'PageSpeedNoResults'
                 )
