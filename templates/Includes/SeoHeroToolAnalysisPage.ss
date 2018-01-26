@@ -101,9 +101,9 @@
       <div class="col-md-12">
         <div class="nav-tabs-custom custom-content ">
           <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="nav-item active"><a class="nav-link " data-toggle="tab" href="#analyse-home" role="tab"><span class="glyphicon glyphicon-ok " aria-hidden="true"></span> Bestanden</a></li>
-            <li role="presentation" class="nav-item"><a class="nav-link" data-toggle="tab" href="#analyse-warning" role="tab"><span class="glyphicon glyphicon-info-sign " aria-hidden="true"></span> Hinweise</a></li>
-            <li role="presentation" class="nav-item"><a class="nav-link" data-toggle="tab" href="#analyse-error" role="tab"><span class="glyphicon glyphicon-remove " aria-hidden="true"></span> Fehler</a></li>
+            <li role="presentation" class="nav-item active"><a class="nav-link " data-toggle="tab" href="#analyse-home" role="tab"><span class="glyphicon glyphicon-ok " aria-hidden="true"></span> <%t SeoHeroToolAnalysis.ANALYSEPASSED 'Passed' %></a></li>
+            <li role="presentation" class="nav-item"><a class="nav-link" data-toggle="tab" href="#analyse-warning" role="tab"><span class="glyphicon glyphicon-info-sign " aria-hidden="true"></span> <%t SeoHeroToolAnalysis.ANALYSEWARNING 'Notice' %></a></li>
+            <li role="presentation" class="nav-item"><a class="nav-link" data-toggle="tab" href="#analyse-error" role="tab"><span class="glyphicon glyphicon-remove " aria-hidden="true"></span> <%t SeoHeroToolAnalysis.ANALYSEERROR 'Error' %></a></li>
           </ul>
 
 
@@ -188,9 +188,9 @@
       <div class="col-md-12">
         <div class="nav-tabs-custom custom-content ">
           <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="nav-item active"><a class="nav-link " data-toggle="tab" href="#keyword-home" role="tab"><span class="glyphicon glyphicon-ok " aria-hidden="true"></span> Bestanden</a></li>
-            <li role="presentation" class="nav-item"><a class="nav-link" data-toggle="tab" href="#keyword-warning" role="tab"><span class="glyphicon glyphicon-info-sign " aria-hidden="true"></span> Hinweise</a></li>
-            <li role="presentation" class="nav-item"><a class="nav-link" data-toggle="tab" href="#keyword-error" role="tab"><span class="glyphicon glyphicon-remove " aria-hidden="true"></span> Fehler</a></li>
+            <li role="presentation" class="nav-item active"><a class="nav-link " data-toggle="tab" href="#keyword-home" role="tab"><span class="glyphicon glyphicon-ok " aria-hidden="true"></span> <%t SeoHeroToolAnalysis.ANALYSEPASSED 'Passed' %></a></li>
+            <li role="presentation" class="nav-item"><a class="nav-link" data-toggle="tab" href="#keyword-warning" role="tab"><span class="glyphicon glyphicon-info-sign " aria-hidden="true"></span> <%t SeoHeroToolAnalysis.ANALYSEWARNING 'Notice' %></a></li>
+            <li role="presentation" class="nav-item"><a class="nav-link" data-toggle="tab" href="#keyword-error" role="tab"><span class="glyphicon glyphicon-remove " aria-hidden="true"></span> <%t SeoHeroToolAnalysis.ANALYSEERROR 'Error' %></a></li>
           </ul>
 
 
