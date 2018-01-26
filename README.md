@@ -4,6 +4,8 @@ An Addition to SEO Hero Tool which can be also found on Github [SEO Hero Tool on
 The SEO Hero Tool Analysis extends the functionality of the SEO Hero Tool by adding a Button to each page which on click starts an analysis of the actual website.
 This analysis checks several parameters and gives an detailled overview of the findings.
 
+![](docs/images/seo-analysis-preview.png)
+
 ## Creating default settings in the configuration
 
 This definition takes place in the `mysite/_config/config.yml`.
