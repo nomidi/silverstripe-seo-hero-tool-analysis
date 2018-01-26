@@ -878,9 +878,18 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
         $this->dom->preserveWhiteSpace = false;
         $this->pageLinks = $this->dom->getElementsByTagName('a');
         $this->pageHTML = $this->dom->saveHTML();
-        $this->pageBody = $this->dom->getElementsByTagName('body')->item(0)->nodeValue;
+        if (isset($this->dom->getElementsByTagName('body')->item(0)->nodeValue)) {
+            $this->pageBody = $this->dom->getElementsByTagName('body')->item(0)->nodeValue;
+        } else {
+            $this->pageBody = '';
+        }
         $this->pageImages = $this->dom->getElementsByTagName('img');
-        $this->pageTitle = $this->dom->getElementsByTagName('title')->item(0)->nodeValue;
+        if (isset($this->dom->getElementsByTagName('title')->item(0)->nodeValue)) {
+            $this->pageTitle = $this->dom->getElementsByTagName('title')->item(0)->nodeValue;
+        } else {
+            $this->pageTitle = '';
+        }
+
         return true;
     }
 
