@@ -79,6 +79,7 @@ en:
     TitleLengthLong: 'The title of this site is too long. '
     TitleLengthOK: 'The title of this site is fine, but it could be longer. '
     TitleLengthShort: 'The title of this site is too short! '
+    TitleIsEmpty: 'The title of this site is empty or does not exist! '
     TooHighDirectoryDepth: 'The Directory Depth should be as small as possible.'
     FineDirectoryDepth: 'The Directory Depth is perfect.'
     TooMuchH1: 'There is more than one h1-Tag'

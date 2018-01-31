@@ -34,7 +34,7 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
     }
 
     /*
-^     Functino Analyse checks the actual site
+^     Function Analysis checks the actual site
      */
     public function Analysis()
     {
@@ -212,7 +212,16 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
 
 
 
-        if ($lengthOfTitle < 8) {
+        if ($lengthOfTitle == 0) {
+            $UnsortedListEntries->push(new ArrayData(
+            array(
+                'Content' => _t('SeoHeroToolAnalysis.TitleIsEmpty', 'The title of this site is empty or does not exist! ').$returnLength,
+                'IconMess' => '1',
+                'HelpLink' => 'TitleIsEmpty',
+            )
+          ));
+            $this->updateRules(1);
+        } elseif ($lengthOfTitle < 8) {
             $UnsortedListEntries->push(new ArrayData(
               array(
                   'Content' => _t('SeoHeroToolAnalysis.TitleLengthShort', 'The title of this site is too short! ').$returnLength,

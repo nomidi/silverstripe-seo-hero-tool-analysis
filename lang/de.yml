@@ -1,4 +1,4 @@
-de:
+lengde:
   SeoHeroToolAnalysis:
     ANALYSEGENERALACCESSISSUE: Generelles Zugriffsproblem
     ANALYSEHEADLINE: SEO Analyse
@@ -80,6 +80,7 @@ de:
     TitleLengthLong: 'Der Title dieser Seite ist zu lang. '
     TitleLengthOK: 'Der Titel dieser Seite ist gut, könnte aber länger sein. '
     TitleLengthShort: 'Der Titel dieser Seite ist zu kurz. '
+    TitleIsEmpty: 'Der Titel ist entweder leer oder der Tag existiert nicht. '
     TooHighDirectoryDepth: 'Die Verzeichnis Tiefe sollte so flach wie möglich sein. '
     FineDirectoryDepth: 'Die Verzeichnis Tiefe ist perfekt.'
     TooMuchH1: 'Es gibt mehr als einen h1-Tag.'
