@@ -27,12 +27,11 @@ Without a PageSpeed API Key the PageSpeed can not be obtained.
 ### contentID
 The ID of the Main Content on this site. If there is a valid value for `contentID` all text within this ID will be used for Word Count.
 
-# todo
+# Todo
 
-### Add test cases
-Add tests for this tool similar to the tests in SEO Hero Tool.
+### Complete test cases
+Add more tests for this tool similar to the tests in SEO Hero Tool.
 
-### Add Travis Support
-Now that this tool is public add Travis support for an automated test after each submit.
+# Feature Requests
 
 To add your own Feature Request please use the Github Issues for this project.

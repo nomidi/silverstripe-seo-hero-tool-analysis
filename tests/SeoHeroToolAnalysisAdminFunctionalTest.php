@@ -70,4 +70,16 @@ class SeoHeroToolAnalysisAdminFunctionalTest extends FunctionalTest
         $this->assertTrue(isset($return['UnsortedListEntries']->first()->IconMess), "Cant find checkURL Icon within the returned value");
         $this->assertTrue(isset($return['UnsortedListEntries']->first()->HelpLink), "Cant find checkURL HelpLink within the returned value");
     }
+
+    public function testCheckLinkDirectoryDepth()
+    {
+        $Page = $this->objFromFixture('Page', 'someURL');
+        $seotest = new SeoHeroToolAnalysisAdmin();
+        $return = $this->invokeMethod($seotest, 'checkLinkDirectoryDepth', [$Page]);
+
+        $this->assertTrue(is_array($return) && array_key_exists('UnsortedListEntries', $return), "Return of checkLinkDirectoryDepth is not an array");
+        $this->assertTrue(isset($return['UnsortedListEntries']->first()->Content), "Cant find checkLinkDirectoryDepth Description within the returned value");
+        $this->assertTrue(isset($return['UnsortedListEntries']->first()->IconMess), "Cant find checkLinkDirectoryDepth Icon within the returned value");
+        $this->assertTrue(isset($return['UnsortedListEntries']->first()->HelpLink), "Cant find checkLinkDirectoryDepth HelpLink within the returned value");
+    }
 }

@@ -90,4 +90,12 @@ class SeoHeroToolAnalysisAdminTest extends SapphireTest
         $this->assertTrue(isset($return['UnsortedListEntries']->first()->IconMess), "Cant find Title Icon for 0 words in checkWordCount");
         $this->assertTrue(isset($return['UnsortedListEntries']->first()->HelpLink), "Cant find Title HelpLink for 0 words in checkWordCount");
     }
+
+    public function testGetAPIRequest()
+    {
+        $seotest = new SeoHeroToolAnalysisAdmin();
+        $function = 'testfunction';
+        $return = $this->invokeMethod($seotest, 'getAPIRequest', [$function]);
+        debug::show($return);
+    }
 }

@@ -860,7 +860,10 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
      */
     private function PageExists($URL)
     {
+        $URL = 'http://loc-shtpro/someurl';
         $header = @get_headers($URL);
+        debug::show($URL);
+        debug::show($header);
         if (is_array($header)) {
             if (preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/', $header[0]) || preg_match('/^HTTP\\/\\d+\\.\\d+\\s+3\\d\\d\\s+.*$/', $header[0])) {
                 return true;
