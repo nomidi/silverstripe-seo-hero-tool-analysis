@@ -1,0 +1,7 @@
+Page:
+  home:
+    Title: homepage
+    URLSegment: home
+  someURL:
+    Title: someURL
+    URLSegment: someURL
