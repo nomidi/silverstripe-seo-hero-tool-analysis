@@ -71,6 +71,9 @@ class SeoHeroToolAnalysisAdminFunctionalTest extends FunctionalTest
         $this->assertTrue(isset($return['UnsortedListEntries']->first()->HelpLink), "Cant find checkURL HelpLink within the returned value");
     }
 
+    /*
+      Test case for Directory Depth function "checkLinkDirectoryDepth"
+     */
     public function testCheckLinkDirectoryDepth()
     {
         $Page = $this->objFromFixture('Page', 'someURL');
