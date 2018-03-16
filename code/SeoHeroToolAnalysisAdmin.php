@@ -43,7 +43,7 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
         if (!$Page || !$Page->ID) {
             $render = $this->owner->customise(array(
             'AccessError' => _t('SeoHeroToolAnalysis.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
-              'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
+              'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_ANALYSIS_PATH,
           ))->renderWith('SeoHeroToolAnalysisPage');
             return $render;
         }
@@ -56,14 +56,14 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
         if (!$versions->First()->WasPublished) {
             $render = $this->owner->customise(array(
                   'AccessError' => _t('SeoHeroToolAnalysis.ActualVersionNotPublished', 'The actual version of this Page is not published. Please publish it as the Seo Hero Tool can just access published websites.'),
-                    'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
+                    'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_ANALYSIS_PATH,
                 ))->renderWith('SeoHeroToolAnalysisPage');
         }
         Requirements::clear();
         if ($this->loadPage($this->URL, $Page) == false) {
             $render = $this->owner->customise(array(
               'AccessError' => _t('SeoHeroToolAnalysis.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
-                'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_PRO_PATH,
+                'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_ANALYSIS_PATH,
             ))->renderWith('SeoHeroToolAnalysisPage');
             return $render;
         }
@@ -860,10 +860,7 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
      */
     private function PageExists($URL)
     {
-        $URL = 'http://loc-shtpro/someurl';
         $header = @get_headers($URL);
-        debug::show($URL);
-        debug::show($header);
         if (is_array($header)) {
             if (preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/', $header[0]) || preg_match('/^HTTP\\/\\d+\\.\\d+\\s+3\\d\\d\\s+.*$/', $header[0])) {
                 return true;
