@@ -992,7 +992,7 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
             } elseif ($imagesWithSameAltTagAndFilename >= 1) {
                 $UnsortedListEntries->push(new ArrayData(
                 array(
-                  'Content' => sprintf(_t('SeoHeroToolAnalysis.ImagesWithoutDifferentFilenameAndAltTag', '%1$d out of %2$d Images have the same alt-tag and filename. Those images are the following:').' <br/>'.$sameNameMessage, $imagesWithoutAltTag, $domImageCount),
+                  'Content' => sprintf(_t('SeoHeroToolAnalysis.ImagesWithoutDifferentFilenameAndAltTag', '%1$d out of %2$d Images have the same alt-tag and filename. Those images are the following:').' <br/>'.$sameNameMessage, $imagesWithSameAltTagAndFilename, $domImageCount),
                   'IconMess' => '2',
                   'HelpLink' => 'ImagesWithoutDifferentFilenameAndAltTag'
                 )
