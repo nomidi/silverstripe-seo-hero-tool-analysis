@@ -26,10 +26,10 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
 
     public function canView($member = null)
     {
-        if (Permission::check('ADMIN')) {
+        if (Permission::check('ADMIN') || Permission::check('SHT_ANALYSIS_VIEW')) {
             return true;
         } else {
-            Security::permissionFailure();
+            return false;
         }
     }
 
