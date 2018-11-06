@@ -1,4 +1,12 @@
 <?php
+namespace nomidi\SeoHeroToolAnalysis;
+
+
+use DOMDocument;
+use DOMXPath;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\View\ArrayData;
 
 class SeoHeroToolAnalysisKeyword
 {

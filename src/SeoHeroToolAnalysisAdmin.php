@@ -1,5 +1,18 @@
 <?php
 
+namespace nomidi\SeoHeroToolAnalysis;
+
+
+use DOMDocument;
+use Page;
+use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Control\Session;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\Security\Permission;
+use SilverStripe\View\ArrayData;
+use SilverStripe\View\Requirements;
+
 class SeoHeroToolAnalysisAdmin extends LeftAndMain
 {
     private static $url_segment = 'shtpro-admin';
@@ -44,7 +57,7 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
             $render = $this->owner->customise(array(
             'AccessError' => _t('SeoHeroToolAnalysis.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
               'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_ANALYSIS_PATH,
-          ))->renderWith('SeoHeroToolAnalysisPage');
+          ))->renderWith('nomidi\SeoHeroToolAnalysis\SeoHeroToolAnalysisPage');
             return $render;
         }
         $this->pageID = $PageID;
@@ -57,14 +70,15 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
             $render = $this->owner->customise(array(
                   'AccessError' => _t('SeoHeroToolAnalysis.ActualVersionNotPublished', 'The actual version of this Page is not published. Please publish it as the Seo Hero Tool can just access published websites.'),
                     'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_ANALYSIS_PATH,
-                ))->renderWith('SeoHeroToolAnalysisPage');
+                ))->renderWith('nomidi\SeoHeroToolAnalysis\SeoHeroToolAnalysisPage');
         }
         Requirements::clear();
+        Requirements::css('nomidi/SeoHeroToolAnalysis:client/dist/css/style.css');
         if ($this->loadPage($this->URL, $Page) == false) {
             $render = $this->owner->customise(array(
               'AccessError' => _t('SeoHeroToolAnalysis.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),
                 'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_ANALYSIS_PATH,
-            ))->renderWith('SeoHeroToolAnalysisPage');
+            ))->renderWith('nomidi\SeoHeroToolAnalysis\SeoHeroToolAnalysisPage');
             return $render;
         }
 
@@ -151,7 +165,7 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
           'DebugMode' => $debugMode,
           'ContentLocale'=>'de-DE',
           'SHTAnalysisPath' => '/' .SEO_HERO_TOOL_ANALYSIS_PATH,
-        ))->renderWith('SeoHeroToolAnalysisPage');
+        ))->renderWith('nomidi\SeoHeroToolAnalysis\SeoHeroToolAnalysisPage');
         return $render;
     }
 
@@ -1595,9 +1609,13 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
     /*
       Function getRequest checks if a given value shall be requested again or not. Returns true or false
      */
-    private function getAPIRequest($APIFunction)
+    private static function getAPIRequest($APIFunction)
     {
-        $sessionVal = Session::get($this->pageID.'_'.$APIFunction);
+
+       $ses = new Session(isset($variables['_SESSION']) ? $variables['_SESSION'] : null);
+       //$random = rand(5,15);
+       //$random = $this->pageID;
+        $sessionVal = $ses->get($APIFunction);
         if (isset($sessionVal) && $sessionVal != '') {
             if ($sessionVal[0] < time()-30) {
                 return false;
@@ -1610,7 +1628,9 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
 
     private function getAPIRequestValue($APIFunction)
     {
-        $sessionVal = Session::get($this->pageID.'_'.$APIFunction);
+
+        $ses = new Session(isset($variables['_SESSION']) ? $variables['_SESSION'] : null);
+        $sessionVal = $ses->get($APIFunction);
         if (isset($sessionVal) && $sessionVal != '') {
             return $sessionVal;
         }
@@ -1618,13 +1638,14 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
 
     private function setAPIRequestValue($APIFunction, $Value)
     {
-        Session::set($this->pageID.'_'.$APIFunction, array(time(),$Value));
+        $ses = new Session(isset($variables['_SESSION']) ? $variables['_SESSION'] : null);
+        $ses->set($APIFunction, array(time(),$Value));
     }
 
     private function resetAPIRequestValue($APIFunction)
     {
         if ($this->getAPIRequest($APIFunction)) {
-            Session::clear($this->pageID.'_'.$APIFunction);
+            Session::clear($APIFunction);
         }
     }
 }

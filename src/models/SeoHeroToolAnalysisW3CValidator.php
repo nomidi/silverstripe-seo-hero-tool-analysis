@@ -1,4 +1,6 @@
 <?php
+namespace nomidi\SeoHeroToolAnalysis;
+
 
 class SeoHeroToolAnalysisW3CValidator
 {

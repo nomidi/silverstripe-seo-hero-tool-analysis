@@ -109,13 +109,13 @@
 
         <div class="tab-content">
           <div class="tab-pane active" id="analyse-home" role="tabpanel">
-            <% include SeoHeroToolAnalysis IconMessVal=3 %>
+            <% include nomidi\SeoHeroToolAnalysis\SeoHeroToolAnalysis IconMessVal=3 %>
           </div>
           <div class="tab-pane" id="analyse-warning" role="tabpanel">
-            <% include SeoHeroToolAnalysis IconMessVal=2 %>
+            <% include nomidi\SeoHeroToolAnalysis\SeoHeroToolAnalysis IconMessVal=2 %>
           </div>
           <div class="tab-pane" id="analyse-error" role="tabpanel">
-            <% include SeoHeroToolAnalysis IconMessVal=1 %>
+            <% include nomidi\SeoHeroToolAnalysis\SeoHeroToolAnalysis IconMessVal=1 %>
           </div>
         </div>
       </div>

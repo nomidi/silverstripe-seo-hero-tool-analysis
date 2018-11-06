@@ -1,4 +1,12 @@
 <?php
+namespace nomidi\SeoHeroToolAnalysis;
+
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\Security\Permission;
+use SilverStripe\Security\PermissionProvider;
+
 class SeoHeroToolAnalysis extends DataExtension implements PermissionProvider
 {
     public function providePermissions()
@@ -19,7 +27,7 @@ class SeoHeroToolAnalysis extends DataExtension implements PermissionProvider
             $analysefield = $this->owner->customise(array(
         'Link'=> $pagelink,
     'SeoHeroToolAnalysisPath' => SEO_HERO_TOOL_ANALYSIS_PATH
-  ))->renderWith('SeoHeroToolAnalysisCMSAction');
+  ))->renderWith('nomidi\SeoHeroToolAnalysis\SeoHeroToolAnalysisCMSAction');
             $info = LiteralField::create('SeoHeroToolAnalysisShortInfo', $analysefield);
             $actions->push($info);
         }

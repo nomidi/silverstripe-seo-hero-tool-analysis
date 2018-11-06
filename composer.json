@@ -7,7 +7,7 @@
         "Search Engine Optimization"
     ],
     "version": "0.1.0",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "authors": [{
         "name": "Bastian Fritsch",
         "email": "mail@bastian-fritsch.de",
@@ -21,7 +21,10 @@
         "role": "Developer"
     }],
     "extra": {
-        "installer-name": "seo-hero-tool-analysis"
+        "installer-name": "seo-hero-tool-analysis",
+        "expose": [
+            "client/dist"
+        ]
     },
     "support": {
         "issues": "https://github.com/nomidi/silverstripe-seo-hero-tool-analysis/issues"
