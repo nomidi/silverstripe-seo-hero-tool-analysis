@@ -73,7 +73,7 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
                 ))->renderWith('nomidi\SeoHeroToolAnalysis\SeoHeroToolAnalysisPage');
         }
         Requirements::clear();
-        Requirements::css('nomidi/SeoHeroToolAnalysis:client/dist/css/style.css');
+        Requirements::css('nomidi/silverstripe-seo-hero-tool-analysis:client/dist/css/style.css');
         if ($this->loadPage($this->URL, $Page) == false) {
             $render = $this->owner->customise(array(
               'AccessError' => _t('SeoHeroToolAnalysis.CanNotAccessCurrentPage', 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'),

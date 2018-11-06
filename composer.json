@@ -29,15 +29,5 @@
     "support": {
         "issues": "https://github.com/nomidi/silverstripe-seo-hero-tool-analysis/issues"
     },
-    "license": "BSD-3-Clause",
-    "require": {
-        "php": ">=5.5.31",
-        "composer/installers": "~1.0",
-        "silverstripe/cms": "~3.2",
-        "silverstripe/framework": "~3.2",
-        "nomidi/silverstripe-seo-hero-tool": "*"
-    },
-    "require-dev": {
-		    "phpunit/PHPUnit": "~3.7@stable"
-	  }
+    "license": "BSD-3-Clause"
 }

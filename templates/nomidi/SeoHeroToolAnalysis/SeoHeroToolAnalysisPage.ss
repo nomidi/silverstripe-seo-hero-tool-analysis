@@ -4,11 +4,12 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><%t SeoHeroToolAnalysis.ANALYSEHEADLINE 'SEO Auswertung' %> $PageLink</title>
-  <link rel="stylesheet" href="$SHTAnalysisPath/thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="$SHTAnalysisPath/thirdparty/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="$SHTAnalysisPath/css/style.css">
-  <script src="$SHTAnalysisPath/thirdparty/jquery-3.2.1.min.js" ></script>
-  <script src="$SHTAnalysisPath/thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js" ></script>
+  <% require css('nomidi/silverstripe-seo-hero-tool-analysis: client/dist/thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css') %>
+  <% require css('nomidi/silverstripe-seo-hero-tool-analysis: client/dist/thirdparty/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css') %>
+  <% require css('nomidi/silverstripe-seo-hero-tool-analysis: client/dist/css/style.css') %>
+
+  <% require javascript('nomidi/silverstripe-seo-hero-tool-analysis: client/dist/thirdparty/jquery-3.2.1.min.js') %>
+  <% require javascript('nomidi/silverstripe-seo-hero-tool-analysis: client/dist/thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js') %>
 
 </head>
 <body>
