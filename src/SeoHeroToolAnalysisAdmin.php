@@ -524,7 +524,7 @@ class SeoHeroToolAnalysisAdmin extends LeftAndMain
                 ));
                 $this->updateRules(2);
             } elseif ($headlineCount == 1 && $key == 'h1') {
-                $sc = SiteConfig::get()->First();
+                $sc = \Silverstripe\SiteConfig\SiteConfig::get()->First();
                 $headlineContent = $value->item(0)->nodeValue;
                 $headlineLength = strlen($headlineContent);
 

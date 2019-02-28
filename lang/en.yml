@@ -1,153 +1,154 @@
 en:
-  SeoHeroToolAnalysis:
-    ANALYSEGENERALACCESSISSUE: General Access Issue
-    ANALYSEHEADLINE: SEO Analysis
-    ANALYSEGENERAL: General Analysis
-    ANALYSETESTS: Checks
-    ANALYSEPASSED: Passed
-    ANALYSEWARNING: Notice
-    ANALYSEERROR: Error
-    ANALYSEKEYWORDHEADLINE: Keyword Analysis
-    NOKEYWORDS: 'No keywords entered for this website.'
-    Images: Images
-    NumberOfWords: Number of Words
-    NumberOfImages: Number of Images
-    NumberOfLinks: Number of Links
-    CanNotAccessCurrentPage: This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.
-    HeadLineRecommendation: '(optimal length between 15 and 80 Characters)'
-    DirectoryDepth: 'Directory Depth'
-    Headlines: Headlines
-    ImageWithoutAltTag: 'The Image %1$s does not contain an Alt-Attribute.'
-    ImageWithSameAltAndFileName: The Image %1$s has the same filename and alt tag.
-    Length: Length
-    Links: Links
-    MetaLengthRecommendation: '(Optimal length is between 120 - 140 Characters)'
-    Metadescription: Meta-Description
+  Block:
+    PermissionCategory: 'Seo Hero Tool'
+  SeoHeroToolAnalyse:
     StructuredData: 'Structured Data'
-    Title: Title
-    TitleLengthRecommendation: 'Recommendation 44 - 56 Characters'
-    URL: 'URL Parameter'
-    URLLengthRecommendation: '(Optimal length is between 20 - 120 Characters)'
-    W3CErrorPlural: 'several HTML errors'
-    W3CErrorSingular: 'one HTML error'
-    W3CErrorNone: 'no HTML error'
-    W3CWarningPlural: 'several HTML warnings'
-    W3CWarningSingular: 'one HTML warning'
-    W3CWarningNone: 'no HTML warning'
-    W3CResult: 'W3C Validator Result'
-    WordCount: 'Word Count'
-    WordCountRecommendation: '(A page should contain more than 200 words)'
-    strongElements: 'Strong elements'
-    UsefulFiles: Files for Search Engines
-    Keyword: Keyword
-    Help: Help
-    HelpTitle: More Information on
-    LinkToPageSpeedInsights: Open PageSpeed Insights
-    PageSpeedLocally: The site runs locally and therefore a PageSpeed can not be calculated.
-    W3CLocally: The site runs locally and therefore a W3C Check can not be performed
-    LastCheckInformation: Last checked at
-    PageSpeed: PageSpeed
-    SkipToMainContent: Skip to main content
-    LinkToW3C: Open W3C Results
-    AMPLink: AMP Link
-    LinksWithSameTitleAndName: There are links with the same Name and Title Attribute. Those are these links:
-    AllImagesWithAltTag: 'All Images contain Alt-Attributes.'
+  SeoHeroToolAnalysis:
+    AMPLink: 'AMP Link found'
+    AMPLinkFound: 'AMP Link found on page.'
+    AMPPageFound: 'AMP Page exists.'
+    ANALYSEERROR: Error
+    ANALYSEGENERAL: 'Generel Analysis'
+    ANALYSEGENERALACCESSISSUE: 'General Access Issue'
+    ANALYSEHEADLINE: 'SEO analysis'
+    ANALYSEKEYWORDHEADLINE: 'Keyword Auswertung'
+    ANALYSEPASSED: Passed
+    ANALYSETESTS: Checks
+    ANALYSEWARNING: Notice
+    ActualVersionNotPublished: 'The actual version of this Page is not published. Please publish it as the Seo Hero Tool can just access published websites.'
+    AllImagesWithAltTag: 'All Images contain Alt-Tags.'
+    AllImagesWithDiffferentFilenameAndAltTag: 'All Images have for filename and alt-tag different values.'
+    AllLinksHaveTitle: 'All links have a title attribute'
+    BadDesktopPageSpeed: 'The PageSpeed is far from good. Please check how you can enhance this value.'
+    BadMobilePageSpeed: 'The PageSpeed for mobile devices is far from good. Please check how you can enhance this value.'
+    CanNotAccessCurrentPage: 'This page can not be accessed by the Analyse function. Please check the rights and if there are any authentication necessary.'
     ContentLengthGood: 'The site has more than 200 words. Well Done. '
     ContentLengthOK: 'The site has less than 200 words. '
     ContentLengthShort: 'The sites text is way too short. '
+    DirectoryDepth: ' DirectoryDepth'
+    FineDirectoryDepth: 'The Directory Depth is perfect. '
+    FoundKeywordInOneImage: 'Found Keyword in one Image Name for'
+    FoundKeywordInOneImageAltTag: 'Found Keyword in one Image Alt Tag for'
+    FoundKeywordInSeveralImageAltTags: 'Found Keyword %1$d times in Image Alt Tags for'
+    FoundKeywordInSeveralImages: 'Found Keyword %1$d times in Image Names for'
+    FoundNoRobotstxt: 'No Robots.txt existing. HTTP Response is '
+    FoundNoSitemapXML: 'No Sitemap.xml existing. HTTP Response is '
+    FoundNoStrongElements: 'Found no strong elements on website (B / STRONG).'
+    FoundOneOrMoreStrongElements: 'Found one or more strong elements on website (B / STRONG).'
+    FoundRobotstxt: 'Found Robots.txt file. Content was not checked.'
+    FoundSitemapXML: 'Found Robots.txt file. Content was not checked.'
+    GoodDesktopPageSpeed: 'The PageSpeed is quite good.'
+    GoodMobilePageSpeed: 'The PageSpeed for mobile devices is quite good.'
+    HeadLineRecommendation: '(optimal length between 15 and 80 Characters)'
     HeadlineStructureError: 'There is at least H%1$d Headline but no H%2$d Headline.'
-    ImagesWithoutAltTagMessage: '%1$d out of %2$d Images are not having Alt-Attributes. The images are the following:'
-    AllImagesWithDiffferentFilenameAndAltTag: All Images have for filename and Alt-Attribute different values.
-    ImagesWithoutDifferentFilenameAndAltTag: %1$d out of %2$d Images have the same Alt-Attribute and filename. Those images are the following:
+    Headlines: Headlines
+    Help: Help
+    HelpTitle: 'More Information on'
+    ImageWithSameAltAndFileName: 'The Image %1$s has the same filename and alt tag.'
+    ImageWithoutAltTag: 'The Image %1$s does not contain an Alt-Tag.'
+    Images: Images
+    ImagesWithoutAltTagMessage: '%1$d out of %2$d Images are not having alt-Tags. The images are the following:'
+    ImagesWithoutDifferentFilenameAndAltTag: '%1$d out of %2$d Images have the same alt-tag and filename. Those images are the following:'
+    KeywordFoundInPageContent: 'Keyword was found %1$d times on Page'
+    KeywordFoundMoreThanOnceInMetaDescription: 'Found Keyword %1$d times in Meta Description for'
+    KeywordFoundOnceInMetaDescription: 'Found Keyword once in Meta Description for'
+    KeywordHomeURL: 'Home URL. Can not find Keywords which is fine on Homepage with URLSegment "home".'
+    KeywordInTitle: 'Keyword found in the Page Title for'
+    KeywordInURL: 'Keyword found in URL for'
+    KeywordNotInFirstParagraph: 'Keyword was not found in first Paragraph of the content for Keyword'
+    KeywordNotInImage: 'Found Keyword not in Image Name for'
+    KeywordNotInImageAltTag: 'Found Keyword not in Image Alt-Tag for'
+    KeywordNotInMetaDescription: 'Keyword not found in Meta Description for'
+    KeywordNotInPageContent: 'Keyword was not found in Page Content for Keyword'
+    KeywordNotInTitle: 'Keyword not found in Page Title for'
+    KeywordNotInUrl: 'Keyword not found in URL for'
+    LastCheckInformation: 'Last checked at '
+    Length: Length
     LinkNoAttrTitle: 'The Link %s has no title attribute'
-    AllLinksHaveTitle: 'All links have a title attribute'
     LinkNoAttrTitleAndNoLinkDescription: 'Please check the following area for a Link with an empty "a" tag<em>%s</em>'
+    LinkToPageSpeedInsights: 'Open PageSpeed Insights'
+    LinkToW3C: 'Open W3C Results'
+    Links: Links
+    LinksWithSameTitleAndName: 'There are links with the same Name and Title Attribute. Those are these links:'
+    MediocreDesktopPageSpeed: 'The PageSpeed is mediocre. This could be probably done better.'
+    MediocreMobilePageSpeed: 'The PageSpeed for mobile devices is mediocre. This could be probably done better.'
     MetaLengthGood: 'The length of the Meta-Description is perfect. Well Done! '
     MetaLengthLong: 'The Meta-Description is too long. '
     MetaLengthOK: 'The Meta-Description is fine, but it could be longer. '
+    MetaLengthRecommendation: '(Optimal length is between 120 - 140 Characters)'
     MetaLengthShort: 'The Meta-Description is too short.'
-    NoH1: 'Found no H1 tag'
+    Metadescription: Meta-Description
+    NOKEYWORDS: 'No keywords entered for this website.'
+    NoAMPLinkFound: 'No AMP Link found on page.'
+    NoAMPPageFound: 'The AMP Page dos not exists.'
+    NoH1: 'There is no h1-Tag.'
     NoHX: 'No %1$s Tag Found'
     NoHeadlineStructureError: 'The Headline Structure does not contain obvious Errors.'
-    NoImagesFound: 'This page does not contain any pictures'
+    NoImagesFound: 'No Images found on this site.'
     NoMetaDescription: 'The Meta-Description is empty.'
+    NoSkipToMainContentFound: 'No skip to main content link found on page.'
     NoStructuredDataFound: 'No structured Data found.'
+    NumberOfImages: 'Number of Images'
+    NumberOfLinks: 'Number of Links'
+    NumberOfWords: 'Number of Words'
+    PageSpeed: PageSpeed
+    PageSpeedKeyNotSet: 'The Document can not be scanned as the PageSpeed API-key is not set'
+    PageSpeedLocally: 'The site runs locally and therefore a PageSpeed can not be calculated.'
+    PageSpeedNoResults400: 'The response delivers an Error Code 400. Please check site manually!'
+    PageSpeedNoResults500: 'The response delivers an Error Code 500. Please check site manually!'
+    PageSpeedNoResultsNoError: 'The Document can not be scanned, but no error was found in the return'
+    ProblemWithRobotstxt: 'Robots.txt file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is'
+    ProblemWithSitemapXML: 'Sitemap.xml file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is'
+    SiteIsHTTP: 'Site can be reached via HTTP. HTTPS would be better.'
+    SiteIsHTTPS: 'Site can be reached via HTTPS.'
     SiteRunsLocally: 'The website runs locally. No W3C Validation possible.'
+    SiteRunsLocallyPageSpeed: 'The website runs locally. No PageSpeed check possible.'
     SitesRunsLocally: 'Website runs locally. Therefore it is not possible to check for structured Data.'
-    StructuredDataFound: 'Found structured Data. You can check the structured Data here'
+    SkipToMainContent: 'Skip to main content'
+    SkipToMainContentFound: 'Skip to main content found on page.'
+    StructuredData: 'Structured Data'
+    StructuredDataFound: ' Found structured Data. You can check the structured Data here'
+    Title: Title
+    TitleIsEmpty: 'The title of this site is empty or does not exist! '
     TitleLengthGood: 'The title of this site is perfect. Well Done! '
     TitleLengthLong: 'The title of this site is too long. '
     TitleLengthOK: 'The title of this site is fine, but it could be longer. '
+    TitleLengthRecommendation: 'Recommendation 44 - 56 Characters'
     TitleLengthShort: 'The title of this site is too short! '
-    TitleIsEmpty: 'The title of this site is empty or does not exist! '
-    TooHighDirectoryDepth: 'The Directory Depth should be as small as possible.'
-    FineDirectoryDepth: 'The Directory Depth is perfect.'
+    TooHighDirectoryDepth: 'The Directory Depth should be as small as possible. '
     TooMuchH1: 'There is more than one h1-Tag'
+    URL: 'URL Parameter'
     URLLengthGood: 'The length of the URL is perfect. Well Done! '
     URLLengthHome: 'The URL of the homepage has to be "home"'
     URLLengthLong: 'The length of the URL is too long. '
     URLLengthOK: 'The length of the URL is fine but it could be longer. '
+    URLLengthRecommendation: '(Optimal length is between 20 - 120 Characters)'
     URLLengthShort: 'The length of the URL is way too short. '
+    UsefulFiles: 'Files for Search Engines'
+    View: 'Access Seo Hero Tool Analysis Results'
     W3CCountMessage: 'Es wurden auf der Seite %1$s und %2$s gefunden'
+    W3CErrorNone: 'no HTML errors'
+    W3CErrorPlural: 'several HTML errors'
+    W3CErrorSingular: 'one HTML error'
+    W3CLocally: 'The site runs locally and therefore a W3C Check can not be performed'
     W3CNNoErrorsAndWarning: 'The Validator did not find any Errors or Warnings in your Document.'
     W3CNon-Document-Error: 'The Document can not be scanned, maybe the website runs locally?'
+    W3CResult: 'W3C Result'
+    W3CWarningNone: 'no HTML warnings'
+    W3CWarningPlural: 'several HTML warnings'
+    W3CWarningSingular: 'one HTML warning'
+    WordCount: 'Word Count'
+    WordCountRecommendation: '(A page should contain more than 200 words)'
     h1LengthEmpty: 'The h1 Headline is empty'
+    h1LengthGood: 'The h1 tag has a good length'
     h1LengthTooLong: 'The h1 Headline it quite long.'
     h1LengthTooShort: 'The h1 Headline it quite short.'
-    h1SameSiteConfigTitle: 'The h1 tag has a good length'
-    h1LengthGood: 'The h1 tag has a good length'
     h1SameSiteConfigTitle: 'The h1 tag and general site title are the same. Please change the h1 content.'
     headlineLenghtGood: ' Headline has a good length.'
     headlineLengthEmpty: 'The Headline %1$s is empty'
     headlineLengthTooLong: ' Headline is quite long.'
     headlineLengthTooShort: ' Headline is quite short.'
     headlineWitSomeContent: 'The Headline %1$s has some kind of content but no text. Found the following tag in the Headline '
-    FoundNoStrongElements: 'Found no strong elements on website (B / STRONG).'
-    FoundOneOrMoreStrongElements: 'Found one or more strong elements on website (B / STRONG).'
-    FoundSitemapXML: Found Sitemap.XML file. Content was not checked.
-    FoundNoSitemapXML: No Sitemap.xml existing. HTTP Response is
-    ProblemWithSitemapXML: Sitemap.xml file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is
-    FoundKeywordInOneImage: 'Found Keyword in one Image Name for'
-    FoundKeywordInOneImageAltTag: 'Found Keyword in one Image Alt Tag for'
-    FoundKeywordInSeveralImageAltTags: 'Found Keyword %1$d times in Image Alt Tags for'
-    FoundKeywordInSeveralImages: 'Found Keyword %1$d times in Image Names for'
-    KeywordFoundMoreThanOnceInMetaDescription: 'Found Keyword %1$d times in Meta Description for'
-    KeywordFoundOnceInMetaDescription: 'Found Keyword once in Meta Description for'
-    KeywordHomeURL: 'Home URL. Can not find Keywords which is fine on Homepage with URLSegment "home".'
-    KeywordInTitle: 'Keyword found in the Page Title for'
-    KeywordInURL: 'Keyword found in URL for'
-    KeywordNotInImage: 'Found Keyword not in Image Name for'
-    KeywordNotInImageAltTag: 'Found Keyword not in Image Alt-Attribute for'
-    KeywordNotInMetaDescription: 'Keyword not found in Meta Description for'
-    KeywordNotInTitle: 'Keyword not found in Page Title for'
-    KeywordNotInUrl: 'Keyword not found in URL for'
-    NoImagesFound: 'No Images found on this site.'
-    NoKeywordsEntered: 'No Keywords entered'
-    KeywordNotInPageContent: Keyword was not found in Page Content for Keyword
-    KeywordFoundInPageContent: Keyword was found %1$d times on Page
-    KeywordNotInFirstParagraph: Keyword was not found in first Paragraph of the content for Keyword
-    FoundRobotstxt: Found Robots.txt file. Content was not checked.
-    FoundNoRobotstxt: 'No Robots.txt existing. HTTP Response is '
-    ProblemWithRobotstxt: Robots.txt file was not accessible. Please check this as this files helps searchengines. - The HTTP Response is
-    SiteIsHTTP: Site can be reached via HTTP. HTTPS would be better.
-    SiteIsHTTPS: Site can be reached via HTTPS.
-    PageSpeedNoInformation: The Document can not be scanned, maybe the website runs locally or the PageSpeed API-key is not set?
-    GoodDesktopPageSpeed: The PageSpeed is quite good.
-    MediocreDesktopPageSpeed: The PageSpeed is mediocre. This could be probably done better.
-    BadDesktopPageSpeed: The PageSpeed is far from good. Please check how you can enhance this value.
-    GoodMobilePageSpeed: The PageSpeed for mobile devices is quite good.
-    MediocreMobilePageSpeed: The PageSpeed for mobile devices is mediocre. This could be probably done better.
-    BadMobilePageSpeed: The PageSpeed for mobile devices is far from good. Please check how you can enhance this value.
-    PageSpeedNoResults500: The Response delivers an Error Code 500. Please check site manually!
-    PageSpeedNoResults400: The Response delivers an Error Code 400. Please check site manually! It may run locally.
-    PageSpeedNoResultsNoError: The Document can not be scanned, but no error was found in the return
-    PageSpeedKeyNotSet: The Document can not be scanned as the PageSpeed API-key is not set
-    NoSkipToMainContentFound: No skip to main content link found on page.
-    SkipToMainContentFound: Skip to main content found on page.
-    NoAMPLinkFound: No AMP Link found on page.
-    AMPLinkFound: AMP Link found on page.
-    AMPPageFound: AMP Page exists.
-    NoAMPPageFound: The AMP Page dos not exists.
-    ActualVersionNotPublished: The actual version of this Page is not published. Please publish it as the Seo Hero Tool can just access published websites.
-  SeoHeroToolAnalysisAdmin:
-    MENUTITLE: SeoHeroTool Analysis
+    strongElements: 'Strong elements'
+  SeoHeroToolPro:
+    Keyword: Keyword
