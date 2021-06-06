@@ -1,30 +1,30 @@
 de:
   SeoHeroToolAnalysis:
-    ANALYSEGENERALACCESSISSUE: Generelles Zugriffsproblem
-    ANALYSEHEADLINE: SEO Analyse
-    ANALYSEGENERAL: Allgemeine Auswertung
-    ANALYSETESTS: Prüfungen
-    ANALYSEPASSED: Bestanden
-    ANALYSEWARNING: Hinweise
-    ANALYSEERROR: Fehler
-    ANALYSEKEYWORDHEADLINE: Keyword Auswertung
+    ANALYSEGENERALACCESSISSUE: 'Generelles Zugriffsproblem'
+    ANALYSEHEADLINE: 'SEO Analyse'
+    ANALYSEGENERAL: 'Allgemeine Auswertung'
+    ANALYSETESTS: 'Prüfungen'
+    ANALYSEPASSED: 'Bestanden'
+    ANALYSEWARNING: 'Hinweise'
+    ANALYSEERROR: 'Fehler'
+    ANALYSEKEYWORDHEADLINE: 'Keyword Auswertung'
     NOKEYWORDS: 'Es wurden keine Keywords für die Seite angelegt.'
-    Images: Bilder
-    NumberOfWords: Anzahl an Wörtern
-    NumberOfImages: Anzahl an Bildern
-    NumberOfLinks: Anzahl an Links
+    Images: 'Bilder'
+    NumberOfWords: 'Anzahl an Wörtern'
+    NumberOfImages: 'Anzahl an Bildern'
+    NumberOfLinks: 'Anzahl an Links'
     CanNotAccessCurrentPage: 'Bitte prüfen sie, ob die Seite für den Zugriff eventuell Authentifizierungen braucht. Das ist über das Tool nicht möglich.'
     HeadLineRecommendation: '(optimale Länge zwischen 15 und 80 Zeichen)'
     DirectoryDepth: ' Verzeichnis Tiefe'
-    Headlines: Überschriften
+    Headlines: 'Überschriften'
     ImageWithoutAltTag: 'Das Bild %1$s beinhaltet kein Alt-Attribut.'
-    ImageWithSameAltAndFileName: Das Bild %1$s hat den gleichen Dateinamen und Alt-Attrbut.
-    Length: Länge
-    Links: Links
+    ImageWithSameAltAndFileName: 'Das Bild %1$s hat den gleichen Dateinamen und Alt-Attrbut.'
+    Length: 'Länge'
+    Links: 'Links'
     MetaLengthRecommendation: '(Optimale Länge ist zwischen 120 und 140 Zeichen)'
-    Metadescription: Meta-Beschreibung
+    Metadescription: 'Meta-Beschreibung'
     StructuredData: 'Strukturierte Daten'
-    Title: Titel
+    Title: 'Titel'
     TitleLengthRecommendation: 'Empfohlen 44 bis 56 Zeichen'
     URL: 'URL Parameter'
     URLLengthRecommendation: '(Optimale Länge ist zwischen 20 und 120 Zeichen)'
@@ -38,28 +38,28 @@ de:
     WordCount: 'Wörteranzahl'
     WordCountRecommendation: '(Eine Webseite sollte mehr als 200 Wörter beinhalten)'
     strongElements: 'Strong Elemente'
-    UsefulFiles: Dateien für Suchengines
-    Keyword: Keyword
-    Help: Hilfe
-    HelpTitle: Mehr Information zur Meldung
-    LinkToPageSpeedInsights: Page Speed Insights zur Seite öffnen
-    PageSpeedLocally: Die Webseite läuft lokal und deswegen kann der PageSpeed nicht berechnet werden.
-    W3CLocally: Die Webseite läuft lokal und deswegen kann die W3C Prüfung nicht durchgeführt werden.
-    LastCheckInformation: Zuletzt geprüft um
-    PageSpeed: PageSpeed
-    SkipToMainContent: Skip to main content
-    LinkToW3C: W3C Ergebnisse öffnen
-    AMPLink: AMP Link
-    ActualVersionNotPublished: Die aktuelle Version der Website ist nicht veröffentlicht. Bitte veröffentlichen sie die Webseite, da dass SEO Hero Tool Pro nur veröffentlichte Webseiten prüfen kann.
-    LinksWithSameTitleAndName: Es gibt Links mit dem gleichen Namen und Titel Attribute. Dies sind die folgenden Links:
+    UsefulFiles: 'Dateien für Suchengines'
+    Keyword: 'Keyword'
+    Help: 'Hilfe'
+    HelpTitle: 'Mehr Information zur Meldung'
+    LinkToPageSpeedInsights: 'Page Speed Insights zur Seite öffnen'
+    PageSpeedLocally: 'Die Webseite läuft lokal und deswegen kann der PageSpeed nicht berechnet werden.'
+    W3CLocally: 'Die Webseite läuft lokal und deswegen kann die W3C Prüfung nicht durchgeführt werden.'
+    LastCheckInformation: 'Zuletzt geprüft um'
+    PageSpeed: 'PageSpeed'
+    SkipToMainContent: 'Skip to main content'
+    LinkToW3C: 'W3C Ergebnisse öffnen'
+    AMPLink: 'AMP Link'
+    ActualVersionNotPublished: 'Die aktuelle Version der Website ist nicht veröffentlicht. Bitte veröffentlichen sie die Webseite, da dass SEO Hero Tool Pro nur veröffentlichte Webseiten prüfen kann.'
+    LinksWithSameTitleAndName: 'Es gibt Links mit dem gleichen Namen und Titel Attribute. Dies sind die folgenden Links:'
     AllImagesWithAltTag: 'Alle Bilder beinhalten Alt-Attribute.'
     ContentLengthGood: 'Die Webseite hat mehr als 200 Wörter. Gut gemacht.'
     ContentLengthOK: 'Die Webseite hat weniger als 200 Wörter.'
     ContentLengthShort: 'Der Webseiten Text ist viel zu kurz.'
     HeadlineStructureError: 'Es gibt mindestens eine H%1$d Überschrift aber keine H%2$d Überschrift.'
     ImagesWithoutAltTagMessage: '%1$d von %2$d Bildern haben keine Alt-Attribute. Es handelt sich um die folgenden Bilder:'
-    AllImagesWithDiffferentFilenameAndAltTag: Alle Bilder haben unterschiedliche Dateinamen und Alt-Attribut.
-    ImagesWithoutDifferentFilenameAndAltTag: %1$d von %2$d Bildern haben den gleichen Dateinamen und Alt-Attribut. Dies sind die folgenden Bilder:
+    AllImagesWithDiffferentFilenameAndAltTag: 'Alle Bilder haben unterschiedliche Dateinamen und Alt-Attribut.'
+    ImagesWithoutDifferentFilenameAndAltTag: '%1$d von %2$d Bildern haben den gleichen Dateinamen und Alt-Attribut. Dies sind die folgenden Bilder:'
     LinkNoAttrTitle: 'Der Link %s hat kein Titel Attribut'
     AllLinksHaveTitle: 'Alle Links haben ein Titel Attribut.'
     LinkNoAttrTitleAndNoLinkDescription: 'Bitte den folgenden Bereich auf Links mit einem leerem "a"-Tag prüfen. %s'
@@ -70,7 +70,6 @@ de:
     NoH1: 'H1 Tag nicht gefunden.'
     NoHX: 'Kein %1$s Tag gefunden.'
     NoHeadlineStructureError: 'Die Überschriften Struktur enthält keine offensichtlichen Fehler.'
-    NoImagesFound: 'Diese Seite beinhaltet keine Bilder.'
     NoMetaDescription: 'Die Meta-Beschreibung ist leer.'
     NoStructuredDataFound: 'Keine strukturierten Daten gefunden.'
     SiteRunsLocally: 'Die Webseite läuft lokal. Keine W3C-Validierung möglich.'
@@ -104,9 +103,9 @@ de:
     headlineWitSomeContent: 'Die Überschrift %1$s hat Inhalt aber keinen Text. Folgender Tag wurde gefunden '
     FoundNoStrongElements: 'Kein "strong" Elemente auf der Webseite gefunden.'
     FoundOneOrMoreStrongElements: 'Ein oder mehrere "strong" Elemente auf der Webseite gefunden.'
-    FoundSitemapXML: Sitemap.xml gefunden. Inhalt wurde nicht geprüft.
-    FoundNoSitemapXML: Es existiert keine Sitemap.xml . HTTP Response ist
-    ProblemWithSitemapXML: Sitemap.xml konnte nicht auferufen werden. - The HTTP Response ist
+    FoundSitemapXML: 'Sitemap.xml gefunden. Inhalt wurde nicht geprüft.'
+    FoundNoSitemapXML: 'Es existiert keine Sitemap.xml . HTTP Response ist'
+    ProblemWithSitemapXML: 'Sitemap.xml konnte nicht auferufen werden. - The HTTP Response ist'
     FoundKeywordInOneImage: 'Keyword wurde in einem Bild gefunden für Keyword '
     FoundKeywordInOneImageAltTag: 'Keyword wurde in einem Bild Alt Tag geunden für Keyword '
     FoundKeywordInSeveralImageAltTags: 'Keyword wurde %1$d mal in Bild Alt Tahs gefunden für Keyword '
@@ -123,30 +122,30 @@ de:
     KeywordNotInUrl: 'Keyword wurde nicht in der URL gefunden für Keyword'
     NoImagesFound: 'Es wurden auf der Seite keine Bilder gefunden.'
     NoKeywordsEntered: 'Es wurden keine Keywords eingegeben.'
-    KeywordNotInPageContent: Keyword wurde nicht im Inhalt gefunden für das Keyword
-    KeywordFoundInPageContent: Keyword wurde %1$d mal im Inhalt gefunden für das Keyword
-    KeywordNotInFirstParagraph: Keyword wurde nicht im ersten Absatz gefunden für das Keyword
-    FoundRobotstxt: Robots.txt Datei gefunden. Der Inhalt wurde nicht überprüft.
+    KeywordNotInPageContent: 'Keyword wurde nicht im Inhalt gefunden für das Keyword'
+    KeywordFoundInPageContent: 'Keyword wurde %1$d mal im Inhalt gefunden für das Keyword'
+    KeywordNotInFirstParagraph: 'Keyword wurde nicht im ersten Absatz gefunden für das Keyword'
+    FoundRobotstxt: 'Robots.txt Datei gefunden. Der Inhalt wurde nicht überprüft.'
     FoundNoRobotstxt: 'Es wurde keine Robots.txt Datei gefunden. Die HTTP Antwort lautet '
-    ProblemWithRobotstxt: Auf Robots.txt konnte nicht zugegeriffen werden. Die HTTP Antwort lautet
-    SiteIsHTTP: Webseite wird über HTTP aufgerufen. HTTPS wäre besser.
-    SiteIsHTTPS: Website wird über HTTPS aufgerufen.
-    PageSpeedNoInformation: Dokument konnte nicht durchsucht werden. Läuft die Seite lokal oder wurde der PageSpeed API-Key nicht gesetzt?
-    GoodDesktopPageSpeed: Der PageSpeed Wert ist gut.
-    MediocreDesktopPageSpeed: Der PageSpeed Wert ist mittelmässig. Hier könnte eventuell noch etwas verbessert werden.
-    BadDesktopPageSpeed: Der PageSpeed Wert ist schlecht. Hier sollte noch etwas verbessert werden.
-    GoodMobilePageSpeed: Der PageSpeed Wert für mobile Geräte ist gut.
-    MediocreMobilePageSpeed: Der PageSpeed Wert für mobile Geräte ist mittelmässig. Hier könnte eventuell noch etwas verbessert werden.
-    BadMobilePageSpeed: Der PageSpeed Wert für mobile Geräte ist schlecht. Hier sollte noch etwas verbessert werden.
-    PageSpeedNoResults500: Die Antwort beinhaltet einen 500-er Fehler. Bitte die Seite manuell prüfen!
-    PageSpeedNoResults400: Die Antwort beinhaltet einen 400-er Fehler. Bitte die Seite manuell prüfen! Sie läuft eventuell lokal.
-    PageSpeedNoResultsNoError: Die Datei konnte nicht gescannt werden, es gab keinen Fehler als Rückmeldung.
-    PageSpeedKeyNotSet: Die Datei konnte nicht gescannt werden, der der PageSpeed API Key nicht gesetzt ist.
-    NoSkipToMainContentFound: Kein skip to main content Link gefudnen.
-    SkipToMainContentFound: Skip to main content Link gefunden.
-    NoAMPLinkFound: Es wurde kein AMP Link auf der Webseite gefunden.
-    AMPLinkFound: Es wurde ein AMP Link auf der Webseite gefunden.
-    AMPPageFound: Die AMP Seite existiert.
-    NoAMPPageFound: Die AMP Seite existiert nicht.
+    ProblemWithRobotstxt: 'Auf Robots.txt konnte nicht zugegeriffen werden. Die HTTP Antwort lautet'
+    SiteIsHTTP: 'Webseite wird über HTTP aufgerufen. HTTPS wäre besser.'
+    SiteIsHTTPS: 'Website wird über HTTPS aufgerufen.'
+    PageSpeedNoInformation: 'Dokument konnte nicht durchsucht werden. Läuft die Seite lokal oder wurde der PageSpeed API-Key nicht gesetzt?'
+    GoodDesktopPageSpeed: 'Der PageSpeed Wert ist gut.'
+    MediocreDesktopPageSpeed: 'Der PageSpeed Wert ist mittelmässig. Hier könnte eventuell noch etwas verbessert werden.'
+    BadDesktopPageSpeed: 'Der PageSpeed Wert ist schlecht. Hier sollte noch etwas verbessert werden.'
+    GoodMobilePageSpeed: 'Der PageSpeed Wert für mobile Geräte ist gut.'
+    MediocreMobilePageSpeed: 'Der PageSpeed Wert für mobile Geräte ist mittelmässig. Hier könnte eventuell noch etwas verbessert werden.'
+    BadMobilePageSpeed: 'Der PageSpeed Wert für mobile Geräte ist schlecht. Hier sollte noch etwas verbessert werden.'
+    PageSpeedNoResults500: 'Die Antwort beinhaltet einen 500-er Fehler. Bitte die Seite manuell prüfen!'
+    PageSpeedNoResults400: 'Die Antwort beinhaltet einen 400-er Fehler. Bitte die Seite manuell prüfen! Sie läuft eventuell lokal.'
+    PageSpeedNoResultsNoError: 'Die Datei konnte nicht gescannt werden, es gab keinen Fehler als Rückmeldung.'
+    PageSpeedKeyNotSet: 'Die Datei konnte nicht gescannt werden, der der PageSpeed API Key nicht gesetzt ist.'
+    NoSkipToMainContentFound: 'Kein skip to main content Link gefudnen.'
+    SkipToMainContentFound: 'Skip to main content Link gefunden.'
+    NoAMPLinkFound: 'Es wurde kein AMP Link auf der Webseite gefunden.'
+    AMPLinkFound: 'Es wurde ein AMP Link auf der Webseite gefunden.'
+    AMPPageFound: 'Die AMP Seite existiert.'
+    NoAMPPageFound: 'Die AMP Seite existiert nicht.'
   SeoHeroToolAnalysisAdmin:
-    MENUTITLE: SeoHeroTool Analysis
+    MENUTITLE: 'SeoHeroTool Analysis'
